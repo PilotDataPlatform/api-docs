@@ -1,0 +1,873 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "HPC",
+    "description": "HPC service",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/v1/hpc/auth": {
+      "post": {
+        "tags": [
+          "V1 auth"
+        ],
+        "summary": "Get HPC authorization",
+        "description": "Get HPC token for authorization",
+        "operationId": "hpc_auth_v1_hpc_auth_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HPCAuthPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCAuthResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/job": {
+      "post": {
+        "tags": [
+          "V1 job submit"
+        ],
+        "summary": "Submit HPC Job",
+        "description": "Submit HPC Job",
+        "operationId": "hpc_job_v1_hpc_job_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HPCJobPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCJobResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/job/{job_id}": {
+      "get": {
+        "tags": [
+          "V1 job info"
+        ],
+        "summary": "Get HPC Job Info",
+        "description": "Retrieve HPC Job Info",
+        "operationId": "hpc_job_info_v1_hpc_job__job_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "string"
+            },
+            "name": "job_id",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Username",
+              "type": "string"
+            },
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Slurm Host",
+              "type": "string"
+            },
+            "name": "slurm_host",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Protocol",
+              "type": "string"
+            },
+            "name": "protocol",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCJobInfoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/nodes": {
+      "get": {
+        "tags": [
+          "V1 Node info"
+        ],
+        "summary": "Get HPC Nodes Info",
+        "description": "Retrieve HPC Nodes Info (All)",
+        "operationId": "hpc_nodes_info_v1_hpc_nodes_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Username",
+              "type": "string"
+            },
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Slurm Host",
+              "type": "string"
+            },
+            "name": "slurm_host",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Protocol",
+              "type": "string"
+            },
+            "name": "protocol",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCNodesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/nodes/{node_name}": {
+      "get": {
+        "tags": [
+          "V1 Node info"
+        ],
+        "summary": "Get HPC Node Info (single)",
+        "description": "Retrieve HPC Node Info (Specific)",
+        "operationId": "hpc_node_info_v1_hpc_nodes__node_name__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Node Name",
+              "type": "string"
+            },
+            "name": "node_name",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Username",
+              "type": "string"
+            },
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Slurm Host",
+              "type": "string"
+            },
+            "name": "slurm_host",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Protocol",
+              "type": "string"
+            },
+            "name": "protocol",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCNodeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/partitions": {
+      "get": {
+        "tags": [
+          "V1 Partition info"
+        ],
+        "summary": "Get HPC Partitions Info",
+        "description": "Retrieve Partition Info (All)",
+        "operationId": "hpc_partitions_info_v1_hpc_partitions_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Username",
+              "type": "string"
+            },
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Slurm Host",
+              "type": "string"
+            },
+            "name": "slurm_host",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Protocol",
+              "type": "string"
+            },
+            "name": "protocol",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCPartitonsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/partitions/{partition_name}": {
+      "get": {
+        "tags": [
+          "V1 Partition info"
+        ],
+        "summary": "Get HPC Partition Info (single)",
+        "description": "Retrieve HPC Partition Info (Specific)",
+        "operationId": "hpc_partition_info_v1_hpc_partitions__partition_name__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Partition Name",
+              "type": "string"
+            },
+            "name": "partition_name",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Username",
+              "type": "string"
+            },
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Slurm Host",
+              "type": "string"
+            },
+            "name": "slurm_host",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Protocol",
+              "type": "string"
+            },
+            "name": "protocol",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCPartitionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EAPIResponseCode": {
+        "title": "EAPIResponseCode",
+        "enum": [
+          200,
+          500,
+          400,
+          404,
+          403,
+          401,
+          409
+        ],
+        "description": "An enumeration."
+      },
+      "HPCAuthPost": {
+        "title": "HPCAuthPost",
+        "required": [
+          "token_issuer",
+          "username",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "token_issuer": {
+            "title": "Token Issuer",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "description": "HPC Job POST Class"
+      },
+      "HPCAuthResponse": {
+        "title": "HPCAuthResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              }
+            }
+          }
+        },
+        "description": "HPC Auth Response Class"
+      },
+      "HPCJobInfoResponse": {
+        "title": "HPCJobInfoResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "job_id": "14425",
+                "job_state": "RUNNING",
+                "standard_error": "...",
+                "standard_input": "...",
+                "standard_output": "..."
+              }
+            }
+          }
+        },
+        "description": "HPC Job Info Response Class"
+      },
+      "HPCJobPost": {
+        "title": "HPCJobPost",
+        "required": [
+          "slurm_host",
+          "username",
+          "job_info",
+          "protocol"
+        ],
+        "type": "object",
+        "properties": {
+          "slurm_host": {
+            "title": "Slurm Host",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "job_info": {
+            "title": "Job Info",
+            "type": "object"
+          },
+          "protocol": {
+            "title": "Protocol",
+            "type": "string"
+          }
+        },
+        "description": "HPC Job POST Class"
+      },
+      "HPCJobResponse": {
+        "title": "HPCJobResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "job_id": "14425"
+              }
+            }
+          }
+        },
+        "description": "HPC Job Response Class"
+      },
+      "HPCNodeResponse": {
+        "title": "HPCNodeResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "array",
+            "items": {},
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "hostname": {
+                    "cores": 42,
+                    "cpu": 200,
+                    "free_memory": 100000,
+                    "gpus": 8,
+                    "threads": 6,
+                    "state": "idle"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "HPC Node Info Response Class"
+      },
+      "HPCNodesResponse": {
+        "title": "HPCNodesResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "array",
+            "items": {},
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "hostname": {
+                    "cores": 42,
+                    "cpu": 200,
+                    "free_memory": 100000,
+                    "gpus": 8,
+                    "threads": 6,
+                    "state": "idle"
+                  }
+                },
+                {
+                  "hostname": {
+                    "cores": 20,
+                    "cpu": 100,
+                    "free_memory": 200000,
+                    "gpus": 4,
+                    "threads": 2,
+                    "state": "down"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "HPC Nodes Info Response Class"
+      },
+      "HPCPartitionResponse": {
+        "title": "HPCPartitionResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "array",
+            "items": {},
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "partition_name": {
+                    "nodes": [
+                      "s-sc-gpu01, s-sc-gpu03"
+                    ],
+                    "tres": "cpu=1500,mem=20000M,node=2,billing=3000"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "HPC Partition Info Response Class"
+      },
+      "HPCPartitonsResponse": {
+        "title": "HPCPartitonsResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "array",
+            "items": {},
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "partition_name": {
+                    "nodes": [
+                      "s-sc-gpu01, s-sc-gpu03"
+                    ],
+                    "tres": "cpu=1500,mem=20000M,node=2,billing=3000"
+                  }
+                },
+                {
+                  "partition_name": {
+                    "nodes": [
+                      "s-sc-gpu02"
+                    ],
+                    "tres": "cpu=2500,mem=10000M,node=1,billing=2000"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "HPC Partitions Info Response Class"
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2628 @@
+{
+  "swagger": "2.0",
+  "basePath": "/",
+  "paths": {
+    "/v1/activity-logs/version/{dataset_geid}": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Fetch activity logs of a dataset by version number",
+        "operationId": "get_activity_log_by_version",
+        "tags": [
+          "Dataset"
+        ]
+      }
+    },
+    "/v1/activity-logs/{dataset_geid}": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Fetch activity logs of a dataset",
+        "operationId": "get_activity_logs",
+        "tags": [
+          "Dataset"
+        ]
+      }
+    },
+    "/v1/announcements": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_announcement_restful",
+        "tags": [
+          "Announcement"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_announcement_restful",
+        "tags": [
+          "Announcement"
+        ]
+      }
+    },
+    "/v1/archive/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Get a single resource request",
+        "operationId": "get_archive",
+        "tags": [
+          "Archive"
+        ]
+      }
+    },
+    "/v1/audit-logs/{project_geid}": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_audit_log",
+        "tags": [
+          "Provenance"
+        ]
+      }
+    },
+    "/v1/collections": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_virtual_folder",
+        "tags": [
+          "NFS Data vFolder"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_virtual_folder",
+        "tags": [
+          "NFS Data vFolder"
+        ]
+      }
+    },
+    "/v1/collections/{collection_geid}": {
+      "parameters": [
+        {
+          "name": "collection_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_virtual_folder_info",
+        "tags": [
+          "NFS Data vFolder"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_virtual_folder_info",
+        "tags": [
+          "NFS Data vFolder"
+        ]
+      }
+    },
+    "/v1/collections/{collection_geid}/files": {
+      "parameters": [
+        {
+          "name": "collection_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_virtual_folder_files",
+        "tags": [
+          "NFS Data vFolder"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Add files to vfolder",
+        "operationId": "post_virtual_folder_files",
+        "tags": [
+          "NFS Data vFolder"
+        ]
+      }
+    },
+    "/v1/contact": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"code\": 200,\n        \"error_msg\": \"\",\n        \"result\": \"[SUCCEED] Contact Us Email Sent\"\n    }\n    "
+          }
+        },
+        "summary": "This method allow to create invitation in platform",
+        "operationId": "post_contact_us_restful",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/contact_us_form"
+            }
+          }
+        ],
+        "tags": [
+          "Contact Us Restful"
+        ]
+      }
+    },
+    "/v1/containers/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {   \n        \"code\": 200,\n        \"error_msg\": \"\",\n        \"num_of_pages\": 14,\n        \"page\": 0,\n        \"result\": [   {   \"admin\": [\"admin\"],\n                          \"code\": \"autotest161\",\n                          \"description\": \"auto test description\",\n                          \"discoverable\": True,\n                          \"id\": 583,\n                          \"labels\": [\"Dataset\"],\n                          \"name\": \"autotest161\",\n                          \"path\": \"autotest161\",\n                          \"roles\": [\"admin\"],\n                          \"time_created\": \"2020-11-06T17:47:10\",\n                          \"time_lastmodified\": \"2020-11-06T17:47:10\",\n                          \"type\": \"Usecase\"},\n                      {   \"admin\": [\"admin\"],\n                          \"code\": \"autotest1693\",\n                          \"description\": \"auto test description\",\n                          \"discoverable\": True,\n                          \"id\": 603,\n                          \"labels\": [\"Dataset\"],\n                          \"name\": \"autotest1693\",\n                          \"path\": \"autotest1693\",\n                          \"roles\": [\"admin\"],\n                          \"time_created\": \"2020-11-06T20:46:06\",\n                          \"time_lastmodified\": \"2020-11-06T20:46:06\",\n                          \"type\": \"Usecase\"}],\n        \"total\": 27\n    }\n"
+          }
+        },
+        "summary": "This method allow user list all datasets/metadatas/tags",
+        "operationId": "get_containers",
+        "tags": [
+          "Portal Containers Actions"
+        ]
+      }
+    },
+    "/v1/containers/users/email": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_admin_restful",
+        "tags": [
+          "Auth Service Restful"
+        ]
+      }
+    },
+    "/v1/containers/{project_geid}": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "put": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"result\": {\n            \"parent_relation\": \"PARENT\",\n            \"admin\": [\n                \"admin\"\n            ],\n            \"time_lastmodified\": \"2020-07-15T19:10:28\",\n            \"_key2\": \"value2\",\n            \"path\": \"Carsten Finke Generate/dataset-test-1\",\n            \"id\": 97,\n            \"time_created\": \"2020-07-15T19:10:28\",\n            \"name\": \"dataset-test-1\",\n            \"labels\": [\n                \"Dataset\"\n            ],\n            \"_key1\": \"value1\",\n            \"parent_id\": 12,\n            \"tags\": [\n                \"tag1\",\n                \"tag2\"\n            ],\n            \"type\": \"Dataset\"\n        }\n    }\n    "
+          }
+        },
+        "operationId": "put_container",
+        "tags": [
+          "Portal Containers Actions"
+        ]
+      }
+    },
+    "/v1/containers/{project_geid}/admins": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        result:[\n                    {\n                \"time_created\": \"2020-07-03T18:23:15\",\n                \"first_name\": \"admin\",\n                \"name\": \"admin\",\n                \"time_lastmodified\": \"2020-07-03T18:23:15\",\n                \"last_name\": \"admin\",\n                \"path\": \"users\",\n                \"role\": \"admin\",\n                \"labels\": [\n                    \"User\"\n                ],\n                \"id\": 46\n            }\n        ]\n    }\n    "
+          }
+        },
+        "operationId": "get_container_admins",
+        "tags": [
+          "Portal Containers Actions"
+        ]
+      }
+    },
+    "/v1/containers/{project_geid}/users": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        result:[\n                    {\n                \"time_created\": \"2020-07-03T18:23:15\",\n                \"first_name\": \"admin\",\n                \"name\": \"admin\",\n                \"time_lastmodified\": \"2020-07-03T18:23:15\",\n                \"last_name\": \"admin\",\n                \"path\": \"users\",\n                \"role\": \"admin\",\n                \"labels\": [\n                    \"User\"\n                ],\n                \"id\": 46\n            }\n        ]\n    }\n    "
+          }
+        },
+        "operationId": "get_container_users",
+        "tags": [
+          "Portal Containers Actions"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        result: success\n    }\n"
+          }
+        },
+        "summary": "This method allow user to bulk add users to a specific dataset with permissions",
+        "operationId": "post_container_users",
+        "tags": [
+          "Portal Containers Actions"
+        ]
+      }
+    },
+    "/v1/containers/{project_geid}/users/query": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_container_users_query",
+        "tags": [
+          "Portal Containers Actions"
+        ]
+      }
+    },
+    "/v1/containers/{project_geid}/users/{username}": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        result: success\n    }\n"
+          }
+        },
+        "summary": "This method allow user to remove user's permission to a specific dataset",
+        "operationId": "delete_container_user",
+        "tags": [
+          "Portal Containers Actions"
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        result: success\n    }\n"
+          }
+        },
+        "summary": "This method allow user to update user's permission to a specific dataset",
+        "operationId": "put_container_user",
+        "tags": [
+          "Portal Containers Actions"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        result: success\n    }\n"
+          }
+        },
+        "summary": "This method allow container admin to add single user to a specific container with permission",
+        "operationId": "post_container_user",
+        "tags": [
+          "Portal Containers Actions"
+        ]
+      }
+    },
+    "/v1/data/attribute/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Delete an attribute",
+        "operationId": "delete_restful_attribute",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Update an attribute",
+        "operationId": "put_restful_attribute",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      }
+    },
+    "/v1/data/attributes": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Bulk Create attribute",
+        "operationId": "post_restful_attributes",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      }
+    },
+    "/v1/data/manifest/{manifest_id}": {
+      "parameters": [
+        {
+          "name": "manifest_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Delete an manifest",
+        "operationId": "delete_restful_manifest",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_restful_manifest",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Get a data manifest and list attributes",
+        "operationId": "get_restful_manifest",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      }
+    },
+    "/v1/data/manifests": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {   \n        'code': 200,\n        'error_msg': '',\n        'num_of_pages': 1,\n        'page': 1,\n        'result': [   {   'attribute': 'test',\n                          'id': 1,\n                          'name': 'Manifest 1',\n                          'optional': False,\n                          'project_code': 'test2',\n                          'type': 'multiple_choice',\n                          'value': 'testing 123'},\n        ],\n        'total': 1,\n    }\n"
+          }
+        },
+        "operationId": "get_restful_manifests",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/data_manifests"
+            }
+          }
+        ],
+        "tags": [
+          "Data Manifests Restful"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_restful_manifests",
+        "tags": [
+          "Data Manifests Restful"
+        ]
+      }
+    },
+    "/v1/dataset": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_restful_post",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset-peek/{dataset_code}": {
+      "parameters": [
+        {
+          "name": "dataset_code",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_code_restful",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/bids-validate": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_bids_validator",
+        "tags": [
+          "Dataset BIDS Validator"
+        ]
+      }
+    },
+    "/v1/dataset/bids-validate/{dataset_geid}": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_bids_result",
+        "tags": [
+          "Dataset BIDS Validator"
+        ]
+      }
+    },
+    "/v1/dataset/schemaTPL/default/list": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_schema_template_default_query",
+        "tags": [
+          "DatasetSchemaTemplateProxy"
+        ]
+      }
+    },
+    "/v1/dataset/schemaTPL/default/{template_geid}": {
+      "parameters": [
+        {
+          "name": "template_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_schema_template_default_get",
+        "tags": [
+          "DatasetSchemaTemplateProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_restful",
+        "tags": [
+          "DatasetProxy"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_restful",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/download/pre": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_download_pre",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/file/tasks": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_restful",
+        "tags": [
+          "DatasetProxy"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_restful",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/files": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_restful",
+        "tags": [
+          "DatasetProxy"
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_restful",
+        "tags": [
+          "DatasetProxy"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_restful",
+        "tags": [
+          "DatasetProxy"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_restful",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/files/{file_geid}": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "file_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_restful",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/folder": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_dataset_folder",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/publish": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_publish",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/publish/status": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_publish_status",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/schema": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_schema_create",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/schema/list": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_schema_list",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/schema/{schema_geid}": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "schema_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_schema",
+        "tags": [
+          "DatasetProxy"
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_schema",
+        "tags": [
+          "DatasetProxy"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_schema",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/schemaTPL": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_schema_template_create",
+        "tags": [
+          "DatasetSchemaTemplateProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/schemaTPL/list": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_schema_template_post_query",
+        "tags": [
+          "DatasetSchemaTemplateProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/schemaTPL/{template_geid}": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "template_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_restful",
+        "tags": [
+          "DatasetSchemaTemplateProxy"
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_restful",
+        "tags": [
+          "DatasetSchemaTemplateProxy"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_restful",
+        "tags": [
+          "DatasetSchemaTemplateProxy"
+        ]
+      }
+    },
+    "/v1/dataset/{dataset_geid}/versions": {
+      "parameters": [
+        {
+          "name": "dataset_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_dataset_versions",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/email": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_email_restful",
+        "tags": [
+          "Email Restful"
+        ]
+      }
+    },
+    "/v1/export/manifest": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_export_manifest",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      }
+    },
+    "/v1/file/attributes/attach": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_attach_attributes",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      }
+    },
+    "/v1/file/manifest/query": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_file_manifest_query",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      }
+    },
+    "/v1/file/manifest/validate": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_validate_manifest",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      }
+    },
+    "/v1/file/{file_geid}/manifest": {
+      "parameters": [
+        {
+          "name": "file_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_file_manifest",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      }
+    },
+    "/v1/files/actions": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_file_actions",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/actions/logs": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_file_action_logs",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/actions/tasks": {
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_file_action_tasks",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_file_action_tasks",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_file_action_tasks",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_file_action_tasks",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/bulk/detail": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_file_detail_bulk",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/detail/{file_geid}": {
+      "parameters": [
+        {
+          "name": "file_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_file_detail",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/entity/folder/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_folder_entity",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_folder_entity",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/entity/folders": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_folders_entity",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_folders_entity",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/entity/meta/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_file_meta_home",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/entity/meta/{geid}": {
+      "parameters": [
+        {
+          "name": "geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Proxy for entity info file META API, handles permission checks",
+        "operationId": "get_file_meta",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/project/{project_geid}/files/statistics": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_file_statistics",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/repeatcheck": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_file_repeated_check",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/files/validation": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_file_validation",
+        "tags": [
+          "NFS Data Operation"
+        ]
+      }
+    },
+    "/v1/folder": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_folder_creation",
+        "tags": [
+          "FolderCreation"
+        ]
+      }
+    },
+    "/v1/helloworld": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"code\": 200,\n        \"error_msg\": \"\",\n        \"page\": 1,\n        \"total\": 1,\n        \"num_of_pages\": 1,\n        \"result\": {\n            \"Hello Prototype1.\",\n            \"Hello Prototype2.\",\n            \"Hello Prototype3.\"\n        }\n    }\n    "
+          }
+        },
+        "summary": "Check service environment and status",
+        "operationId": "get_restful",
+        "tags": [
+          "Hello World"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Hello Wolrd PlaceHolder",
+        "operationId": "post_restful",
+        "tags": [
+          "Hello World"
+        ]
+      }
+    },
+    "/v1/import/manifest": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_import_manifest",
+        "tags": [
+          "Data Manifest Restful"
+        ]
+      }
+    },
+    "/v1/invitation-list": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "This method allow to get all pending users from invitation links",
+        "operationId": "post_pending_user_restful",
+        "tags": [
+          "Invitation Restful"
+        ]
+      }
+    },
+    "/v1/invitation/check/{email}": {
+      "parameters": [
+        {
+          "name": "email",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "This method allow to get user's detail on the platform",
+        "operationId": "get_check_user_platform_role",
+        "tags": [
+          "Invitation Restful"
+        ]
+      }
+    },
+    "/v1/invitations": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"code\": 200,\n        \"error_msg\": \"\",\n        \"page\": 1,\n        \"total\": 1,\n        \"num_of_pages\": 1,\n        \"result\": \"[SUCCEED] Invitation Saved, Email Sent\"\n    }\n    "
+          }
+        },
+        "summary": "This method allow to create invitation in platform",
+        "operationId": "post_invitations_restful",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/create_invitation_form"
+            }
+          }
+        ],
+        "tags": [
+          "Invitation Restful"
+        ]
+      }
+    },
+    "/v1/kg/resources": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_kg_resource",
+        "tags": [
+          "KGResourceProxy"
+        ]
+      }
+    },
+    "/v1/lineage": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_data_lineage",
+        "tags": [
+          "Provenance"
+        ]
+      }
+    },
+    "/v1/notification": {
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_notification_restful",
+        "tags": [
+          "Notification"
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_notification_restful",
+        "tags": [
+          "Notification"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_notification_restful",
+        "tags": [
+          "Notification"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_notification_restful",
+        "tags": [
+          "Notification"
+        ]
+      }
+    },
+    "/v1/notifications": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_notifications_restful",
+        "tags": [
+          "Notification"
+        ]
+      }
+    },
+    "/v1/project/code/{project_code}": {
+      "parameters": [
+        {
+          "name": "project_code",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_restful_project_by_code",
+        "tags": [
+          "Project Restful"
+        ]
+      }
+    },
+    "/v1/project/{project_geid}": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_restful_project",
+        "tags": [
+          "Project Restful"
+        ]
+      }
+    },
+    "/v1/project/{project_geid}/collections": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_virtual_folder",
+        "tags": [
+          "Project Restful"
+        ]
+      }
+    },
+    "/v1/projects": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_restful_projectsv2",
+        "tags": [
+          "Project Restful"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_restful_projectsv2",
+        "tags": [
+          "Project Restful"
+        ]
+      }
+    },
+    "/v1/request/copy/{project_geid}": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_copy_request",
+        "tags": [
+          "CopyRequest"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_copy_request",
+        "tags": [
+          "CopyRequest"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_copy_request",
+        "tags": [
+          "CopyRequest"
+        ]
+      }
+    },
+    "/v1/request/copy/{project_geid}/files": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "patch": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "patch_copy_request_files",
+        "tags": [
+          "CopyRequest"
+        ]
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_copy_request_files",
+        "tags": [
+          "CopyRequest"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_copy_request_files",
+        "tags": [
+          "CopyRequest"
+        ]
+      }
+    },
+    "/v1/request/copy/{project_geid}/pending-files": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_copy_request_pending",
+        "tags": [
+          "CopyRequest"
+        ]
+      }
+    },
+    "/v1/resource-request/{id}/": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_resource_request",
+        "tags": [
+          "ResourceRequest"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_resource_request",
+        "tags": [
+          "ResourceRequest"
+        ]
+      }
+    },
+    "/v1/resource-request/{id}/complete": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_resource_request_complete",
+        "tags": [
+          "ResourceRequest"
+        ]
+      }
+    },
+    "/v1/resource-requests": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_resource_requests",
+        "tags": [
+          "ResourceRequest"
+        ]
+      }
+    },
+    "/v1/resource-requests/query": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "List resource requests",
+        "operationId": "post_resource_requests_query",
+        "tags": [
+          "ResourceRequest"
+        ]
+      }
+    },
+    "/v1/scripts/neo4j-to-es": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_neo4j2_es",
+        "tags": [
+          "Script"
+        ]
+      }
+    },
+    "/v1/system-tags": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_restful_system_tags",
+        "tags": [
+          "Project Restful"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "update project system tags",
+        "operationId": "post_restful_system_tags",
+        "tags": [
+          "Project Restful"
+        ]
+      }
+    },
+    "/v1/timestamp": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"code\": 200,\n        \"error_msg\": \"\",\n        \"page\": 1,\n        \"total\": 1,\n        \"num_of_pages\": 1,\n        \"result\": {\n            \"timestamp\": 1605811211.763606\n        }\n    }\n    "
+          }
+        },
+        "summary": "Get standard timestamp",
+        "operationId": "get_restful",
+        "tags": [
+          "Time Restful"
+        ]
+      }
+    },
+    "/v1/unsubscribe": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_unsubscribe_restful",
+        "tags": [
+          "Notification"
+        ]
+      }
+    },
+    "/v1/upload/containers/{project_geid}/upload-state": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_file_upload_status",
+        "tags": [
+          "UploadStatusProxy"
+        ]
+      }
+    },
+    "/v1/user/account": {
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "User account management",
+        "operationId": "put_user_account",
+        "tags": [
+          "Auth Service Restful"
+        ]
+      }
+    },
+    "/v1/user/status": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Gets the users status given the email",
+        "operationId": "get_user_status",
+        "tags": [
+          "Auth Service Restful"
+        ]
+      }
+    },
+    "/v1/users": {
+      "put": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n    \"result\": {\n        \"id\": 1422,\n        \"labels\": [\n            \"User\"\n        ],\n        \"global_entity_id\": \"5d0f8ecb-3ddf-49eb-9363-f67a488965bb-1620676609\",\n        \"role\": \"member\",\n        \"last_login\": \"2021-06-17T14:12:32.589815\",\n        \"last_name\": \"gmccoy\",\n        \"time_lastmodified\": \"2021-06-22T12:12:10\",\n        \"name\": \"gmccoy\",\n        \"time_created\": \"2021-05-10T19:56:49\",\n        \"announcement_gregtest\": 251,\n        \"first_name\": \"gmccoy\",\n        \"email\": \"test@gkmc.ca\",\n        \"username\": \"gmccoy\",\n        \"status\": \"active\",\n        \"project_geids\": [\n            \"5baeb6a1-559b-4483-aadf-ef60519584f3-1620404058\",\n            \"b38c26d0-1d51-44f1-9ab6-3175bd41ccc9-1620668865\"\n        ]\n    }\n}\n    "
+          }
+        },
+        "summary": "This method allow user to activate the AD user account on platform",
+        "operationId": "put_ad_user_update",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/new_user"
+            }
+          }
+        ],
+        "tags": [
+          "Portal User Actions"
+        ]
+      }
+    },
+    "/v1/users/lastlogin": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "This method allow to update user's last login time",
+        "operationId": "post_last_login_restful",
+        "tags": [
+          "Auth Service Restful"
+        ]
+      }
+    },
+    "/v1/users/platform": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        result:[\n                    {\n                \"time_created\": \"2020-07-03T18:23:15\",\n                \"first_name\": \"admin\",\n                \"name\": \"admin\",\n                \"time_lastmodified\": \"2020-07-03T18:23:15\",\n                \"last_name\": \"admin\",\n                \"path\": \"users\",\n                \"role\": \"admin\",\n                \"labels\": [\n                    \"User\"\n                ],\n                \"id\": 46\n            }\n        ]\n    }\n    "
+          }
+        },
+        "operationId": "get_users",
+        "tags": [
+          "Portal User Actions"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n    \"result\": {\n        \"id\": 1422,\n        \"labels\": [\n            \"User\"\n        ],\n        \"global_entity_id\": \"5d0f8ecb-3ddf-49eb-9363-f67a488965bb-1620676609\",\n        \"role\": \"member\",\n        \"last_login\": \"2021-06-17T14:12:32.589815\",\n        \"last_name\": \"gmccoy\",\n        \"time_lastmodified\": \"2021-06-22T12:12:10\",\n        \"name\": \"gmccoy\",\n        \"time_created\": \"2021-05-10T19:56:49\",\n        \"announcement_gregtest\": 251,\n        \"first_name\": \"gmccoy\",\n        \"email\": \"test@gkmc.ca\",\n        \"username\": \"gmccoy\",\n        \"status\": \"active\",\n        \"project_geids\": [\n            \"5baeb6a1-559b-4483-aadf-ef60519584f3-1620404058\",\n            \"b38c26d0-1d51-44f1-9ab6-3175bd41ccc9-1620668865\"\n        ]\n    }\n}\n    "
+          }
+        },
+        "operationId": "post_users",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "tags": [
+          "Portal User Actions"
+        ]
+      }
+    },
+    "/v1/users/{username}": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_user_restful",
+        "tags": [
+          "Users"
+        ]
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_user_restful",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/v1/users/{username}/containers": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    {   \n        'code': 200,\n        'error_msg': '',\n        'num_of_pages': 6,\n        'page': 0,\n        'result': {\n             'permission': [{\n                  'code': '0timetest',\n                  'container_id': 642,\n                  'container_name': 'ZeroClock',\n                  'permission': 'admin'\n              },\n              {\n                  'code': '0timetest',\n                  'container_id': 642,\n                  'container_name': 'ZeroClock',\n              }],\n              'role': 'admin'\n        },\n        'total': 27\n    }\n"
+          }
+        },
+        "summary": "This method allow user to get the user's permission towards all containers (except default)",
+        "operationId": "post_user_container_query",
+        "tags": [
+          "Portal User Actions"
+        ]
+      }
+    },
+    "/v1/users/{username}/datasets": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_list",
+        "tags": [
+          "DatasetProxy"
+        ]
+      }
+    },
+    "/v1/users/{username}/default": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {   \n        \"code\": 200,\n        \"error_msg\": \"\",\n        \"num_of_pages\": 14,\n        \"page\": 0,\n        \"result\": [   {   \"admin\": [\"admin\"],\n                          \"code\": \"autotest161\",\n                          \"description\": \"auto test description\",\n                          \"discoverable\": True,\n                          \"id\": 583,\n                          \"labels\": [\"Dataset\"],\n                          \"name\": \"autotest161\",\n                          \"path\": \"autotest161\",\n                          \"roles\": [\"admin\"],\n                          \"time_created\": \"2020-11-06T17:47:10\",\n                          \"time_lastmodified\": \"2020-11-06T17:47:10\",\n                          \"type\": \"Usecase\"},\n                      {   \"admin\": [\"admin\"],\n                          \"code\": \"autotest1693\",\n                          \"description\": \"auto test description\",\n                          \"discoverable\": True,\n                          \"id\": 603,\n                          \"labels\": [\"Dataset\"],\n                          \"name\": \"autotest1693\",\n                          \"path\": \"autotest1693\",\n                          \"roles\": [\"admin\"],\n                          \"time_created\": \"2020-11-06T20:46:06\",\n                          \"time_lastmodified\": \"2020-11-06T20:46:06\",\n                          \"type\": \"Usecase\"}],\n        \"total\": 27\n    }\n"
+          }
+        },
+        "summary": "This method allow user to get the user's default dataset",
+        "operationId": "get_user_default_container",
+        "tags": [
+          "Portal User Actions"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"result\": {\n            \"parent_relation\": \"PARENT\",\n            \"admin\": [\n                \"admin\"\n            ],\n            \"time_lastmodified\": \"2020-07-15T19:10:28\",\n            \"_key2\": \"value2\",\n            \"path\": \"Carsten Finke Generate/dataset-test-1\",\n            \"id\": 97,\n            \"time_created\": \"2020-07-15T19:10:28\",\n            \"name\": \"dataset-test-1\",\n            \"labels\": [\n                \"Dataset\"\n            ],\n            \"_key1\": \"value1\",\n            \"parent_id\": 12,\n            \"tags\": [\n                \"tag1\",\n                \"tag2\"\n            ],\n            \"type\": \"Dataset\"\n        }\n    }\n    "
+          }
+        },
+        "summary": "This method allow user to create the default dataset",
+        "operationId": "post_user_default_container",
+        "tags": [
+          "Portal User Actions"
+        ]
+      }
+    },
+    "/v1/{file_geid}/preview/": {
+      "parameters": [
+        {
+          "name": "file_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_preview",
+        "tags": [
+          "Preview"
+        ]
+      }
+    },
+    "/v1/{file_geid}/preview/stream": {
+      "parameters": [
+        {
+          "name": "file_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_stream_preview",
+        "tags": [
+          "Preview"
+        ]
+      }
+    },
+    "/v1/{project_geid}/files/search": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Fetch file info from Elastic Search",
+        "operationId": "get_file_info_v4",
+        "tags": [
+          "File Search"
+        ]
+      }
+    },
+    "/v1/{project_geid}/workbench": {
+      "parameters": [
+        {
+          "name": "project_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_workbench_restful",
+        "tags": [
+          "Workbench"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_workbench_restful",
+        "tags": [
+          "Workbench"
+        ]
+      }
+    },
+    "/v2/dataset/download/pre": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_dataset_download",
+        "tags": [
+          "Dataset Download"
+        ]
+      }
+    },
+    "/v2/download/pre": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_download",
+        "tags": [
+          "Download"
+        ]
+      }
+    },
+    "/v2/entity/tags": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_batch_tags_apiv2",
+        "tags": [
+          "Batch Tags API"
+        ]
+      }
+    },
+    "/v2/files/containers/{dataset_id}/files/tags": {
+      "parameters": [
+        {
+          "name": "dataset_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_file_tags",
+        "tags": [
+          "NFS Data Operation Version 2"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_file_tags",
+        "tags": [
+          "NFS Data Operation Version 2"
+        ]
+      }
+    },
+    "/v2/{entity_type}/{entity_geid}/tags": {
+      "parameters": [
+        {
+          "name": "entity_type",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "entity_geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_tags_apiv2",
+        "tags": [
+          "Tags API"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Portal API",
+    "version": "1.0",
+    "description": "BFF Portal API"
+  },
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "NFS Data Operation",
+      "description": "Operation on NFS"
+    },
+    {
+      "name": "NFS Data vFolder",
+      "description": "vFolder on NFS"
+    },
+    {
+      "name": "NFS Data Operation Version 2",
+      "description": "Operation on NFS"
+    },
+    {
+      "name": "File Search",
+      "description": "File Search"
+    },
+    {
+      "name": "Hello World",
+      "description": "For backend services down/on testing"
+    },
+    {
+      "name": "Invitation Restful",
+      "description": "Portal Invitation Restful"
+    },
+    {
+      "name": "Invitation Restful",
+      "description": "Portal Invitation Restful"
+    },
+    {
+      "name": "Auth Service Restful",
+      "description": "Auth Service Restful"
+    },
+    {
+      "name": "Contact Us Restful",
+      "description": "Portal Contact Us Restful"
+    },
+    {
+      "name": "Time Restful",
+      "description": "Portal Time Restful"
+    },
+    {
+      "name": "Email Restful",
+      "description": "Portal Email Restful"
+    },
+    {
+      "name": "Notification",
+      "description": "Notification API"
+    },
+    {
+      "name": "Notification",
+      "description": "Notification API"
+    },
+    {
+      "name": "Portal Containers Actions",
+      "description": "Operation on containers"
+    },
+    {
+      "name": "Portal User Actions",
+      "description": "Operation on users"
+    },
+    {
+      "name": "Data Manifests Restful",
+      "description": "For data manifest feature"
+    },
+    {
+      "name": "Data Manifest Restful",
+      "description": "For data manifest feature"
+    },
+    {
+      "name": "Project Restful",
+      "description": "For project feature"
+    },
+    {
+      "name": "Project Restful",
+      "description": "For project feature"
+    },
+    {
+      "name": "Project Restful",
+      "description": "For project feature"
+    },
+    {
+      "name": "Announcement",
+      "description": "Announcement API"
+    },
+    {
+      "name": "Users",
+      "description": "Users API"
+    },
+    {
+      "name": "Provenance",
+      "description": "Provenance API"
+    },
+    {
+      "name": "Script",
+      "description": "Fetch data from neo4j and import to Elastic Search"
+    },
+    {
+      "name": "ResourceRequest",
+      "description": "Resource Request API"
+    },
+    {
+      "name": "Workbench",
+      "description": "Workbench API"
+    },
+    {
+      "name": "FolderCreation",
+      "description": "FolderCreation API"
+    },
+    {
+      "name": "Tags API",
+      "description": "Tags API"
+    },
+    {
+      "name": "Batch Tags API",
+      "description": "Batch Tags API"
+    },
+    {
+      "name": "Archive",
+      "description": "Archive API"
+    },
+    {
+      "name": "Preview",
+      "description": "Preview API"
+    },
+    {
+      "name": "DatasetProxy"
+    },
+    {
+      "name": "DatasetProxy"
+    },
+    {
+      "name": "Dataset Download",
+      "description": "Dataset Download API"
+    },
+    {
+      "name": "Download",
+      "description": "Dataset Download API"
+    },
+    {
+      "name": "Dataset",
+      "description": "Dataset API"
+    },
+    {
+      "name": "DatasetProxy",
+      "description": "Versions API"
+    },
+    {
+      "name": "DatasetProxy",
+      "description": "Folder  API"
+    },
+    {
+      "name": "DatasetProxy",
+      "description": "Versions API"
+    },
+    {
+      "name": "DatasetSchemaTemplateProxy"
+    },
+    {
+      "name": "Dataset BIDS Validator",
+      "description": "Dataset BIDS Validator API"
+    },
+    {
+      "name": "KGResourceProxy"
+    },
+    {
+      "name": "CopyRequest",
+      "description": "CopyRequest API"
+    },
+    {
+      "name": "UploadStatusProxy"
+    }
+  ],
+  "definitions": {
+    "create_invitation_form": {
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "contact_us_form": {
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "type": "object"
+    },
+    "user": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "new_user": {
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "portal_role": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "data_manifests": {
+      "properties": {
+        "project_code": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "responses": {
+    "ParseError": {
+      "description": "When a mask can't be parsed"
+    },
+    "MaskError": {
+      "description": "When any error occurs on mask"
+    }
+  }
+}

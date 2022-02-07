@@ -1,0 +1,2501 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "BFF CLI",
+    "description": "BFF for cli",
+    "version": "1.7.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root",
+        "description": "For testing if service's up",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/projects": {
+      "get": {
+        "tags": [
+          "V1 Projects"
+        ],
+        "summary": "Get project list that user have access to",
+        "description": "Get the project list that user have access to",
+        "operationId": "list_project_v1_projects_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/project/{project_code}/files": {
+      "post": {
+        "tags": [
+          "V1 Files"
+        ],
+        "summary": "pre upload file to the target zone",
+        "description": "PRE upload and check existence of file in project",
+        "operationId": "project_file_preupload_v1_project__project_code__files_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code"
+            },
+            "name": "project_code",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTProjectFile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTProjectFileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/project/{project_code}/folder": {
+      "get": {
+        "tags": [
+          "V1 Projects"
+        ],
+        "summary": "Get folder in the project",
+        "description": "Get folder in project",
+        "operationId": "get_project_folder_v1_project__project_code__folder_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code"
+            },
+            "name": "project_code",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Zone"
+            },
+            "name": "zone",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Folder"
+            },
+            "name": "folder",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProjectFolderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/manifest": {
+      "get": {
+        "tags": [
+          "V1 Manifest"
+        ],
+        "summary": "Get manifest list by project code (project_code required)",
+        "operationId": "list_manifest_v1_manifest_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code",
+              "type": "string"
+            },
+            "name": "project_code",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManifestListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/manifest/attach": {
+      "post": {
+        "tags": [
+          "V1 Manifest"
+        ],
+        "summary": "Attach manifest to file",
+        "description": "CLI will call manifest validation API before attach manifest to file in uploading process",
+        "operationId": "attach_manifest_v1_manifest_attach_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManifestAttachPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManifestAttachResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/manifest/export": {
+      "get": {
+        "tags": [
+          "V1 Manifest"
+        ],
+        "summary": "Export manifest from project",
+        "description": "Export manifest from the project",
+        "operationId": "export_manifest_v1_manifest_export_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code"
+            },
+            "name": "project_code",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Manifest Name"
+            },
+            "name": "manifest_name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManifestExportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/validate/gid": {
+      "post": {
+        "tags": [
+          "V1 Validate"
+        ],
+        "summary": "Validate GENERATE ID",
+        "operationId": "validate_generate_id_v1_validate_gid_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateGenerateIDPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidateGenerateIDResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/validate/manifest": {
+      "post": {
+        "tags": [
+          "V1 Validate"
+        ],
+        "summary": "Validate manifest for project",
+        "description": "Validate the manifest based on the project",
+        "operationId": "validate_manifest_v1_validate_manifest_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManifestValidatePost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManifestValidateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/validate/env": {
+      "post": {
+        "tags": [
+          "V1 Validate"
+        ],
+        "summary": "Validate env for CLI commands",
+        "description": "Validate the environment accessible zone",
+        "operationId": "validate_env_v1_validate_env_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnvValidatePost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnvValidateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/lineage": {
+      "post": {
+        "tags": [
+          "V1 Lineage"
+        ],
+        "summary": "[PENDING] Create lineage for given geid",
+        "operationId": "create_lineage_v1_lineage_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LineageCreatePost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LineageCreatePost"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/project/{project_code}/file/exist": {
+      "get": {
+        "tags": [
+          "Entity INFO"
+        ],
+        "summary": "Check source file",
+        "operationId": "check_source_file_v1_project__project_code__file_exist_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code"
+            },
+            "name": "project_code",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Zone"
+            },
+            "name": "zone",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "File Relative Path"
+            },
+            "name": "file_relative_path",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckFileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/query/geid": {
+      "post": {
+        "tags": [
+          "V1 files"
+        ],
+        "summary": "Query file/folder information by geid",
+        "description": "Get file/folder information by geid",
+        "operationId": "query_file_folders_by_geid_v1_query_geid_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryDataInfo"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryDataInfoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/{project_code}/files/query": {
+      "get": {
+        "tags": [
+          "V1 files"
+        ],
+        "summary": "Get files and folders in the project/folder",
+        "description": "List files and folders in project",
+        "operationId": "get_file_folders_v1__project_code__files_query_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code"
+            },
+            "name": "project_code",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Zone"
+            },
+            "name": "zone",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Folder"
+            },
+            "name": "folder",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Source Type"
+            },
+            "name": "source_type",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProjectFileListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/datasets": {
+      "get": {
+        "tags": [
+          "V1 dataset"
+        ],
+        "summary": "Get dataset list that user have access to",
+        "description": "Get the dataset list that user have access to",
+        "operationId": "list_datasets_v1_datasets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_code}": {
+      "get": {
+        "tags": [
+          "V1 dataset"
+        ],
+        "summary": "Get dataset detail based on the dataset code",
+        "description": "Get the dataset detail by dataset code",
+        "operationId": "get_dataset_v1_dataset__dataset_code__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Code"
+            },
+            "name": "dataset_code",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetDetailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/auth": {
+      "post": {
+        "tags": [
+          "V1 HPC"
+        ],
+        "summary": "HPC authentication",
+        "description": "post HPC token for authorization",
+        "operationId": "hpc_auth_v1_hpc_auth_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HPCAuthPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCAuthResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/job": {
+      "post": {
+        "tags": [
+          "V1 HPC"
+        ],
+        "summary": "HPC job submission",
+        "description": "Submit a job to hpc",
+        "operationId": "hpc_submit_job_v1_hpc_job_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HPCJobSubmitPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCJobResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/job/{job_id}": {
+      "get": {
+        "tags": [
+          "V1 HPC"
+        ],
+        "summary": "Get HPC job information",
+        "description": "Get HPC job information",
+        "operationId": "hpc_get_job_v1_hpc_job__job_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Job Id"
+            },
+            "name": "job_id",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Host"
+            },
+            "name": "host",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Username"
+            },
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Token"
+            },
+            "name": "token",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCJobInfoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/nodes": {
+      "get": {
+        "tags": [
+          "V1 HPC"
+        ],
+        "summary": "Get HPC nodes",
+        "description": "Get HPC job information",
+        "operationId": "hpc_get_nodes_v1_hpc_nodes_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Host"
+            },
+            "name": "host",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Username"
+            },
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Token"
+            },
+            "name": "token",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCNodesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/nodes/{node_name}": {
+      "get": {
+        "tags": [
+          "V1 HPC"
+        ],
+        "summary": "Get HPC node information",
+        "description": "Get HPC node information",
+        "operationId": "hpc_get_node_info_v1_hpc_nodes__node_name__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Node Name"
+            },
+            "name": "node_name",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Host"
+            },
+            "name": "host",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Username"
+            },
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Token"
+            },
+            "name": "token",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCNodeInfoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/partitions": {
+      "get": {
+        "tags": [
+          "V1 HPC"
+        ],
+        "summary": "Get HPC partitions",
+        "description": "Get HPC partitions information",
+        "operationId": "hpc_list_partitions_v1_hpc_partitions_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Host"
+            },
+            "name": "host",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Username"
+            },
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Token"
+            },
+            "name": "token",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCPartitonsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hpc/partitions/{partition_name}": {
+      "get": {
+        "tags": [
+          "V1 HPC"
+        ],
+        "summary": "Get HPC partition info",
+        "description": "Get HPC information of a partition",
+        "operationId": "hpc_get_partition_info_v1_hpc_partitions__partition_name__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Partition Name"
+            },
+            "name": "partition_name",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Host"
+            },
+            "name": "host",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Username"
+            },
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Token"
+            },
+            "name": "token",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HPCPartitionInfoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/kg/resources": {
+      "post": {
+        "tags": [
+          "V1 KG"
+        ],
+        "summary": "Import kg_resources",
+        "description": "Import kg_resource",
+        "operationId": "kg_import_v1_kg_resources_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KGImportPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KGResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CheckFileResponse": {
+        "title": "CheckFileResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "id": 2077,
+              "labels": [
+                "File",
+                "GreenroomRaw"
+              ],
+              "global_entity_id": "file_data-2a7ea1d8-7dea-11eb-8428-be498ca98c54-1614973025",
+              "operator": "",
+              "file_size": 1048576,
+              "tags": [],
+              "archived": "false",
+              "path": "/data/core-storage/mar04/raw",
+              "time_lastmodified": "2021-03-05T19:37:06",
+              "uploader": "admin",
+              "process_pipeline": "",
+              "name": "Testdateiäöüßs4",
+              "time_created": "2021-03-05T19:37:06",
+              "guid": "f91b258d-2f1d-409a-9551-91af8057e70e",
+              "full_path": "/data/core-storage/mar04/raw/Testdateiäöüßs4",
+              "generate_id": "undefined"
+            }
+          }
+        }
+      },
+      "DatasetDetailResponse": {
+        "title": "DatasetDetailResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "general_info": {
+                  "id": 31401,
+                  "labels": [
+                    "Dataset"
+                  ],
+                  "global_entity_id": "3834290c-90c6-4c21-8642-c1f79cf2a145-1628791125",
+                  "creator": "jzhang7",
+                  "modality": [],
+                  "code": "testdataredcap2",
+                  "project_geid": "6c62dc07-a0f4-4a58-9491-d4a46c2adc79-1628775520",
+                  "total_files": 6,
+                  "description": "1",
+                  "source": "",
+                  "title": "REDCap2",
+                  "type": "GENERAL",
+                  "tags": [],
+                  "license": "",
+                  "time_lastmodified": "2021-08-12T18:30:55",
+                  "size": 6291456,
+                  "collection_method": [],
+                  "name": "testdataredcap2",
+                  "time_created": "2021-08-12T17:58:45",
+                  "authors": [
+                    "jzhang7"
+                  ]
+                },
+                "version_detail": [
+                  {
+                    "dataset_code": "testdataredcap2",
+                    "dataset_geid": "3834290c-90c6-4c21-8642-c1f79cf2a145-1628791125",
+                    "version": "1.0",
+                    "created_by": "jzhang7",
+                    "created_at": "2021-08-12 18:15:54.115753",
+                    "location": "minio://http://10.3.7.220/testdataredcap2/versions/testdataredcap2_2021-08-12 14:15:53.608877.zip",
+                    "notes": "1"
+                  }
+                ],
+                "version_no": 1
+              }
+            }
+          }
+        },
+        "description": "Dataset list response class"
+      },
+      "DatasetListResponse": {
+        "title": "DatasetListResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "id": 33076,
+                  "labels": [
+                    "Dataset"
+                  ],
+                  "global_entity_id": "bc0da1cf-8e25-45d5-a440-bc67539055d3-1628795709",
+                  "creator": "jzhang7",
+                  "modality": [],
+                  "code": "dataset1testdata",
+                  "project_geid": "a0927b4f-8df2-4e74-84d4-ae5e3103bb3e-1628782564",
+                  "total_files": 6,
+                  "description": "1",
+                  "source": "",
+                  "title": "DatasetTestData",
+                  "type": "GENERAL",
+                  "tags": [],
+                  "license": "",
+                  "time_lastmodified": "2021-08-12T20:15:52",
+                  "size": 6291456,
+                  "collection_method": [],
+                  "name": "dataset1testdata",
+                  "time_created": "2021-08-12T19:15:09",
+                  "authors": [
+                    "jzhang"
+                  ]
+                },
+                {
+                  "id": 29671,
+                  "labels": [
+                    "Dataset"
+                  ],
+                  "global_entity_id": "55626ddc-bcb6-47d9-8095-68129d521d15-1628277976",
+                  "creator": "jzhang7",
+                  "modality": [
+                    "anatomical approach"
+                  ],
+                  "code": "aug06datasetcodetest",
+                  "total_files": 9,
+                  "project_geid": "73d1fda2-a443-423a-96e5-6f0871b7d7cc-1628532375",
+                  "description": "test 123",
+                  "source": "",
+                  "title": "AUG-06",
+                  "type": "GENERAL",
+                  "tags": [
+                    "tag1",
+                    "tag3"
+                  ],
+                  "license": "v1.4.1",
+                  "time_lastmodified": "2021-08-09T19:13:16",
+                  "size": 107908,
+                  "collection_method": [
+                    "import"
+                  ],
+                  "name": "aug06datasetcodetest",
+                  "time_created": "2021-08-06T19:26:16",
+                  "authors": [
+                    "jzhang"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "description": "Dataset list response class"
+      },
+      "EAPIResponseCode": {
+        "title": "EAPIResponseCode",
+        "enum": [
+          200,
+          500,
+          400,
+          404,
+          403,
+          401,
+          409
+        ],
+        "description": "An enumeration."
+      },
+      "EnvValidatePost": {
+        "title": "EnvValidatePost",
+        "required": [
+          "action",
+          "environ",
+          "zone"
+        ],
+        "type": "object",
+        "properties": {
+          "action": {
+            "title": "Action",
+            "type": "string"
+          },
+          "environ": {
+            "title": "Environ",
+            "type": "string"
+          },
+          "zone": {
+            "title": "Zone",
+            "type": "string"
+          }
+        },
+        "description": "Validate Environment post model"
+      },
+      "EnvValidateResponse": {
+        "title": "EnvValidateResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": "valid"
+            }
+          }
+        },
+        "description": "Validate Manifest Response class"
+      },
+      "GetProjectFileListResponse": {
+        "title": "GetProjectFileListResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "id": 6127,
+                  "labels": [
+                    "File",
+                    "Greenroom"
+                  ],
+                  "global_entity_id": "baee1ca0-37a5-4c9b-afcb-1b2d4b2447aa-1621348460",
+                  "project_code": "may511",
+                  "operator": "jzhang33",
+                  "file_size": 1048576,
+                  "tags": [],
+                  "list_priority": 20,
+                  "archived": "false",
+                  "path": "/data/core-storage/may511/raw/folders1",
+                  "time_lastmodified": "2021-05-18T14:34:21",
+                  "process_pipeline": "",
+                  "uploader": "jzhang33",
+                  "parent_folder_geid": "c1c3766f-36bd-42db-8ca5-9040726cbc03-1620764271",
+                  "name": "Testdateiäöüßs2",
+                  "time_created": "2021-05-18T14:34:21",
+                  "guid": "4e06b8c5-8235-476e-b818-1ea5b0f0043c",
+                  "full_path": "/data/core-storage/may511/raw/folders1/Testdateiäöüßs2",
+                  "generate_id": "undefined"
+                },
+                {
+                  "id": 2842,
+                  "labels": [
+                    "Greenroom",
+                    "Folder"
+                  ],
+                  "folder_level": 1,
+                  "global_entity_id": "7a71ed22-9cd0-465e-a18e-b66fda2c4e04-1620764271",
+                  "list_priority": 10,
+                  "folder_relative_path": "folders1",
+                  "time_lastmodified": "2021-05-11T20:17:51",
+                  "uploader": "jzhang33",
+                  "name": "fodlers",
+                  "time_created": "2021-05-11T20:17:51",
+                  "project_code": "may511",
+                  "tags": []
+                }
+              ]
+            }
+          }
+        }
+      },
+      "GetProjectFolderResponse": {
+        "title": "GetProjectFolderResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "id": 1552,
+                "labels": [
+                  "Greenroom",
+                  "Folder"
+                ],
+                "global_entity_id": "bc8b4239-b22a-47dd-9d23-36ade331ebbf-1620685109",
+                "folder_level": 1,
+                "list_priority": 10,
+                "folder_relative_path": "cli_folder_test23",
+                "time_lastmodified": "2021-05-10T22:18:29",
+                "uploader": "admin",
+                "name": "folder_test",
+                "time_created": "2021-05-10T22:18:29",
+                "project_code": "may10",
+                "tags": []
+              }
+            }
+          }
+        }
+      },
+      "HPCAuthPost": {
+        "title": "HPCAuthPost",
+        "required": [
+          "token_issuer",
+          "username",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "token_issuer": {
+            "title": "Token Issuer",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "description": "Auth HPC post model"
+      },
+      "HPCAuthResponse": {
+        "title": "HPCAuthResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              }
+            }
+          }
+        },
+        "description": "HPC Auth Response Class"
+      },
+      "HPCJobInfoResponse": {
+        "title": "HPCJobInfoResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "job_id": "12345",
+                "job_state": "COMPLETED",
+                "standard_error": "",
+                "standard_input": "",
+                "standard_output": ""
+              }
+            }
+          }
+        },
+        "description": "HPC Job Info Response Class"
+      },
+      "HPCJobResponse": {
+        "title": "HPCJobResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "job_id": 15178
+              }
+            }
+          }
+        },
+        "description": "HPC Job Response Class"
+      },
+      "HPCJobSubmitPost": {
+        "title": "HPCJobSubmitPost",
+        "required": [
+          "host",
+          "username",
+          "token",
+          "job_info"
+        ],
+        "type": "object",
+        "properties": {
+          "host": {
+            "title": "Host",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "token": {
+            "title": "Token",
+            "type": "string"
+          },
+          "job_info": {
+            "title": "Job Info",
+            "type": "object"
+          }
+        },
+        "description": "Submit HPC Job post model"
+      },
+      "HPCNodeInfoResponse": {
+        "title": "HPCNodeInfoResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "hostname": {
+                    "cores": 42,
+                    "cpu": 200,
+                    "free_memory": 100000,
+                    "gpus": 8,
+                    "threads": 6,
+                    "state": "idle"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "HPC Node Info Response Class"
+      },
+      "HPCNodesResponse": {
+        "title": "HPCNodesResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "hostname": {
+                    "cores": 42,
+                    "cpu": 200,
+                    "free_memory": 100000,
+                    "gpus": 8,
+                    "threads": 6,
+                    "state": "idle"
+                  }
+                },
+                {
+                  "hostname": {
+                    "cores": 20,
+                    "cpu": 100,
+                    "free_memory": 200000,
+                    "gpus": 4,
+                    "threads": 2,
+                    "state": "down"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "HPC Nodes Response Class"
+      },
+      "HPCPartitionInfoResponse": {
+        "title": "HPCPartitionInfoResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "partition_name": {
+                    "nodes": [
+                      "s-sc-gpu01, s-sc-gpu03"
+                    ],
+                    "tres": "cpu=1500,mem=20000M,node=2,billing=3000"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "HPC Partition Info Response Class"
+      },
+      "HPCPartitonsResponse": {
+        "title": "HPCPartitonsResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "partition_name": {
+                    "nodes": [
+                      "s-sc-gpu01, s-sc-gpu03"
+                    ],
+                    "tres": "cpu=1500,mem=20000M,node=2,billing=3000"
+                  }
+                },
+                {
+                  "partition_name": {
+                    "nodes": [
+                      "s-sc-gpu02"
+                    ],
+                    "tres": "cpu=2500,mem=10000M,node=1,billing=2000"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "HPC Partitions Response Class"
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "KGImportPost": {
+        "title": "KGImportPost",
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "object",
+            "default": {},
+            "example": {
+              "dataset_code": [],
+              "data": {
+                "kg_cli_test1_1634922993.json": {
+                  "@id": "1634922993",
+                  "@type": "unit test",
+                  "key_value_pairs": {
+                    "definition_file": true,
+                    "file_type": "KG unit test",
+                    "existing_duplicate": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "KGResponseModel": {
+        "title": "KGResponseModel",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "processing": {},
+                "ignored": {
+                  "kg_cli_test1_1634922993.json": {
+                    "@id": "1634922993",
+                    "@type": "unit test",
+                    "key_value_pairs": {
+                      "definition_file": true,
+                      "file_type": "KG unit test",
+                      "existing_duplicate": false
+                    },
+                    "@context": "https://context.org",
+                    "feedback": "Resource http://10.3.7.220/kg/v1/resources/charite/CORE_Datasets/_/1634922993 already exists in project charite/CORE_Datasets"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "KG Resource Response Class"
+      },
+      "LineageCreatePost": {
+        "title": "LineageCreatePost",
+        "required": [
+          "project_code",
+          "input_geid",
+          "output_geid",
+          "pipeline_name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "project_code": {
+            "title": "Project Code",
+            "type": "string"
+          },
+          "input_geid": {
+            "title": "Input Geid",
+            "type": "string"
+          },
+          "output_geid": {
+            "title": "Output Geid",
+            "type": "string"
+          },
+          "pipeline_name": {
+            "title": "Pipeline Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          }
+        }
+      },
+      "ManifestAttachPost": {
+        "title": "ManifestAttachPost",
+        "type": "object",
+        "properties": {
+          "manifest_json": {
+            "title": "Manifest Json",
+            "type": "object",
+            "default": {},
+            "example": {
+              "manifest_json": {
+                "manifest_name": "Manifest1",
+                "project_code": "indoctestproject",
+                "attributes": {
+                  "attr1": "a1",
+                  "attr2": "asdf",
+                  "attr3": "t1"
+                },
+                "file_name": "file1"
+              }
+            }
+          }
+        },
+        "description": "Attach Manifest post model"
+      },
+      "ManifestAttachResponse": {
+        "title": "ManifestAttachResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "id": 690,
+                  "labels": [
+                    "File",
+                    "Greenroom"
+                  ],
+                  "global_entity_id": "file_data-11f0d2b4-7163-11eb-8428-be498ca98c54-1613595588",
+                  "operator": "",
+                  "file_size": 1048576,
+                  "tags": [
+                    "tag"
+                  ],
+                  "archived": "false",
+                  "path": "/data/core-storage/0216/raw",
+                  "time_lastmodified": "2021-02-19T19:06:06",
+                  "uploader": "admin",
+                  "process_pipeline": "",
+                  "name": "testf1",
+                  "time_created": "2021-02-17T20:59:48",
+                  "guid": "6afa671d-f093-446c-a5a2-a495adcf29a5",
+                  "full_path": "/data/core-storage/0216/raw/testf1",
+                  "generate_id": "undefined",
+                  "manifest_id": 270,
+                  "attr_attr1": "a1",
+                  "attr_attr2": "test cli upload"
+                }
+              ]
+            }
+          }
+        },
+        "description": "Attach Manifest response class"
+      },
+      "ManifestExportResponse": {
+        "title": "ManifestExportResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "name": "Manifest1",
+                "project_code": "0216",
+                "attributes": [
+                  {
+                    "name": "attr1",
+                    "type": "multiple_choice",
+                    "optional": "false",
+                    "value": "a1,a2"
+                  },
+                  {
+                    "name": "attr2",
+                    "type": "text",
+                    "optional": "true",
+                    "value": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "description": "Validate Manifest Response class"
+      },
+      "ManifestListResponse": {
+        "title": "ManifestListResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "manifest_name": "Manifest1",
+                  "id": 270,
+                  "attributes": [
+                    {
+                      "name": "attr1",
+                      "type": "multiple_choice",
+                      "optional": "false",
+                      "value": "a1,a2"
+                    },
+                    {
+                      "name": "attr2",
+                      "type": "text",
+                      "optional": "true",
+                      "value": "null"
+                    }
+                  ]
+                },
+                {
+                  "manifest_name": "Manifest2",
+                  "id": 280,
+                  "attributes": [
+                    {
+                      "name": "a1",
+                      "type": "multiple_choice",
+                      "optional": "true",
+                      "value": "1,2,3"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "description": "Manifest list response class"
+      },
+      "ManifestValidatePost": {
+        "title": "ManifestValidatePost",
+        "type": "object",
+        "properties": {
+          "manifest_json": {
+            "title": "Manifest Json",
+            "type": "object",
+            "default": {},
+            "example": {
+              "manifest_name": "Manifest1",
+              "project_code": "0216",
+              "attributes": {
+                "attr1": "a1",
+                "attr2": "test cli upload"
+              },
+              "file_path": "/data/core-storage/0216/raw/testf1"
+            }
+          }
+        },
+        "description": "Validate Manifest post model"
+      },
+      "ManifestValidateResponse": {
+        "title": "ManifestValidateResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": "Valid"
+            }
+          }
+        },
+        "description": "Validate Manifest Response class"
+      },
+      "POSTProjectFile": {
+        "title": "POSTProjectFile",
+        "required": [
+          "operator",
+          "job_type",
+          "upload_message",
+          "type",
+          "zone",
+          "filename",
+          "generate_id",
+          "current_folder_node",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          },
+          "job_type": {
+            "title": "Job Type",
+            "type": "string"
+          },
+          "upload_message": {
+            "title": "Upload Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          },
+          "zone": {
+            "title": "Zone",
+            "type": "string"
+          },
+          "filename": {
+            "title": "Filename",
+            "type": "string"
+          },
+          "generate_id": {
+            "title": "Generate Id",
+            "type": "string"
+          },
+          "current_folder_node": {
+            "title": "Current Folder Node",
+            "type": "string"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "POSTProjectFileResponse": {
+        "title": "POSTProjectFileResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {}
+            }
+          }
+        }
+      },
+      "ProjectListResponse": {
+        "title": "ProjectListResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "name": "GENERATE TEST",
+                  "code": "generate"
+                },
+                {
+                  "name": "Indoc Test Project",
+                  "code": "indoctestproject"
+                }
+              ]
+            }
+          }
+        },
+        "description": "Project list response class"
+      },
+      "QueryDataInfo": {
+        "title": "QueryDataInfo",
+        "required": [
+          "geid"
+        ],
+        "type": "object",
+        "properties": {
+          "geid": {
+            "title": "Geid",
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "QueryDataInfoResponse": {
+        "title": "QueryDataInfoResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                {
+                  "status": "Permission Denied",
+                  "result": [],
+                  "geid": "2b60f036-9642-44e7-883b-c8ed247b1152-1627407935"
+                },
+                {
+                  "status": "success",
+                  "result": [
+                    {
+                      "id": 23279,
+                      "labels": [
+                        "Greenroom",
+                        "File"
+                      ],
+                      "global_entity_id": "3586fa29-18ef-4a68-b833-5c04d3c2831c-1627582679",
+                      "display_path": "jzhang33/Testdateiäöüßs14",
+                      "project_code": "jul08",
+                      "version_id": "08cac0b1-75cf-4c2e-8bed-c43fa99d682f",
+                      "operator": "jzhang7",
+                      "file_size": 1048576,
+                      "tags": [],
+                      "archived": false,
+                      "list_priority": 20,
+                      "path": "/data/core-storage/jul08/jzhang33",
+                      "time_lastmodified": "2021-07-29T18:18:00",
+                      "process_pipeline": "",
+                      "uploader": "jzhang7",
+                      "parent_folder_geid": "22508bda-38c0-4a76-afb2-071520e9ee19-1626095423",
+                      "name": "Testdateiäöüßs14",
+                      "time_created": "2021-07-29T18:18:00",
+                      "guid": "12e23fb5-51d5-4ee9-8fb4-78fe9f9810d9",
+                      "location": "minio://http://minio.minio:9000/gr-jul08/jzhang33/Testdateiäöüßs14",
+                      "full_path": "/data/core-storage/jul08/jzhang33/Testdateiäöüßs14",
+                      "generate_id": "undefined"
+                    }
+                  ],
+                  "geid": "3586fa29-18ef-4a68-b833-5c04d3c2831c-1627582679"
+                },
+                {
+                  "status": "Permission Denied",
+                  "result": [],
+                  "geid": "a17fcf3a-179c-4099-a607-1438464527e2-1626816193"
+                },
+                {
+                  "status": "File Not Exist",
+                  "result": [],
+                  "geid": "80c08693-9ac8-4b94-bb02-9aebe0ec9f20-16274078223"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "ValidateGenerateIDPOST": {
+        "title": "ValidateGenerateIDPOST",
+        "required": [
+          "generate_id"
+        ],
+        "type": "object",
+        "properties": {
+          "generate_id": {
+            "title": "Generate Id",
+            "type": "string"
+          }
+        },
+        "description": "Validate Generate ID Post model"
+      },
+      "ValidateGenerateIDResponse": {
+        "title": "ValidateGenerateIDResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": "VALID"
+            }
+          }
+        },
+        "description": "Validate Generate ID response class"
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
