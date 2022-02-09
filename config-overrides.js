@@ -1,6 +1,12 @@
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 module.exports = {
   webpack: function (config, env) {
     // ...add your webpack config
+    config["plugins"].push(
+      new NodePolyfillPlugin({
+        excludeAliases: ["console"],
+      })
+    );
     config["resolve"] = {
       ...config["resolve"],
       fallback: {
