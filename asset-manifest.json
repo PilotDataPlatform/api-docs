@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.5fde7ca4.css",
-    "main.js": "/static/js/main.86675c92.js",
-    "static/media/marked.cjs": "/static/media/marked.06687d73b5595675da68.cjs",
-    "static/media/pilot_logo.png": "/static/media/pilot_logo.c4533ccda228bab07748.png",
-    "static/media/index.cjs": "/static/media/index.86cca4a3e82de83e79be.cjs",
-    "index.html": "/index.html",
-    "main.5fde7ca4.css.map": "/static/css/main.5fde7ca4.css.map",
-    "main.86675c92.js.map": "/static/js/main.86675c92.js.map"
+    "main.css": "/api-docs/static/css/main.5fde7ca4.css",
+    "main.js": "/api-docs/static/js/main.4dce0de3.js",
+    "static/media/marked.cjs": "/api-docs/static/media/marked.06687d73b5595675da68.cjs",
+    "static/media/pilot_logo.png": "/api-docs/static/media/pilot_logo.c4533ccda228bab07748.png",
+    "static/media/index.cjs": "/api-docs/static/media/index.86cca4a3e82de83e79be.cjs",
+    "index.html": "/api-docs/index.html",
+    "main.5fde7ca4.css.map": "/api-docs/static/css/main.5fde7ca4.css.map",
+    "main.4dce0de3.js.map": "/api-docs/static/js/main.4dce0de3.js.map"
   },
   "entrypoints": [
     "static/css/main.5fde7ca4.css",
-    "static/js/main.86675c92.js"
+    "static/js/main.4dce0de3.js"
   ]
 }
