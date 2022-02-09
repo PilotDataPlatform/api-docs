@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "core-js": "^3.21.0",
-    "marked": "^4.0.12",
     "mobx": "^6.3.13",
     "node-polyfill-webpack-plugin": "^1.1.4",
     "os-browserify": "^0.3.0",
