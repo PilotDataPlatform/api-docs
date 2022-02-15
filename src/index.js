@@ -9,6 +9,7 @@ import bff from './swagger/bff'
 import bff_cli from './swagger/bff_cli.json'
 import dataset from './swagger/dataset.json'
 import hpc from './swagger/hpc.json'
+import metadata from './swagger/metadata.json'
 import upload from './swagger/upload.json'
 
 const specs = {
@@ -16,6 +17,7 @@ const specs = {
     bff_cli: bff_cli,
     dataset: dataset,
     hpc: hpc,
+    metadata: metadata,
     upload: upload
 }
 
@@ -43,6 +45,9 @@ const App = () => {
                     </div>
                     <div className="api-link" onClick={() => setKey('hpc')}>
                         HPC
+                    </div>
+                    <div className="api-link" onClick={() => setKey('metadata')}>
+                        Metadata
                     </div>
                     <div className="api-link" onClick={() => setKey('upload')}>
                         Upload
