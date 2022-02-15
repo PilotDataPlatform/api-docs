@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/api-docs/static/js/main.78cdef7f.js",
+    "main.js": "/api-docs/static/js/main.e0759948.js",
     "pilot_logo.png": "/api-docs/c4533ccda228bab07748f70b4eae7434.png",
     "index.html": "/api-docs/index.html",
-    "main.78cdef7f.js.map": "/api-docs/static/js/main.78cdef7f.js.map"
+    "main.e0759948.js.map": "/api-docs/static/js/main.e0759948.js.map"
   },
   "entrypoints": [
-    "static/js/main.78cdef7f.js"
+    "static/js/main.e0759948.js"
   ]
 }
