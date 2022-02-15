@@ -1,0 +1,2966 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Service Dataset",
+    "description": "Service Dataset",
+    "version": "0.2.3"
+  },
+  "paths": {
+    "/v1/": {
+      "get": {
+        "summary": "Root",
+        "description": "For testing if service's up",
+        "operationId": "root_v1__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/files": {
+      "get": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "API will list files under the target dataset",
+        "description": "the api will list the file/folder at level 1 by default.\nIf folder_geid is not None, then it will treat the folder_geid\nas root and find the relative level 1 file/folder",
+        "operationId": "list_files_v1_dataset__dataset_geid__files_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 25
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order By",
+              "type": "string",
+              "default": "createTime"
+            },
+            "name": "order_by",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order Type",
+              "type": "string",
+              "default": "desc"
+            },
+            "name": "order_type",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Query",
+              "type": "string",
+              "default": "{}"
+            },
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Folder Geid",
+              "type": "string"
+            },
+            "name": "folder_geid",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "API will recieve the file list from a project and \n                 Copy them under the dataset.",
+        "operationId": "import_dataset_v1_dataset__dataset_geid__files_put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sessionid",
+              "type": "string"
+            },
+            "name": "sessionId",
+            "in": "cookie"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportDataPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "API will move files within the dataset",
+        "operationId": "move_files_v1_dataset__dataset_geid__files_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sessionid",
+              "type": "string"
+            },
+            "name": "sessionId",
+            "in": "cookie"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetFileMove"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "API will delete file by geid from list",
+        "operationId": "delete_files_v1_dataset__dataset_geid__files_delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sessionid",
+              "type": "string"
+            },
+            "name": "sessionId",
+            "in": "cookie"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetFileDelete"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/files/{target_file}": {
+      "post": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "API will update files within the dataset",
+        "operationId": "rename_file_v1_dataset__dataset_geid__files__target_file__post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Target File"
+            },
+            "name": "target_file",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sessionid",
+              "type": "string"
+            },
+            "name": "sessionId",
+            "in": "cookie"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetFileRename"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset": {
+      "post": {
+        "tags": [
+          "V1 Dataset Restful"
+        ],
+        "summary": "Create a dataset.",
+        "description": "dataset creation api",
+        "operationId": "create_dataset_v1_dataset_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetPostForm"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetPostResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}": {
+      "get": {
+        "tags": [
+          "V1 Dataset Restful"
+        ],
+        "summary": "Get a dataset.",
+        "description": "dataset creation api",
+        "operationId": "get_dataset_v1_dataset__dataset_geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetPostResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "V1 Dataset Restful"
+        ],
+        "summary": "Update a dataset.",
+        "description": "dataset creation api",
+        "operationId": "update_dataset_v1_dataset__dataset_geid__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetPutForm"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetPostResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset-peek/{code}": {
+      "get": {
+        "tags": [
+          "V1 Dataset Restful"
+        ],
+        "summary": "Get a dataset.",
+        "description": "dataset creation api",
+        "operationId": "get_dataset_bycode_v1_dataset_peek__code__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Code"
+            },
+            "name": "code",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetPostResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/verify": {
+      "post": {
+        "tags": [
+          "V1 Dataset Restful"
+        ],
+        "summary": "verify a bids dataset.",
+        "operationId": "verify_dataset_v1_dataset_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetVerifyForm"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/verify/pre": {
+      "post": {
+        "tags": [
+          "V1 Dataset Restful"
+        ],
+        "summary": "pre verify a bids dataset.",
+        "operationId": "pre_verify_dataset_v1_dataset_verify_pre_post",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetVerifyForm"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/bids-msg/{dataset_geid}": {
+      "get": {
+        "tags": [
+          "V1 Dataset Restful"
+        ],
+        "summary": "pre verify a bids dataset.",
+        "operationId": "get_bids_msg_v1_dataset_bids_msg__dataset_geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{username}/datasets": {
+      "post": {
+        "tags": [
+          "V1 Dataset List API"
+        ],
+        "summary": "list datasets.",
+        "description": "dataset creation api",
+        "operationId": "list_dataset_v1_users__username__datasets_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Username"
+            },
+            "name": "username",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetListForm"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/activity-logs": {
+      "get": {
+        "tags": [
+          "V1 Activity Logs Query API"
+        ],
+        "summary": "list activity logs.",
+        "operationId": "query_activity_logs_v1_activity_logs_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Query",
+              "type": "string"
+            },
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 10
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sort By",
+              "type": "string",
+              "default": "create_timestamp"
+            },
+            "name": "sort_by",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sort Type",
+              "type": "string",
+              "default": "desc"
+            },
+            "name": "sort_type",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/activity-logs/{dataset_geid}": {
+      "get": {
+        "tags": [
+          "V1 Activity Logs Query API"
+        ],
+        "summary": "list activity logs.",
+        "operationId": "query_activity_logs_by_version_v1_activity_logs__dataset_geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Version",
+              "type": "string"
+            },
+            "name": "version",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 10
+            },
+            "name": "page_size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/{file_geid}/preview": {
+      "get": {
+        "tags": [
+          "preview"
+        ],
+        "summary": "CSV/JSON/TSV File preview",
+        "operationId": "get_preview_v1__file_geid__preview_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "File Geid"
+            },
+            "name": "file_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreviewResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/{file_geid}/preview/stream": {
+      "get": {
+        "tags": [
+          "preview"
+        ],
+        "summary": "CSV/JSON/TSV File preview stream",
+        "description": "Get a file preview ",
+        "operationId": "stream_v1__file_geid__preview_stream_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "File Geid"
+            },
+            "name": "file_geid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/publish": {
+      "post": {
+        "tags": [
+          "version"
+        ],
+        "summary": "Publish a dataset version",
+        "operationId": "publish_v1_dataset__dataset_geid__publish_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid",
+              "type": "string"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublishResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/publish/status": {
+      "get": {
+        "tags": [
+          "version"
+        ],
+        "summary": "Publish status",
+        "operationId": "publish_status_v1_dataset__dataset_geid__publish_status_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid",
+              "type": "string"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Status Id",
+              "type": "string"
+            },
+            "name": "status_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublishResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/versions": {
+      "get": {
+        "tags": [
+          "version"
+        ],
+        "summary": "Get dataset versions",
+        "operationId": "version_v1_dataset__dataset_geid__versions_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid",
+              "type": "string"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 25
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order",
+              "type": "string",
+              "default": "asc"
+            },
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sorting",
+              "type": "string",
+              "default": "created_at"
+            },
+            "name": "sorting",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VersionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/version/{version_id}": {
+      "delete": {
+        "tags": [
+          "version"
+        ],
+        "summary": "Only used for unit tests, delete a version from psql",
+        "operationId": "delete_version_v1_dataset__dataset_geid__version__version_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid",
+              "type": "string"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Version Id",
+              "type": "string"
+            },
+            "name": "version_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/download/pre": {
+      "get": {
+        "tags": [
+          "version"
+        ],
+        "summary": "Download dataset version",
+        "description": "Get download url for dataset version",
+        "operationId": "download_url_v1_dataset__dataset_geid__download_pre_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid",
+              "type": "string"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Version",
+              "type": "string",
+              "default": ""
+            },
+            "name": "version",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VersionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/folder": {
+      "post": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "Create an empty folder",
+        "operationId": "create_folder_v1_dataset__dataset_geid__folder_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid",
+              "type": "string"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FolderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FolderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/schemaTPL": {
+      "post": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "API will create the new schema template",
+        "operationId": "create_schema_template_v1_dataset__dataset_geid__schemaTPL_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaTemplatePost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/schemaTPL/list": {
+      "post": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "API will list the template by condition",
+        "operationId": "list_schema_template_v1_dataset__dataset_geid__schemaTPL_list_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaTemplateList"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dataset/{dataset_geid}/schemaTPL/{template_geid}": {
+      "get": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "API will get the template by geid",
+        "operationId": "get_schema_template_v1_dataset__dataset_geid__schemaTPL__template_geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Template Geid"
+            },
+            "name": "template_geid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "API will create the new schema template",
+        "operationId": "update_schema_template_v1_dataset__dataset_geid__schemaTPL__template_geid__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Template Geid"
+            },
+            "name": "template_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaTemplatePut"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "V1 DATASET"
+        ],
+        "summary": "API will create the new schema template",
+        "operationId": "remove_schema_template_v1_dataset__dataset_geid__schemaTPL__template_geid__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Dataset Geid"
+            },
+            "name": "dataset_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Template Geid"
+            },
+            "name": "template_geid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/schema": {
+      "post": {
+        "tags": [
+          "schema"
+        ],
+        "summary": "Create a new schema",
+        "operationId": "create_v1_schema_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTSchemaResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/schema/{schema_geid}": {
+      "get": {
+        "tags": [
+          "schema"
+        ],
+        "summary": "Get a schema",
+        "operationId": "get_v1_schema__schema_geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Schema Geid",
+              "type": "string"
+            },
+            "name": "schema_geid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETSchemaResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "schema"
+        ],
+        "summary": "update a schema",
+        "operationId": "update_v1_schema__schema_geid__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Schema Geid",
+              "type": "string"
+            },
+            "name": "schema_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PUTSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PUTSchemaResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "schema"
+        ],
+        "summary": "Delete a schema",
+        "operationId": "delete_v1_schema__schema_geid__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Schema Geid",
+              "type": "string"
+            },
+            "name": "schema_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DELETESchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DELETESchemaResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/schema/list": {
+      "post": {
+        "tags": [
+          "schema"
+        ],
+        "summary": "API will list the schema by condition",
+        "operationId": "list_schema_v1_schema_list_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTSchemaList"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Activity": {
+        "title": "Activity",
+        "required": [
+          "action",
+          "resource"
+        ],
+        "type": "object",
+        "properties": {
+          "action": {
+            "title": "Action",
+            "type": "string"
+          },
+          "resource": {
+            "title": "Resource",
+            "type": "string"
+          },
+          "detail": {
+            "title": "Detail",
+            "type": "object",
+            "default": {}
+          }
+        }
+      },
+      "DELETESchema": {
+        "title": "DELETESchema",
+        "required": [
+          "dataset_geid",
+          "username",
+          "activity"
+        ],
+        "type": "object",
+        "properties": {
+          "dataset_geid": {
+            "title": "Dataset Geid",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "activity": {
+            "title": "Activity",
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "DELETESchemaResponse": {
+        "title": "DELETESchemaResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "string",
+            "default": "",
+            "example": "success"
+          }
+        }
+      },
+      "DatasetFileDelete": {
+        "title": "DatasetFileDelete",
+        "required": [
+          "source_list",
+          "operator"
+        ],
+        "type": "object",
+        "properties": {
+          "source_list": {
+            "title": "Source List",
+            "type": "array",
+            "items": {}
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          }
+        },
+        "description": "the delete request payload for dataset to delete files"
+      },
+      "DatasetFileMove": {
+        "title": "DatasetFileMove",
+        "required": [
+          "source_list",
+          "operator",
+          "target_geid"
+        ],
+        "type": "object",
+        "properties": {
+          "source_list": {
+            "title": "Source List",
+            "type": "array",
+            "items": {}
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          },
+          "target_geid": {
+            "title": "Target Geid",
+            "type": "string"
+          }
+        },
+        "description": "the post request payload for dataset to move files\nunder the dataset"
+      },
+      "DatasetFileRename": {
+        "title": "DatasetFileRename",
+        "required": [
+          "new_name",
+          "operator"
+        ],
+        "type": "object",
+        "properties": {
+          "new_name": {
+            "title": "New Name",
+            "type": "string"
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          }
+        },
+        "description": "the post request payload for dataset to move files\nunder the dataset"
+      },
+      "DatasetListForm": {
+        "title": "DatasetListForm",
+        "required": [
+          "order_by"
+        ],
+        "type": "object",
+        "properties": {
+          "order_by": {
+            "title": "Order By",
+            "type": "string"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "page_size": {
+            "title": "Page Size",
+            "type": "integer",
+            "default": 10
+          },
+          "filter": {
+            "title": "Filter",
+            "type": "object",
+            "default": {}
+          },
+          "order_type": {
+            "title": "Order Type",
+            "type": "string",
+            "default": "desc"
+          }
+        }
+      },
+      "DatasetListResponse": {
+        "title": "DatasetListResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": [
+              {
+                "global_entity_id": "xxxxx",
+                "source": "project_geid",
+                "title": "title",
+                "authors": [
+                  "author1"
+                ],
+                "code": "(unique identifier)",
+                "creator": "creator",
+                "type": "type",
+                "modality": "modality",
+                "collection_method": [
+                  "collection_method"
+                ],
+                "license": "license",
+                "tags": [
+                  "tag"
+                ],
+                "description": "description",
+                "size": 0,
+                "total_files": 0
+              }
+            ]
+          }
+        },
+        "description": "List response"
+      },
+      "DatasetPostForm": {
+        "title": "DatasetPostForm",
+        "required": [
+          "username",
+          "title",
+          "code",
+          "authors",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "authors": {
+            "title": "Authors",
+            "type": "array",
+            "items": {}
+          },
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "default": "GENERAL"
+          },
+          "modality": {
+            "title": "Modality",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "collection_method": {
+            "title": "Collection Method",
+            "type": "array",
+            "items": {},
+            "default": []
+          },
+          "license": {
+            "title": "License",
+            "type": "string",
+            "default": ""
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {},
+            "default": []
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "file_count": {
+            "title": "File Count",
+            "type": "integer",
+            "default": 0
+          },
+          "total_size": {
+            "title": "Total Size",
+            "type": "integer",
+            "default": 0
+          }
+        },
+        "description": "DatasetPostForm"
+      },
+      "DatasetPostResponse": {
+        "title": "DatasetPostResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "global_entity_id": "xxxxx",
+              "source": "project_geid",
+              "title": "title",
+              "authors": [
+                "author1"
+              ],
+              "code": "(unique identifier)",
+              "creator": "creator",
+              "type": "type",
+              "modality": "modality",
+              "collection_method": [
+                "collection_method"
+              ],
+              "license": "license",
+              "tags": [
+                "tag"
+              ],
+              "description": "description",
+              "size": 0,
+              "total_files": 0
+            }
+          }
+        },
+        "description": "DatasetPostResponse"
+      },
+      "DatasetPutForm": {
+        "title": "DatasetPutForm",
+        "required": [
+          "activity"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "authors": {
+            "title": "Authors",
+            "type": "array",
+            "items": {}
+          },
+          "modality": {
+            "title": "Modality",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "collection_method": {
+            "title": "Collection Method",
+            "type": "array",
+            "items": {}
+          },
+          "license": {
+            "title": "License",
+            "type": "string"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {}
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "file_count": {
+            "title": "File Count",
+            "type": "integer"
+          },
+          "total_size": {
+            "title": "Total Size",
+            "type": "integer"
+          },
+          "activity": {
+            "title": "Activity",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Activity"
+            }
+          }
+        },
+        "description": "DatasetPostForm"
+      },
+      "DatasetVerifyForm": {
+        "title": "DatasetVerifyForm",
+        "required": [
+          "dataset_geid",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "dataset_geid": {
+            "title": "Dataset Geid",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        }
+      },
+      "EAPIResponseCode": {
+        "title": "EAPIResponseCode",
+        "enum": [
+          200,
+          500,
+          400,
+          404,
+          403,
+          401,
+          409
+        ],
+        "description": "An enumeration."
+      },
+      "FolderRequest": {
+        "title": "FolderRequest",
+        "required": [
+          "folder_name",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "folder_name": {
+            "title": "Folder Name",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "parent_folder_geid": {
+            "title": "Parent Folder Geid",
+            "type": "string",
+            "default": ""
+          }
+        }
+      },
+      "FolderResponse": {
+        "title": "FolderResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {}
+          }
+        }
+      },
+      "GETSchemaResponse": {
+        "title": "GETSchemaResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {}
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ImportDataPost": {
+        "title": "ImportDataPost",
+        "required": [
+          "source_list",
+          "operator",
+          "project_geid"
+        ],
+        "type": "object",
+        "properties": {
+          "source_list": {
+            "title": "Source List",
+            "type": "array",
+            "items": {}
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          },
+          "project_geid": {
+            "title": "Project Geid",
+            "type": "string"
+          }
+        },
+        "description": "the post request payload for import data from project"
+      },
+      "POSTSchema": {
+        "title": "POSTSchema",
+        "required": [
+          "name",
+          "dataset_geid",
+          "tpl_geid",
+          "standard",
+          "system_defined",
+          "is_draft",
+          "content",
+          "creator",
+          "activity"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "dataset_geid": {
+            "title": "Dataset Geid",
+            "type": "string"
+          },
+          "tpl_geid": {
+            "title": "Tpl Geid",
+            "type": "string"
+          },
+          "standard": {
+            "title": "Standard",
+            "type": "string"
+          },
+          "system_defined": {
+            "title": "System Defined",
+            "type": "boolean"
+          },
+          "is_draft": {
+            "title": "Is Draft",
+            "type": "boolean"
+          },
+          "content": {
+            "title": "Content",
+            "type": "object"
+          },
+          "creator": {
+            "title": "Creator",
+            "type": "string"
+          },
+          "activity": {
+            "title": "Activity",
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "POSTSchemaList": {
+        "title": "POSTSchemaList",
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "dataset_geid": {
+            "title": "Dataset Geid",
+            "type": "string"
+          },
+          "tpl_geid": {
+            "title": "Tpl Geid",
+            "type": "string"
+          },
+          "standard": {
+            "title": "Standard",
+            "type": "string"
+          },
+          "system_defined": {
+            "title": "System Defined",
+            "type": "boolean"
+          },
+          "is_draft": {
+            "title": "Is Draft",
+            "type": "boolean"
+          },
+          "create_timestamp": {
+            "title": "Create Timestamp",
+            "type": "number"
+          },
+          "update_timestamp": {
+            "title": "Update Timestamp",
+            "type": "number"
+          },
+          "creator": {
+            "title": "Creator",
+            "type": "string"
+          }
+        }
+      },
+      "POSTSchemaResponse": {
+        "title": "POSTSchemaResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": {
+                "content": {
+                  "testing": "test"
+                },
+                "create_timestamp": "2021-08-23T15:57:17.417Z",
+                "creator": "admin",
+                "dataset_geid": "9ff8382d-f476-4cdf-a357-66c4babf8320-1626104650",
+                "geid": "da2d18af-23d2-454a-b10e-34ad7bdfa26f-1629734237",
+                "is_draft": "True",
+                "name": "None",
+                "standard": "default",
+                "system_defined": "True",
+                "tpl_geid": "3733ba1c-9886-414c-b8f4-3b85507079c6-1629474851",
+                "update_timestamp": "2021-08-23T15:57:17.417Z"
+              },
+              "total": 1
+            }
+          }
+        }
+      },
+      "PUTSchema": {
+        "title": "PUTSchema",
+        "required": [
+          "activity",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "dataset_geid": {
+            "title": "Dataset Geid",
+            "type": "string"
+          },
+          "tpl_geid": {
+            "title": "Tpl Geid",
+            "type": "string"
+          },
+          "standard": {
+            "title": "Standard",
+            "type": "string"
+          },
+          "system_defined": {
+            "title": "System Defined",
+            "type": "boolean"
+          },
+          "is_draft": {
+            "title": "Is Draft",
+            "type": "boolean"
+          },
+          "content": {
+            "title": "Content",
+            "type": "object"
+          },
+          "creator": {
+            "title": "Creator",
+            "type": "string"
+          },
+          "activity": {
+            "title": "Activity",
+            "type": "array",
+            "items": {}
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          }
+        }
+      },
+      "PUTSchemaResponse": {
+        "title": "PUTSchemaResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {}
+          }
+        }
+      },
+      "PreviewResponse": {
+        "title": "PreviewResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "content": "<csv data>",
+              "type": "csv",
+              "is_concatinated": true
+            }
+          }
+        }
+      },
+      "PublishRequest": {
+        "title": "PublishRequest",
+        "required": [
+          "operator",
+          "notes",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        }
+      },
+      "PublishResponse": {
+        "title": "PublishResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "status_id": ""
+            }
+          }
+        }
+      },
+      "SchemaTemplateList": {
+        "title": "SchemaTemplateList",
+        "type": "object",
+        "properties": {}
+      },
+      "SchemaTemplatePost": {
+        "title": "SchemaTemplatePost",
+        "required": [
+          "name",
+          "standard",
+          "system_defined",
+          "is_draft",
+          "content",
+          "creator"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "standard": {
+            "title": "Standard",
+            "type": "string"
+          },
+          "system_defined": {
+            "title": "System Defined",
+            "type": "boolean"
+          },
+          "is_draft": {
+            "title": "Is Draft",
+            "type": "boolean"
+          },
+          "content": {
+            "title": "Content",
+            "type": "object"
+          },
+          "creator": {
+            "title": "Creator",
+            "type": "string"
+          }
+        },
+        "description": "the post request payload for import data from project"
+      },
+      "SchemaTemplatePut": {
+        "title": "SchemaTemplatePut",
+        "required": [
+          "name",
+          "is_draft",
+          "content",
+          "activity"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "is_draft": {
+            "title": "Is Draft",
+            "type": "boolean"
+          },
+          "content": {
+            "title": "Content",
+            "type": "object"
+          },
+          "activity": {
+            "title": "Activity",
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      },
+      "VersionResponse": {
+        "title": "VersionResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {}
+          }
+        }
+      }
+    }
+  }
+}

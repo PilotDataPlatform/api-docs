@@ -7,11 +7,13 @@ import './App.css'
 import logo from './pilot_logo.png'
 import bff from './swagger/bff'
 import bff_cli from './swagger/bff_cli.json'
+import dataset from './swagger/dataset.json'
 import hpc from './swagger/hpc.json'
 
 const specs = {
     bff:bff,
     bff_cli: bff_cli,
+    dataset: dataset,
     hpc: hpc
 
 }
@@ -34,6 +36,9 @@ const App = () => {
                     </div>
                     <div className="api-link" onClick={() => setKey('bff_cli')}>
                         BFF CLI
+                    </div>
+                    <div className="api-link" onClick={() => setKey('dataset')}>
+                        Dataset
                     </div>
                     <div className="api-link" onClick={() => setKey('hpc')}>
                         HPC
