@@ -5,6 +5,7 @@ import "swagger-ui-react/swagger-ui.css";
 import { RedocStandalone } from "redoc";
 import "./App.scss";
 import logo from "./pilot_logo.png";
+import auth from "./swagger/auth.json"
 import bff from "./swagger/bff";
 import bff_cli from "./swagger/bff_cli.json";
 import dataset from "./swagger/dataset.json";
@@ -13,6 +14,7 @@ import metadata from "./swagger/metadata.json";
 import upload from "./swagger/upload.json";
 
 const specs = {
+  auth: auth,
   bff: bff,
   bff_cli: bff_cli,
   dataset: dataset,
@@ -33,6 +35,9 @@ const App = () => {
         </div>
         <div className="side-bar-body">
           <h3>API DOCS</h3>
+          <div className="api-link" onClick={() => setKey("auth")}>
+            Auth
+          </div>
           <div className="api-link" onClick={() => setKey("bff")}>
             BFF Web
           </div>
