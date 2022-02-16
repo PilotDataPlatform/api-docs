@@ -6,3 +6,8 @@ API Documentation for Pilot Data Platform
 npm i
 npm start
 ```
+
+## Publish
+```
+npm run deploy
+```

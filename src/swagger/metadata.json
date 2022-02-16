@@ -1,0 +1,3798 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "EntityInfo Service",
+    "description": "EntityInfo",
+    "version": "0.3.0"
+  },
+  "paths": {
+    "/v1/files/": {
+      "post": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Create file",
+        "operationId": "post_v1_files__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFilePOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateFilePOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/{project_geid}/query": {
+      "post": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Query on files by Container",
+        "operationId": "post_v1_files__project_geid__query_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid"
+            },
+            "name": "project_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetFileQueryPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetFileQueryPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/trash": {
+      "post": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Create TrashFile",
+        "operationId": "post_v1_files_trash_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTrashPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTrashPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/{file_geid}/manifest": {
+      "put": {
+        "tags": [
+          "files",
+          "files"
+        ],
+        "summary": "Edit attached manifest",
+        "operationId": "put_v1_files__file_geid__manifest_put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "File Geid",
+              "type": "string"
+            },
+            "name": "file_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Request",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PUTAttachResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/manifest/validate": {
+      "post": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Validate the input to attach a file manifest",
+        "operationId": "post_v1_files_manifest_validate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTValidateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTValidateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{username}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get User",
+        "operationId": "get_v1_users__username__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Username"
+            },
+            "name": "username",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETUserResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "update User",
+        "operationId": "put_v1_users__username__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Username"
+            },
+            "name": "username",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Data",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETUserResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/project/{project_code}/file/exist": {
+      "get": {
+        "tags": [
+          "project",
+          "File Check"
+        ],
+        "summary": "Check file exists",
+        "description": "Check if file exists in given project/folder",
+        "operationId": "get_v1_project__project_code__file_exist_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code"
+            },
+            "name": "project_code",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Zone"
+            },
+            "name": "zone",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "File Relative Path"
+            },
+            "name": "file_relative_path",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckFileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/folders/batch": {
+      "post": {
+        "tags": [
+          "Folder Entity Restful"
+        ],
+        "summary": "Batch Folder Nodes Restful",
+        "description": "Post function to btach create folder",
+        "operationId": "batch_folder_v1_folders_batch_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchFoldersPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoldersPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/folders": {
+      "get": {
+        "tags": [
+          "Folder Entity Restful"
+        ],
+        "summary": "Folder Nodes Restful",
+        "description": "Get function to query the entity by condition",
+        "operationId": "query_v1_folders_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Zone"
+            },
+            "name": "zone",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code"
+            },
+            "name": "project_code",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Folder Relative Path"
+            },
+            "name": "folder_relative_path",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Uploader"
+            },
+            "name": "uploader",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoldersQueryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Folder Entity Restful"
+        ],
+        "summary": "Folder Nodes Restful",
+        "description": "Post function to create entity",
+        "operationId": "post_v1_folders_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FoldersPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoldersPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/folder/{geid}": {
+      "get": {
+        "tags": [
+          "Folder Entity Restful"
+        ],
+        "summary": "Folder Nodes Restful",
+        "description": "Deprecated and has been merged into entity listing API\nGet function to get the entity by geid, currently not developped. please use another one instead\nGet /v1/project/${project_code}/home",
+        "operationId": "get_v1_folder__geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Geid"
+            },
+            "name": "geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Query",
+              "default": "{}"
+            },
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "default": 10
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order By",
+              "default": "time_created"
+            },
+            "name": "order_by",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order Type",
+              "default": "desc"
+            },
+            "name": "order_type",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Partial",
+              "default": true
+            },
+            "name": "partial",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Entity Type",
+              "default": [
+                "File",
+                "Folder"
+              ]
+            },
+            "name": "entity_type",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Zone",
+              "default": "Greenroom"
+            },
+            "name": "zone",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Datatype",
+              "default": "Raw"
+            },
+            "name": "datatype",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoldersGETResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/v1/files/bulk/detail": {
+      "post": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Get files by geid",
+        "operationId": "post_v1_files_bulk_detail_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTFileDetail"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTFileDetailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/detail/{file_geid}": {
+      "get": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Get detail of single file by geid",
+        "operationId": "get_v1_files_detail__file_geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "File Geid"
+            },
+            "name": "file_geid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETFileDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/meta/{geid}": {
+      "get": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Query on files by dataset or folder",
+        "description": "Get and filter file meta from Neo4j given a Dataset or Folder geid",
+        "operationId": "get_v1_files_meta__geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Geid"
+            },
+            "name": "geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 25
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order Type",
+              "type": "string",
+              "default": "asc"
+            },
+            "name": "order_type",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order By",
+              "type": "string",
+              "default": "time_created"
+            },
+            "name": "order_by",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Source Type",
+              "type": "string"
+            },
+            "name": "source_type",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Zone",
+              "type": "string"
+            },
+            "name": "zone",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Partial",
+              "type": "string",
+              "default": ""
+            },
+            "name": "partial",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Query",
+              "type": "string",
+              "default": ""
+            },
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetaGETResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/project/{project_geid}/files/statistics": {
+      "get": {
+        "tags": [
+          "file-statistics"
+        ],
+        "summary": "FilesDailyStats Restful",
+        "description": "Get function to extract daily file statistics",
+        "operationId": "get_v1_project__project_geid__files_statistics_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid"
+            },
+            "name": "project_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Start Date"
+            },
+            "name": "start_date",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "End Date"
+            },
+            "name": "end_date",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Operator"
+            },
+            "name": "operator",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilesStatsGETResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/{project_geid}/workbench": {
+      "get": {
+        "tags": [
+          "workbench"
+        ],
+        "summary": "Get workbench entry",
+        "operationId": "get_v1__project_geid__workbench_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid"
+            },
+            "name": "project_geid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETWorkbenchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "workbench"
+        ],
+        "summary": "Create a workbench entry",
+        "operationId": "post_v1__project_geid__workbench_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid"
+            },
+            "name": "project_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTWorkbenchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTWorkbenchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/{project_geid}/workbench/{id}": {
+      "delete": {
+        "tags": [
+          "workbench"
+        ],
+        "summary": "Delete a workbench entry",
+        "operationId": "delete_v1__project_geid__workbench__id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid"
+            },
+            "name": "project_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Id"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTWorkbenchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/manifests": {
+      "get": {
+        "tags": [
+          "manifest"
+        ],
+        "summary": "List manifests by project_code",
+        "description": "List manifests by project_code",
+        "operationId": "get_v1_manifests_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code",
+              "type": "string"
+            },
+            "name": "project_code",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETManifestsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "manifest"
+        ],
+        "summary": "Create a data manifest",
+        "operationId": "post_v1_manifests_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTManifestsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTManifestsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/manifest/{manifest_id}": {
+      "get": {
+        "tags": [
+          "manifest"
+        ],
+        "summary": "Get a single manifest",
+        "description": "Get a data manifest and list attributes",
+        "operationId": "get_v1_manifest__manifest_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Manifest Id"
+            },
+            "name": "manifest_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETManifestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "manifest"
+        ],
+        "summary": "update a single manifest",
+        "operationId": "put_v1_manifest__manifest_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Manifest Id"
+            },
+            "name": "manifest_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PUTManifestRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PUTManifestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "manifest"
+        ],
+        "summary": "delete a single manifest",
+        "operationId": "delete_v1_manifest__manifest_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Manifest Id"
+            },
+            "name": "manifest_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DELETEManifestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/manifest/file/import": {
+      "post": {
+        "tags": [
+          "manifest"
+        ],
+        "summary": "Import a data manifest",
+        "operationId": "post_v1_manifest_file_import_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTImportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTImportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/manifest/file/export": {
+      "get": {
+        "tags": [
+          "manifest"
+        ],
+        "summary": "Export a data manifest",
+        "operationId": "get_v1_manifest_file_export_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Manifest Id",
+              "type": "integer"
+            },
+            "name": "manifest_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/manifest/query": {
+      "post": {
+        "tags": [
+          "manifest"
+        ],
+        "summary": "Query file manifests",
+        "operationId": "post_v1_manifest_query_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTQueryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTQueryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/attributes/attach": {
+      "post": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Attach attributes on file",
+        "operationId": "post_v1_files_attributes_attach_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttachAttributesPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/attributes": {
+      "post": {
+        "tags": [
+          "attributes"
+        ],
+        "summary": "Bulk create attributes",
+        "operationId": "post_v1_attributes_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTAttributesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTAttributesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/attribute/{attribute_id}": {
+      "put": {
+        "tags": [
+          "attributes"
+        ],
+        "summary": "Update an attribute",
+        "operationId": "put_v1_attribute__attribute_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Attribute Id"
+            },
+            "name": "attribute_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PUTAttributeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTAttributesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "attributes"
+        ],
+        "summary": "Delete an attribute",
+        "description": "Delete an attribute",
+        "operationId": "delete_v1_attribute__attribute_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Attribute Id"
+            },
+            "name": "attribute_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DELETEAttributeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stats": {
+      "get": {
+        "tags": [
+          "System-Metrics"
+        ],
+        "summary": "Retrieve System Stats/Metrics",
+        "description": "Retrieve all metrics from opsdb table",
+        "operationId": "get_metrics_v1_stats_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Date",
+              "type": "string"
+            },
+            "name": "date",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/files/{project_geid}/query": {
+      "post": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Query on files by dataset",
+        "operationId": "post_v2_files__project_geid__query_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid"
+            },
+            "name": "project_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetFileQueryPOSTV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetFileQueryPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/files/folder/{folder_geid}/query": {
+      "post": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Query on files by dataset",
+        "operationId": "post_v2_files_folder__folder_geid__query_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Folder Geid"
+            },
+            "name": "folder_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetFileQueryPOSTV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetFileQueryPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AttachAttributesPOST": {
+        "title": "AttachAttributesPOST",
+        "required": [
+          "manifest_id",
+          "global_entity_id",
+          "attributes"
+        ],
+        "type": "object",
+        "properties": {
+          "manifest_id": {
+            "title": "Manifest Id",
+            "type": "string"
+          },
+          "global_entity_id": {
+            "title": "Global Entity Id",
+            "type": "array",
+            "items": {}
+          },
+          "attributes": {
+            "title": "Attributes",
+            "type": "object"
+          }
+        }
+      },
+      "BatchFoldersPOST": {
+        "title": "BatchFoldersPOST",
+        "required": [
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "title": "Payload",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FoldersPOST"
+            }
+          },
+          "zone": {
+            "title": "Zone",
+            "type": "string",
+            "default": "greenroom | core"
+          },
+          "link_container": {
+            "title": "Link Container",
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+      "CheckFileResponse": {
+        "title": "CheckFileResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "page": 0,
+              "total": 1,
+              "num_of_pages": 1,
+              "result": [
+                {
+                  "id": 2942,
+                  "labels": [
+                    "File",
+                    "Greenroom"
+                  ],
+                  "global_entity_id": "77b04c69-e79d-4c63-a914-7942e1555ec3-1620825051",
+                  "project_code": "may511",
+                  "file_size": 1145,
+                  "operator": "admin",
+                  "tags": [],
+                  "archived": "false",
+                  "list_priority": 20,
+                  "path": "/data/storage/may511/raw/folders1",
+                  "time_lastmodified": "2021-05-12T13:10:52",
+                  "uploader": "admin",
+                  "process_pipeline": "",
+                  "parent_folder_geid": "c1c3766f-36bd-42db-8ca5-9040726cbc03-1620764271",
+                  "name": "test.zip",
+                  "time_created": "2021-05-12T13:10:52",
+                  "guid": "9fc4353b-c4d3-4d29-aa11-d04688f4abc7",
+                  "full_path": "/data/storage/may511/raw/folders1/test.zip",
+                  "generate_id": "undefined"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "CreateFilePOST": {
+        "title": "CreateFilePOST",
+        "required": [
+          "file_size",
+          "full_path",
+          "generate_id",
+          "guid",
+          "namespace",
+          "uploader",
+          "project_code"
+        ],
+        "type": "object",
+        "properties": {
+          "file_size": {
+            "title": "File Size",
+            "type": "integer"
+          },
+          "full_path": {
+            "title": "Full Path",
+            "type": "string"
+          },
+          "original_geid": {
+            "title": "Original Geid",
+            "type": "string"
+          },
+          "generate_id": {
+            "title": "Generate Id",
+            "type": "string"
+          },
+          "guid": {
+            "title": "Guid",
+            "type": "string"
+          },
+          "namespace": {
+            "title": "Namespace",
+            "type": "string"
+          },
+          "uploader": {
+            "title": "Uploader",
+            "type": "string"
+          },
+          "input_file_id": {
+            "title": "Input File Id",
+            "type": "integer"
+          },
+          "process_pipeline": {
+            "title": "Process Pipeline",
+            "type": "string",
+            "default": ""
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string",
+            "default": ""
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {},
+            "default": []
+          },
+          "global_entity_id": {
+            "title": "Global Entity Id",
+            "type": "string",
+            "default": ""
+          },
+          "parent_folder_geid": {
+            "title": "Parent Folder Geid",
+            "type": "string"
+          },
+          "project_code": {
+            "title": "Project Code",
+            "type": "string"
+          },
+          "location": {
+            "title": "Location",
+            "type": "string",
+            "default": ""
+          },
+          "display_path": {
+            "title": "Display Path",
+            "type": "string",
+            "default": ""
+          },
+          "version_id": {
+            "title": "Version Id",
+            "type": "string",
+            "default": ""
+          }
+        }
+      },
+      "CreateFilePOSTResponse": {
+        "title": "CreateFilePOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "archived": false,
+              "file_size": 1024,
+              "display_path": "/data/storage/generate/raw/BCD-1234_file_2.aacn",
+              "generate_id": "BCD-1234_2",
+              "guid": "5321880a-1a41-4bc8-a5d5-9767323205792",
+              "id": 478,
+              "labels": [
+                "Core",
+                "File",
+                "Processed"
+              ],
+              "name": "BCD-1234_file_2.aacn",
+              "namespace": "core",
+              "location": "/data/storage/generate/raw",
+              "process_pipeline": "greg_testing",
+              "time_created": "2021-01-06T18:02:55",
+              "time_lastmodified": "2021-01-06T18:02:55",
+              "type": "processed",
+              "uploader": "admin",
+              "operator": "admin",
+              "tags": [
+                "greg",
+                "test"
+              ]
+            }
+          }
+        }
+      },
+      "CreateTrashPOST": {
+        "title": "CreateTrashPOST",
+        "required": [
+          "full_path",
+          "trash_full_path"
+        ],
+        "type": "object",
+        "properties": {
+          "full_path": {
+            "title": "Full Path",
+            "type": "string"
+          },
+          "trash_full_path": {
+            "title": "Trash Full Path",
+            "type": "string"
+          },
+          "trash_geid": {
+            "title": "Trash Geid",
+            "type": "string",
+            "default": ""
+          },
+          "geid": {
+            "title": "Geid",
+            "type": "string",
+            "default": ""
+          }
+        }
+      },
+      "CreateTrashPOSTResponse": {
+        "title": "CreateTrashPOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "archived": false,
+              "file_size": 1024,
+              "full_path": "/data/storage/generate/raw/BCD-1234_file_2.aacn",
+              "generate_id": "BCD-1234_2",
+              "guid": "5321880a-1a41-4bc8-a5d5-9767323205792",
+              "id": 478,
+              "labels": [
+                "Core",
+                "TrashFile",
+                "Processed"
+              ],
+              "name": "BCD-1234_file_2.aacn",
+              "namespace": "core",
+              "path": "/data/storage/generate/raw",
+              "process_pipeline": "greg_testing",
+              "time_created": "2021-01-06T18:02:55",
+              "time_lastmodified": "2021-01-06T18:02:55",
+              "type": "processed",
+              "uploader": "admin",
+              "operator": "admin"
+            }
+          }
+        }
+      },
+      "DELETEAttributeResponse": {
+        "title": "DELETEAttributeResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": "success",
+              "total": 1
+            }
+          }
+        }
+      },
+      "DELETEManifestResponse": {
+        "title": "DELETEManifestResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": "success",
+              "total": 1
+            }
+          }
+        }
+      },
+      "DatasetFileQueryPOST": {
+        "title": "DatasetFileQueryPOST",
+        "type": "object",
+        "properties": {
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "page_size": {
+            "title": "Page Size",
+            "type": "integer",
+            "default": 25
+          },
+          "order_type": {
+            "title": "Order Type",
+            "type": "string",
+            "default": "asc"
+          },
+          "order_by": {
+            "title": "Order By",
+            "type": "string",
+            "default": "time_created"
+          },
+          "partial": {
+            "title": "Partial",
+            "type": "boolean",
+            "default": false
+          },
+          "query": {
+            "title": "Query",
+            "type": "object",
+            "default": {},
+            "example": {
+              "archived": true,
+              "description": "description",
+              "file_size": 0,
+              "full_path": "/data/storage/tvb/raw/test_seeds",
+              "generate_id": "string",
+              "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
+              "name": "testzy9.txt",
+              "path": "test/zy",
+              "time_created": "2021-01-08T17:09:51",
+              "time_lastmodified": "2021-01-08T17:09:51",
+              "uploader": "admin",
+              "labels": [
+                "File",
+                "Greenroom",
+                "Raw"
+              ]
+            }
+          }
+        }
+      },
+      "DatasetFileQueryPOSTResponse": {
+        "title": "DatasetFileQueryPOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": [
+              {
+                "archived": false,
+                "description": "description",
+                "file_size": 0,
+                "full_path": "test/zy/testzy9.txt",
+                "generate_id": "",
+                "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
+                "id": 74,
+                "labels": [
+                  "Raw",
+                  "File",
+                  "Greenroom"
+                ],
+                "name": "testzy9.txt",
+                "path": "test/zy",
+                "time_created": "2021-01-08T17:09:51",
+                "time_lastmodified": "2021-01-08T17:09:51",
+                "uploader": "testzy",
+                "process_pipeline": "test"
+              }
+            ]
+          }
+        }
+      },
+      "DatasetFileQueryPOSTV2": {
+        "title": "DatasetFileQueryPOSTV2",
+        "type": "object",
+        "properties": {
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "page_size": {
+            "title": "Page Size",
+            "type": "integer",
+            "default": 25
+          },
+          "order_type": {
+            "title": "Order Type",
+            "type": "string",
+            "default": "asc"
+          },
+          "order_by": {
+            "title": "Order By",
+            "type": "string",
+            "default": "time_created"
+          },
+          "query": {
+            "title": "Query",
+            "type": "object",
+            "default": {},
+            "example": {
+              "labels": [
+                "File",
+                "Folder"
+              ],
+              "File": {
+                "name": "test",
+                "partial": [
+                  "name"
+                ],
+                "case_insensitive": [
+                  "name"
+                ]
+              },
+              "Folder": {
+                "folder_name": "test"
+              }
+            }
+          }
+        }
+      },
+      "EAPIResponseCode": {
+        "title": "EAPIResponseCode",
+        "enum": [
+          200,
+          500,
+          400,
+          404,
+          403,
+          401,
+          409
+        ],
+        "description": "An enumeration."
+      },
+      "FilesStatsGETResponse": {
+        "title": "FilesStatsGETResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "uploaded": 0,
+              "downloaded": 0,
+              "approved": 0,
+              "greenroom": 0,
+              "core": 0
+            }
+          }
+        }
+      },
+      "FoldersGETResponse": {
+        "title": "FoldersGETResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "data": [
+                {
+                  "id": 4673,
+                  "labels": [
+                    "Greenroom",
+                    "Folder"
+                  ],
+                  "global_entity_id": "ed1a1ed6-8b3a-11eb-be94-eaff9e667817-1616437076",
+                  "folder_level": 3,
+                  "folder_relative_path": "a/e/c",
+                  "time_lastmodified": "2021-03-22T18:17:56",
+                  "uploader": "zhengyang",
+                  "name": "d",
+                  "time_created": "2021-03-22T18:17:56",
+                  "project_code": "gregtest",
+                  "priority": 0,
+                  "tags": []
+                },
+                {
+                  "id": 4640,
+                  "labels": [
+                    "Greenroom",
+                    "Folder"
+                  ],
+                  "global_entity_id": "ec678d8e-8b3a-11eb-99fe-eaff9e667817-1616437075",
+                  "folder_level": 3,
+                  "folder_relative_path": "a/b/c",
+                  "time_lastmodified": "2021-03-22T18:17:55",
+                  "uploader": "zhengyang",
+                  "name": "d",
+                  "time_created": "2021-03-22T18:17:55",
+                  "project_code": "gregtest",
+                  "priority": 0,
+                  "tags": []
+                }
+              ],
+              "routing": [
+                {
+                  "id": 4693,
+                  "labels": [
+                    "Greenroom",
+                    "Folder"
+                  ],
+                  "global_entity_id": "eb4e43ac-8b3a-11eb-99fe-eaff9e667817-1616437073",
+                  "folder_level": 1,
+                  "folder_relative_path": "a",
+                  "time_lastmodified": "2021-03-22T18:17:53",
+                  "uploader": "zhengyang",
+                  "name": "b",
+                  "time_created": "2021-03-22T18:17:53",
+                  "project_code": "gregtest",
+                  "priority": 0,
+                  "tags": []
+                },
+                {
+                  "id": 4690,
+                  "labels": [
+                    "Greenroom",
+                    "Folder"
+                  ],
+                  "global_entity_id": "eb247a72-8b3a-11eb-be94-eaff9e667817-1616437073",
+                  "folder_level": 0,
+                  "folder_relative_path": "",
+                  "time_lastmodified": "2021-03-22T18:17:53",
+                  "uploader": "zhengyang",
+                  "name": "a",
+                  "time_created": "2021-03-22T18:17:53",
+                  "project_code": "gregtest",
+                  "priority": 0,
+                  "tags": []
+                },
+                {
+                  "id": 21,
+                  "labels": [
+                    "Container"
+                  ],
+                  "global_entity_id": "dataset-4f640b7e-85be-11eb-99fe-eaff9e667817-1615833798",
+                  "path": "gregtest",
+                  "code": "gregtest",
+                  "time_lastmodified": "2021-03-15T18:43:18",
+                  "system_tags": [
+                    "copied-to-core"
+                  ],
+                  "discoverable": true,
+                  "name": "gregtest",
+                  "time_created": "2021-02-01T16:04:13",
+                  "description": "test",
+                  "type": "Usecase"
+                },
+                {
+                  "id": 4637,
+                  "labels": [
+                    "Greenroom",
+                    "Folder"
+                  ],
+                  "global_entity_id": "ebba4426-8b3a-11eb-8a88-eaff9e667817-1616437074",
+                  "folder_level": 2,
+                  "folder_relative_path": "a/b",
+                  "time_lastmodified": "2021-03-22T18:17:54",
+                  "uploader": "zhengyang",
+                  "name": "c",
+                  "time_created": "2021-03-22T18:17:54",
+                  "project_code": "gregtest",
+                  "priority": 0,
+                  "tags": []
+                }
+              ]
+            }
+          }
+        },
+        "description": "Pre upload response class"
+      },
+      "FoldersPOST": {
+        "title": "FoldersPOST",
+        "required": [
+          "folder_name",
+          "folder_level",
+          "folder_parent_geid",
+          "folder_parent_name",
+          "uploader",
+          "folder_relative_path",
+          "project_code"
+        ],
+        "type": "object",
+        "properties": {
+          "global_entity_id": {
+            "title": "Global Entity Id",
+            "type": "string"
+          },
+          "folder_name": {
+            "title": "Folder Name",
+            "type": "string"
+          },
+          "folder_level": {
+            "title": "Folder Level",
+            "type": "integer"
+          },
+          "folder_parent_geid": {
+            "title": "Folder Parent Geid",
+            "type": "string"
+          },
+          "folder_parent_name": {
+            "title": "Folder Parent Name",
+            "type": "string"
+          },
+          "uploader": {
+            "title": "Uploader",
+            "type": "string"
+          },
+          "folder_relative_path": {
+            "title": "Folder Relative Path",
+            "type": "string"
+          },
+          "zone": {
+            "title": "Zone",
+            "type": "string",
+            "default": "greenroom | core"
+          },
+          "project_code": {
+            "title": "Project Code",
+            "type": "string"
+          },
+          "folder_tags": {
+            "title": "Folder Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "extra_labels": {
+            "title": "Extra Labels",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "extra_attrs": {
+            "title": "Extra Attrs",
+            "type": "object",
+            "default": {}
+          }
+        },
+        "description": "global_entity_id will auto generate if not provided"
+      },
+      "FoldersPOSTResponse": {
+        "title": "FoldersPOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "id": 4624,
+              "labels": [
+                "Folder",
+                "Greenroom"
+              ],
+              "name": "test4",
+              "time_created": "2021-03-19T14:15:00",
+              "time_lastmodified": "2021-03-19T14:15:00",
+              "global_entity_id": "7dd42578-88bd-11eb-893a-eaff9e667817-1616163300",
+              "folder_level": 0,
+              "folder_relative_path": "test",
+              "project_code": "test created by zhengyang",
+              "tags": [
+                "test_created_by_zhengyang"
+              ],
+              "priority": 0,
+              "uploader": "testzy"
+            }
+          }
+        },
+        "description": "Pre upload response class"
+      },
+      "FoldersQueryResponse": {
+        "title": "FoldersQueryResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": [
+              {
+                "id": 4624,
+                "labels": [
+                  "Folder",
+                  "Greenroom"
+                ],
+                "name": "test4",
+                "time_created": "2021-03-19T14:15:00",
+                "time_lastmodified": "2021-03-19T14:15:00",
+                "global_entity_id": "7dd42578-88bd-11eb-893a-eaff9e667817-1616163300",
+                "folder_level": 0,
+                "folder_relative_path": "test",
+                "project_code": "test created by zhengyang",
+                "tags": [
+                  "test_created_by_zhengyang"
+                ],
+                "priority": 0,
+                "uploader": "testzy"
+              }
+            ]
+          }
+        },
+        "description": "Pre upload response class"
+      },
+      "GETFileDetail": {
+        "title": "GETFileDetail",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 1,
+              "result": {
+                "archived": false,
+                "description": "description",
+                "file_size": 0,
+                "full_path": "test/zy/testzy9.txt",
+                "generate_id": "",
+                "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
+                "id": 74,
+                "labels": [
+                  "Raw",
+                  "File",
+                  "Greenroom"
+                ],
+                "name": "testzy9.txt",
+                "path": "test/zy",
+                "time_created": "2021-01-08T17:09:51",
+                "time_lastmodified": "2021-01-08T17:09:51",
+                "uploader": "testzy",
+                "process_pipeline": "test"
+              },
+              "total": 1
+            }
+          }
+        }
+      },
+      "GETManifestResponse": {
+        "title": "GETManifestResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "attributes": [
+                {
+                  "id": 519,
+                  "manifest_id": 352,
+                  "name": "attr1",
+                  "optional": true,
+                  "project_code": "indoctestproject",
+                  "type": "multiple_choice",
+                  "value": "test,test2"
+                }
+              ],
+              "id": 352,
+              "name": "greg2",
+              "project_code": "indoctestproject"
+            }
+          }
+        }
+      },
+      "GETManifestsResponse": {
+        "title": "GETManifestsResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "array",
+            "items": {},
+            "default": [],
+            "example": [
+              {
+                "attributes": [
+                  {
+                    "id": 519,
+                    "manifest_id": 352,
+                    "name": "attr1",
+                    "optional": true,
+                    "project_code": "indoctestproject",
+                    "type": "multiple_choice",
+                    "value": "test,test2"
+                  }
+                ],
+                "id": 352,
+                "name": "greg2",
+                "project_code": "indoctestproject"
+              }
+            ]
+          }
+        }
+      },
+      "GETUserResponse": {
+        "title": "GETUserResponse",
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {}
+          }
+        }
+      },
+      "GETWorkbenchResponse": {
+        "title": "GETWorkbenchResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "superset": {
+                "deployed": true,
+                "deployed_by": "admin",
+                "deployed_date": "2021-05-05T20:42:28.164241"
+              },
+              "guacamole": {
+                "deployed": true,
+                "deployed_by": "admin",
+                "deployed_date": "2021-05-05T20:42:28.164241"
+              }
+            }
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "MetaGETResponse": {
+        "title": "MetaGETResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 14,
+              "page": 1,
+              "result": [
+                {
+                  "archived": false,
+                  "description": "description",
+                  "file_size": 0,
+                  "full_path": "test/zy/testzy9.txt",
+                  "generate_id": "",
+                  "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
+                  "id": 74,
+                  "labels": [
+                    "Raw",
+                    "File",
+                    "Greenroom"
+                  ],
+                  "name": "testzy9.txt",
+                  "path": "test/zy",
+                  "time_created": "2021-01-08T17:09:51",
+                  "time_lastmodified": "2021-01-08T17:09:51",
+                  "uploader": "testzy",
+                  "process_pipeline": "test"
+                }
+              ],
+              "total": 67
+            }
+          }
+        }
+      },
+      "POSTAttributesRequest": {
+        "title": "POSTAttributesRequest",
+        "required": [
+          "attributes"
+        ],
+        "type": "object",
+        "properties": {
+          "attributes": {
+            "title": "Attributes",
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "POSTAttributesResponse": {
+        "title": "POSTAttributesResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": "success",
+              "total": 1
+            }
+          }
+        }
+      },
+      "POSTFileDetail": {
+        "title": "POSTFileDetail",
+        "required": [
+          "geids"
+        ],
+        "type": "object",
+        "properties": {
+          "geids": {
+            "title": "Geids",
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "POSTFileDetailResponse": {
+        "title": "POSTFileDetailResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "array",
+            "items": {},
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 1,
+              "result": [
+                {
+                  "archived": false,
+                  "description": "description",
+                  "file_size": 0,
+                  "full_path": "test/zy/testzy9.txt",
+                  "generate_id": "",
+                  "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
+                  "id": 74,
+                  "labels": [
+                    "Raw",
+                    "File",
+                    "Greenroom"
+                  ],
+                  "name": "testzy9.txt",
+                  "path": "test/zy",
+                  "time_created": "2021-01-08T17:09:51",
+                  "time_lastmodified": "2021-01-08T17:09:51",
+                  "uploader": "testzy",
+                  "process_pipeline": "test"
+                }
+              ],
+              "total": 1
+            }
+          }
+        }
+      },
+      "POSTImportRequest": {
+        "title": "POSTImportRequest",
+        "required": [
+          "name",
+          "project_code"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "project_code": {
+            "title": "Project Code",
+            "type": "string"
+          },
+          "attributes": {
+            "title": "Attributes",
+            "type": "array",
+            "items": {},
+            "default": []
+          }
+        }
+      },
+      "POSTImportResponse": {
+        "title": "POSTImportResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": "Success",
+              "total": 1
+            }
+          }
+        }
+      },
+      "POSTManifestsRequest": {
+        "title": "POSTManifestsRequest",
+        "required": [
+          "name",
+          "project_code"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "project_code": {
+            "title": "Project Code",
+            "type": "string"
+          }
+        }
+      },
+      "POSTManifestsResponse": {
+        "title": "POSTManifestsResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": {
+                "id": 384,
+                "name": "test222",
+                "project_code": "indoctestproject"
+              },
+              "total": 1
+            }
+          }
+        }
+      },
+      "POSTQueryRequest": {
+        "title": "POSTQueryRequest",
+        "required": [
+          "geid_list"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "array",
+            "items": {},
+            "default": []
+          },
+          "geid_list": {
+            "title": "Geid List",
+            "type": "array",
+            "items": {}
+          },
+          "lineage_view": {
+            "title": "Lineage View",
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "POSTQueryResponse": {
+        "title": "POSTQueryResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {}
+          }
+        }
+      },
+      "POSTValidateRequest": {
+        "title": "POSTValidateRequest",
+        "required": [
+          "manifest_name",
+          "project_code",
+          "attributes"
+        ],
+        "type": "object",
+        "properties": {
+          "manifest_name": {
+            "title": "Manifest Name",
+            "type": "string"
+          },
+          "project_code": {
+            "title": "Project Code",
+            "type": "string"
+          },
+          "attributes": {
+            "title": "Attributes",
+            "type": "object"
+          }
+        }
+      },
+      "POSTValidateResponse": {
+        "title": "POSTValidateResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": "Success",
+              "total": 1
+            }
+          }
+        }
+      },
+      "POSTWorkbenchRequest": {
+        "title": "POSTWorkbenchRequest",
+        "required": [
+          "workbench_resource",
+          "deployed",
+          "deployed_by"
+        ],
+        "type": "object",
+        "properties": {
+          "workbench_resource": {
+            "title": "Workbench Resource",
+            "type": "string"
+          },
+          "deployed": {
+            "title": "Deployed",
+            "type": "boolean"
+          },
+          "deployed_by": {
+            "title": "Deployed By",
+            "type": "string"
+          }
+        }
+      },
+      "POSTWorkbenchResponse": {
+        "title": "POSTWorkbenchResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "string",
+            "default": "",
+            "example": "success"
+          }
+        }
+      },
+      "PUTAttachResponse": {
+        "title": "PUTAttachResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": "{}",
+              "total": 1
+            }
+          }
+        }
+      },
+      "PUTAttributeRequest": {
+        "title": "PUTAttributeRequest",
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "string"
+          },
+          "optional": {
+            "title": "Optional",
+            "type": "boolean"
+          },
+          "project_code": {
+            "title": "Project Code",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        }
+      },
+      "PUTManifestRequest": {
+        "title": "PUTManifestRequest",
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "default": ""
+          }
+        }
+      },
+      "PUTManifestResponse": {
+        "title": "PUTManifestResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": {
+                "id": 384,
+                "name": "test222",
+                "project_code": "indoctestproject"
+              },
+              "total": 1
+            }
+          }
+        }
+      },
+      "StatsResponse": {
+        "title": "StatsResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "active_user": 20,
+                "project": 20,
+                "storage": 250,
+                "vm": 30,
+                "cores": 20,
+                "ram": 80,
+                "date": "2022-01-12"
+              }
+            }
+          }
+        },
+        "description": "System Metrics/Stats Response Class"
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
