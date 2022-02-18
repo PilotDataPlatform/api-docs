@@ -5,6 +5,7 @@ import "swagger-ui-react/swagger-ui.css";
 import { RedocStandalone } from "redoc";
 import "./App.scss";
 import approval from "./swagger/approval.json";
+import audit_trail from "./swagger/audit_trail.json"
 import auth from "./swagger/auth.json";
 import bff from "./swagger/bff";
 import bff_cli from "./swagger/bff_cli.json";
@@ -21,6 +22,7 @@ import upload from "./swagger/upload.json";
 
 const specs = {
   approval: approval,
+  audit_trail: audit_trail,
   auth: auth,
   bff: bff,
   bff_cli: bff_cli,
@@ -38,6 +40,10 @@ const specs = {
 
 const options = [
   { key: "approval", title: "Approval" },
+  {
+    key: "audit_trail",
+    title: "Audit Trail"
+  },
   {
     title: "Auth",
     key: "auth",
