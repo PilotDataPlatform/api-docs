@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/api-docs/static/js/main.fa468b22.js",
+    "main.js": "/api-docs/static/js/main.2739d2fe.js",
     "static/media/side-bar-background.svg": "/api-docs/static/media/side-bar-background.2717df7482b4a92b5933.svg",
     "index.html": "/api-docs/index.html",
-    "main.fa468b22.js.map": "/api-docs/static/js/main.fa468b22.js.map"
+    "main.2739d2fe.js.map": "/api-docs/static/js/main.2739d2fe.js.map"
   },
   "entrypoints": [
-    "static/js/main.fa468b22.js"
+    "static/js/main.2739d2fe.js"
   ]
 }
