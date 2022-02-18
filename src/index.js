@@ -4,7 +4,6 @@ import SwaggerUI from "swagger-ui-react";
 import "swagger-ui-react/swagger-ui.css";
 import { RedocStandalone } from "redoc";
 import "./App.scss";
-import logo from "./pilot_logo.png";
 import approval from "./swagger/approval.json";
 import auth from "./swagger/auth.json";
 import bff from "./swagger/bff";
@@ -35,62 +34,92 @@ const specs = {
   upload: upload,
 };
 
+const options = [
+  { key: "approval", title: "Approval" },
+  {
+    title: "Auth",
+    key: "auth",
+  },
+  {
+    title: "BFF Web",
+    key: "bff",
+  },
+  {
+    title: "BFF CLI",
+    key: "bff_cli",
+  },
+  { key: "dataops", title: "DataOps" },
+  {
+    title: "Dataset",
+    key: "dataset",
+  },
+  { key: "download", title: "Download" },
+  {
+    title: "HPC",
+    key: "hpc",
+  },
+  { key: "kg", title: "Knowledge Graph" },
+  {
+    key: "lineage", title: "Lineage"
+  },
+  {
+    title: "Metadata",
+    key: "metadata",
+  },
+  { key: "notification",
+    title: "Notification"
+  },
+  {
+    title: "Upload",
+    key: "upload",
+  },
+];
+
 const App = () => {
-  const [key, setKey] = useState("bff");
+  const [key, setKey] = useState(options[0].key);
 
   return (
     <div class="App">
       <div className="side-bar">
         <div className="side-bar-header">
-          <img src={logo} alt="Logo" style={{ width: "100px" }} />
-          <h3>Pilot Data Platform</h3>
+          <img
+            src={"api-docs/images/pilot-logo-data-platform.svg"}
+            alt="Logo"
+            style={{ width: "130px" }}
+          />
         </div>
         <div className="side-bar-body">
-          <h3>API DOCS</h3>
-
-          <div className="api-link" onClick={() => setKey("approval")}>
-            Approval
-          </div>
-          <div className="api-link" onClick={() => setKey("auth")}>
-            Auth
-          </div>
-          <div className="api-link" onClick={() => setKey("bff")}>
-            BFF Web
-          </div>
-          <div className="api-link" onClick={() => setKey("bff_cli")}>
-            BFF CLI
-          </div>
-          <div className="api-link" onClick={() => setKey("dataops")}>
-            DataOps
-          </div>
-          <div className="api-link" onClick={() => setKey("dataset")}>
-            Dataset
-          </div>
-          <div className="api-link" onClick={() => setKey("download")}>
-            Download
-          </div>
-          <div className="api-link" onClick={() => setKey("hpc")}>
-            HPC
-          </div>
-          <div className="api-link" onClick={() => setKey("kg")}>
-            Knowledge Graph
-          </div>
-          <div className="api-link" onClick={() => setKey("lineage")}>
-            Lineage
-          </div>
-          <div className="api-link" onClick={() => setKey("metadata")}>
-            Metadata
-          </div>
-          <div className="api-link" onClick={() => setKey("notification")}>
-            Notification
-          </div>
-          <div className="api-link" onClick={() => setKey("upload")}>
-            Upload
-          </div>
+          <h3 className="title">
+            {" "}
+            <span>API DOCS</span>{" "}
+          </h3>
+          {options.map((option) => (
+            <div className="api-link" key={option.key}>
+              {key === option.key && <div className="indicator"></div>}
+              <span onClick={() => setKey(option.key)}>{option.title}</span>
+            </div>
+          ))}
         </div>
       </div>
       <div id="api-data">
-        <RedocStandalone spec={specs[key]} />
+        <RedocStandalone
+          options={{
+            theme: {
+              colors: {
+                primary: {
+                  main: "#103454",
+                },
+              },
+              typography: {
+                headings: {
+                  fontWeight: 400,
+                  lineHeight: "1em",
+                },
+              },
+            },
+          }}
+          spec={specs[key]}
+        />
       </div>
     </div>
   );
