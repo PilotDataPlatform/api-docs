@@ -1,0 +1,751 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Service Data Download",
+    "description": "Service for data download usage",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root",
+        "description": "Healthcheck route.",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/downloads/status": {
+      "get": {
+        "tags": [
+          "v1/data-download"
+        ],
+        "summary": "Fetch download status list by session_id",
+        "description": "Fetch download status list.",
+        "operationId": "data_download_status_list_v1_downloads_status_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code",
+              "type": "string"
+            },
+            "name": "project_code",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Operator",
+              "type": "string"
+            },
+            "name": "operator",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Job Id",
+              "type": "string",
+              "default": "*"
+            },
+            "name": "job_id",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Session-Id",
+              "type": "string"
+            },
+            "name": "session-id",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DownloadStatusListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/download/status/{hash_code}": {
+      "get": {
+        "tags": [
+          "v1/data-download"
+        ],
+        "summary": "Check download status",
+        "description": "Check download status.",
+        "operationId": "data_download_status_v1_download_status__hash_code__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Hash Code"
+            },
+            "name": "hash_code",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDataDownloadStatusResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/download/{hash_code}": {
+      "get": {
+        "tags": [
+          "v1/data-download"
+        ],
+        "summary": "Download the data, asynchronously streams a file as the response.",
+        "description": "If succeed, asynchronously streams a FileResponse.",
+        "operationId": "data_download_v1_download__hash_code__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Hash Code",
+              "type": "string"
+            },
+            "name": "hash_code",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/download/status": {
+      "delete": {
+        "tags": [
+          "v1/data-download"
+        ],
+        "summary": "Delete the download session status.",
+        "description": "Delete status by session id.",
+        "operationId": "clear_status_v1_download_status_delete",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Session-Id",
+              "type": "string"
+            },
+            "name": "session-id",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/download/pre/": {
+      "post": {
+        "tags": [
+          "v2/data-download"
+        ],
+        "summary": "Pre download process, zip as a package if more than 1 file, used in project files download and dataset single file download.",
+        "operationId": "data_pre_download_v2_download_pre__post",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PreDataDownloadPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreDataDownloadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/dataset/download/pre": {
+      "post": {
+        "tags": [
+          "v2/data-download"
+        ],
+        "summary": "Download all files in a dataset",
+        "operationId": "dataset_pre_download_v2_dataset_download_pre_post",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetPrePOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/dataset/download/{hash_code}": {
+      "get": {
+        "tags": [
+          "v2/data-download"
+        ],
+        "summary": "Download dataset version",
+        "description": "Download a specific version of a dataset given a hash_code\nPlease note here, this hash code api is different with other async download\nthis one will use the minio client to fetch the file and directly\nsend to frontend. and in /dataset/download/pre it will ONLY take the hashcode.\n\nOther api like project files will use the /pre to download from minio and zip.",
+        "operationId": "download_dataset_version_v2_dataset_download__hash_code__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Hash Code",
+              "type": "string"
+            },
+            "name": "hash_code",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/object/{obj_geid}": {
+      "get": {
+        "tags": [
+          "v2/data-download"
+        ],
+        "summary": "zip as a package if more than 1 file",
+        "description": "Get Object API",
+        "operationId": "get_object_v2_object__obj_geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Obj Geid"
+            },
+            "name": "obj_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "Authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DatasetPrePOST": {
+        "title": "DatasetPrePOST",
+        "required": [
+          "dataset_geid",
+          "operator",
+          "session_id"
+        ],
+        "type": "object",
+        "properties": {
+          "dataset_geid": {
+            "title": "Dataset Geid",
+            "minLength": 2,
+            "type": "string"
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          },
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          }
+        },
+        "description": "Pre download dataset payload model."
+      },
+      "DownloadStatusListResponse": {
+        "title": "DownloadStatusListResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": [
+              {
+                "session_id": "unique_session_id",
+                "job_id": "data-download-1613507376",
+                "source": "./test_project/workdir/test_project_zipped_1613507376.zip",
+                "action": "data_download",
+                "status": "READY_FOR_DOWNLOADING",
+                "project_code": "test_project",
+                "operator": "zhengyang",
+                "progress": 0,
+                "payload": {
+                  "hash_code": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmdWxsX3BhdGgiOiIuL3Rlc3RfcHJvamVjdC93b3JrZGlyL3Rlc3RfcHJvamVjdF96aXBwZWRfMTYxMzUwNzM3Ni56aXAiLCJpc3N1ZXIiOiJTRVJWSUNFIERBVEEgRE9XTkxPQUQgIiwib3BlcmF0b3IiOiJ6aGVuZ3lhbmciLCJzZXNzaW9uX2lkIjoidW5pcXVlX3Nlc3Npb25faWQiLCJqb2JfaWQiOiJkYXRhLWRvd25sb2FkLTE2MTM1MDczNzYiLCJwcm9qZWN0X2NvZGUiOiJ0ZXN0X3Byb2plY3QiLCJpYXQiOjE2MTM1MDczNzYsImV4cCI6MTYxMzUwNzY3Nn0.ipzWy6y79QxRGhQQ_VWIk-Lz8Iv8zU7JHGF3ZBoNt-g"
+                },
+                "update_timestamp": "1613507385"
+              }
+            ]
+          }
+        },
+        "description": "List data download status."
+      },
+      "EAPIResponseCode": {
+        "title": "EAPIResponseCode",
+        "enum": [
+          200,
+          500,
+          400,
+          404,
+          403,
+          401,
+          409
+        ],
+        "description": "An enumeration."
+      },
+      "GetDataDownloadStatusResponse": {
+        "title": "GetDataDownloadStatusResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "session_id": "unique_session_id",
+              "job_id": "data-download-1613507376",
+              "source": "./test_project/workdir/test_project_zipped_1613507376.zip",
+              "action": "data_download",
+              "status": "READY_FOR_DOWNLOADING",
+              "project_code": "test_project",
+              "operator": "zhengyang",
+              "progress": 0,
+              "payload": {
+                "hash_code": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmdWxsX3BhdGgiOiIuL3Rlc3RfcHJvamVjdC93b3JrZGlyL3Rlc3RfcHJvamVjdF96aXBwZWRfMTYxMzUwNzM3Ni56aXAiLCJpc3N1ZXIiOiJTRVJWSUNFIERBVEEgRE9XTkxPQUQgIiwib3BlcmF0b3IiOiJ6aGVuZ3lhbmciLCJzZXNzaW9uX2lkIjoidW5pcXVlX3Nlc3Npb25faWQiLCJqb2JfaWQiOiJkYXRhLWRvd25sb2FkLTE2MTM1MDczNzYiLCJwcm9qZWN0X2NvZGUiOiJ0ZXN0X3Byb2plY3QiLCJpYXQiOjE2MTM1MDczNzYsImV4cCI6MTYxMzUwNzY3Nn0.ipzWy6y79QxRGhQQ_VWIk-Lz8Iv8zU7JHGF3ZBoNt-g"
+              },
+              "update_timestamp": "1613507385"
+            }
+          }
+        },
+        "description": "Get data download status."
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "PreDataDownloadPOST": {
+        "title": "PreDataDownloadPOST",
+        "required": [
+          "files",
+          "operator",
+          "session_id"
+        ],
+        "type": "object",
+        "properties": {
+          "files": {
+            "title": "Files",
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          },
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          },
+          "project_code": {
+            "title": "Project Code",
+            "type": "string",
+            "default": ""
+          },
+          "dataset_geid": {
+            "title": "Dataset Geid",
+            "type": "string",
+            "default": ""
+          },
+          "dataset_description": {
+            "title": "Dataset Description",
+            "type": "boolean",
+            "default": false
+          },
+          "approval_request_id": {
+            "title": "Approval Request Id",
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "description": "Pre download payload model."
+      },
+      "PreDataDownloadResponse": {
+        "title": "PreDataDownloadResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "session_id": "unique_session_id",
+              "job_id": "data-download-1613507376",
+              "source": "./test_project/workdir/test_project_zipped_1613507376.zip",
+              "action": "data_download",
+              "status": "ZIPPING",
+              "project_code": "test_project",
+              "operator": "zhengyang",
+              "progress": 0,
+              "payload": {
+                "hash_code": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmdWxsX3BhdGgiOiIuL3Rlc3RfcHJvamVjdC93b3JrZGlyL3Rlc3RfcHJvamVjdF96aXBwZWRfMTYxMzUwNzM3Ni56aXAiLCJpc3N1ZXIiOiJTRVJWSUNFIERBVEEgRE9XTkxPQUQgIiwib3BlcmF0b3IiOiJ6aGVuZ3lhbmciLCJzZXNzaW9uX2lkIjoidW5pcXVlX3Nlc3Npb25faWQiLCJqb2JfaWQiOiJkYXRhLWRvd25sb2FkLTE2MTM1MDczNzYiLCJwcm9qZWN0X2NvZGUiOiJ0ZXN0X3Byb2plY3QiLCJpYXQiOjE2MTM1MDczNzYsImV4cCI6MTYxMzUwNzY3Nn0.ipzWy6y79QxRGhQQ_VWIk-Lz8Iv8zU7JHGF3ZBoNt-g"
+              },
+              "update_timestamp": "1613507376"
+            }
+          }
+        },
+        "description": "Pre download response class."
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,977 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Service Approval",
+    "description": "Service Approval",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/v1/": {
+      "get": {
+        "summary": "Root",
+        "description": "For testing if service's up",
+        "operationId": "root_v1__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/request/copy/{project_geid}": {
+      "get": {
+        "tags": [
+          "CopyRequest"
+        ],
+        "summary": "Create a copy request",
+        "operationId": "list_requests_v1_request_copy__project_geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid",
+              "type": "string"
+            },
+            "name": "project_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 25
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order Type",
+              "type": "string",
+              "default": "asc"
+            },
+            "name": "order_type",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order By",
+              "type": "string",
+              "default": "uploaded_at"
+            },
+            "name": "order_by",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Status",
+              "type": "string"
+            },
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Submitted By",
+              "type": "string"
+            },
+            "name": "submitted_by",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETRequestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CopyRequest"
+        ],
+        "summary": "Approve files",
+        "operationId": "complete_request_v1_request_copy__project_geid__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid",
+              "type": "string"
+            },
+            "name": "project_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PUTRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PUTRequestFilesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CopyRequest"
+        ],
+        "summary": "Create a copy request",
+        "operationId": "create_request_v1_request_copy__project_geid__post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid",
+              "type": "string"
+            },
+            "name": "project_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTRequestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/request/copy/{project_geid}/files": {
+      "get": {
+        "tags": [
+          "CopyRequest"
+        ],
+        "summary": "List request files",
+        "operationId": "list_request_files_v1_request_copy__project_geid__files_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid",
+              "type": "string"
+            },
+            "name": "project_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 25
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order Type",
+              "type": "string",
+              "default": "asc"
+            },
+            "name": "order_type",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order By",
+              "type": "string",
+              "default": "uploaded_at"
+            },
+            "name": "order_by",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Request Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "request_id",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Parent Geid",
+              "type": "string",
+              "default": ""
+            },
+            "name": "parent_geid",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Query",
+              "type": "string",
+              "default": "{}"
+            },
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Partial",
+              "type": "string",
+              "default": "[]"
+            },
+            "name": "partial",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETRequestFilesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CopyRequest"
+        ],
+        "summary": "Approve all files and trigger copy pipeline",
+        "operationId": "review_all_files_v1_request_copy__project_geid__files_put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid",
+              "type": "string"
+            },
+            "name": "project_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PUTRequestFiles"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PUTRequestFilesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "CopyRequest"
+        ],
+        "summary": "Approve files and trigger copy pipeline",
+        "operationId": "review_files_v1_request_copy__project_geid__files_patch",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid",
+              "type": "string"
+            },
+            "name": "project_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PATCHRequestFiles"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PUTRequestFilesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/request/copy/{project_geid}/pending-files": {
+      "get": {
+        "tags": [
+          "CopyRequest"
+        ],
+        "summary": "Get pending count",
+        "operationId": "get_pending_v1_request_copy__project_geid__pending_files_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid",
+              "type": "string"
+            },
+            "name": "project_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Request Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "request_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETPendingResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/request/copy/{project_geid}/delete/{request_id}": {
+      "delete": {
+        "tags": [
+          "CopyRequest"
+        ],
+        "summary": "Delete Request",
+        "operationId": "delete_request_v1_request_copy__project_geid__delete__request_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid",
+              "type": "string"
+            },
+            "name": "project_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Request Id",
+              "type": "string"
+            },
+            "name": "request_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EAPIResponseCode": {
+        "title": "EAPIResponseCode",
+        "enum": [
+          200,
+          500,
+          400,
+          404,
+          403,
+          401,
+          409
+        ],
+        "description": "An enumeration."
+      },
+      "GETPendingResponse": {
+        "title": "GETPendingResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": {
+                "pending_count": 1,
+                "pending_entities": [
+                  "geid"
+                ]
+              },
+              "total": 1
+            }
+          }
+        }
+      },
+      "GETRequestFilesResponse": {
+        "title": "GETRequestFilesResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": [],
+              "total": 1
+            }
+          }
+        }
+      },
+      "GETRequestResponse": {
+        "title": "GETRequestResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": [],
+              "total": 1
+            }
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "PATCHRequestFiles": {
+        "title": "PATCHRequestFiles",
+        "required": [
+          "entity_geids",
+          "request_id",
+          "review_status",
+          "username",
+          "session_id"
+        ],
+        "type": "object",
+        "properties": {
+          "entity_geids": {
+            "title": "Entity Geids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "request_id": {
+            "title": "Request Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "review_status": {
+            "title": "Review Status",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          }
+        }
+      },
+      "POSTRequest": {
+        "title": "POSTRequest",
+        "required": [
+          "entity_geids",
+          "destination_geid",
+          "source_geid",
+          "note",
+          "submitted_by"
+        ],
+        "type": "object",
+        "properties": {
+          "entity_geids": {
+            "title": "Entity Geids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "destination_geid": {
+            "title": "Destination Geid",
+            "type": "string"
+          },
+          "source_geid": {
+            "title": "Source Geid",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "submitted_by": {
+            "title": "Submitted By",
+            "type": "string"
+          }
+        }
+      },
+      "POSTRequestResponse": {
+        "title": "POSTRequestResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": "success",
+              "total": 1
+            }
+          }
+        }
+      },
+      "PUTRequest": {
+        "title": "PUTRequest",
+        "required": [
+          "request_id",
+          "status",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "review_notes": {
+            "title": "Review Notes",
+            "type": "string",
+            "default": ""
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          }
+        }
+      },
+      "PUTRequestFiles": {
+        "title": "PUTRequestFiles",
+        "required": [
+          "request_id",
+          "review_status",
+          "session_id",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "review_status": {
+            "title": "Review Status",
+            "type": "string"
+          },
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          }
+        }
+      },
+      "PUTRequestFilesResponse": {
+        "title": "PUTRequestFilesResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "num_of_pages": 1,
+              "page": 0,
+              "result": [],
+              "total": 1
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
