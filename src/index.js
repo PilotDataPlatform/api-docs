@@ -73,7 +73,7 @@ const App = () => {
       <div className="side-bar">
         <div className="side-bar-header">
           <img
-            src={"api-docs/images/pilot-logo-data-platform.svg"}
+            src={"/api-docs/images/pilot-logo-data-platform.svg"}
             alt="Logo"
             style={{ width: "130px" }}
           />
