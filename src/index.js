@@ -5,20 +5,26 @@ import "swagger-ui-react/swagger-ui.css";
 import { RedocStandalone } from "redoc";
 import "./App.scss";
 import logo from "./pilot_logo.png";
-import auth from "./swagger/auth.json"
+import approval from "./swagger/approval.json";
+import auth from "./swagger/auth.json";
 import bff from "./swagger/bff";
 import bff_cli from "./swagger/bff_cli.json";
+import dataops from "./swagger/dataops.json";
 import dataset from "./swagger/dataset.json";
 import hpc from "./swagger/hpc.json";
+import kg from "./swagger/kg.json";
 import metadata from "./swagger/metadata.json";
 import upload from "./swagger/upload.json";
 
 const specs = {
+  approval: approval,
   auth: auth,
   bff: bff,
   bff_cli: bff_cli,
+  dataops: dataops,
   dataset: dataset,
   hpc: hpc,
+  kg: kg,
   metadata: metadata,
   upload: upload,
 };
@@ -35,6 +41,10 @@ const App = () => {
         </div>
         <div className="side-bar-body">
           <h3>API DOCS</h3>
+
+          <div className="api-link" onClick={() => setKey("approval")}>
+            Approval
+          </div>
           <div className="api-link" onClick={() => setKey("auth")}>
             Auth
           </div>
@@ -44,11 +54,17 @@ const App = () => {
           <div className="api-link" onClick={() => setKey("bff_cli")}>
             BFF CLI
           </div>
+          <div className="api-link" onClick={() => setKey("dataops")}>
+            DataOps
+          </div>
           <div className="api-link" onClick={() => setKey("dataset")}>
             Dataset
           </div>
           <div className="api-link" onClick={() => setKey("hpc")}>
             HPC
+          </div>
+          <div className="api-link" onClick={() => setKey("kg")}>
+            Knowledge Graph
           </div>
           <div className="api-link" onClick={() => setKey("metadata")}>
             Metadata

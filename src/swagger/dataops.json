@@ -1,0 +1,2877 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Dataops Service",
+    "description": "Dataops",
+    "version": "0.3.0"
+  },
+  "paths": {
+    "/v1/collections/": {
+      "get": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "Get the collection belonging to user",
+        "operationId": "get_v1_collections__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Geid",
+              "type": "string"
+            },
+            "name": "project_geid",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Username",
+              "type": "string"
+            },
+            "name": "username",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualFolderGETResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "Bulk update virtual folders",
+        "operationId": "put_v1_collections__put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VirtualFolderPUT"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualFolderPUTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "Create a collection",
+        "operationId": "post_v1_collections__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VirtualFolderPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualFolderPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/collections/{collection_geid}": {
+      "get": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "Get all files in a vfolder",
+        "operationId": "get_v1_collections__collection_geid__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Collection Geid"
+            },
+            "name": "collection_geid",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 25
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order Type",
+              "type": "string",
+              "default": "asc"
+            },
+            "name": "order_type",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order By",
+              "type": "string",
+              "default": "createTime"
+            },
+            "name": "order_by",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualFolderFileGETResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      },
+      "delete": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "Delete a vfolder",
+        "operationId": "delete_v1_collections__collection_geid__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Collection Geid"
+            },
+            "name": "collection_geid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualFolderFileDELETEResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/collections/{collection_geid}/files": {
+      "post": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "Add files to vfolder",
+        "operationId": "post_v1_collections__collection_geid__files_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Collection Geid"
+            },
+            "name": "collection_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VirtualFileBulkPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualFileBulkPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "Remove file from folder",
+        "operationId": "delete_v1_collections__collection_geid__files_delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Collection Geid"
+            },
+            "name": "collection_geid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VirtualFileBulkDELETE"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualFileBulkDELETEResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/filedata/": {
+      "post": {
+        "tags": [
+          "filedata"
+        ],
+        "summary": "Create or Update filedata meta",
+        "operationId": "post_v1_filedata__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FiledataMetaPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FiledataMetaPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tasks/": {
+      "get": {
+        "tags": [
+          "task-management"
+        ],
+        "summary": "Asynchronized Task Management API, Get task information",
+        "operationId": "get_v1_tasks__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Session Id"
+            },
+            "name": "session_id",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Label",
+              "default": "Container"
+            },
+            "name": "label",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Job Id",
+              "default": "*"
+            },
+            "name": "job_id",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Code",
+              "default": "*"
+            },
+            "name": "code",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Action",
+              "default": "*"
+            },
+            "name": "action",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Operator",
+              "default": "*"
+            },
+            "name": "operator",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "task-management"
+        ],
+        "summary": "Asynchronized Task Management API, Update tasks",
+        "operationId": "put_v1_tasks__put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDispatchPUT"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "task-management"
+        ],
+        "summary": "Asynchronized Task Management API, Create a new task",
+        "operationId": "post_v1_tasks__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDispatchPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskDispatchPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "task-management"
+        ],
+        "summary": "Asynchronized Task Management API, Delete tasks",
+        "operationId": "delete_v1_tasks__delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDispatchDELETE"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/actions/": {
+      "post": {
+        "tags": [
+          "file-operations"
+        ],
+        "summary": "File operations api, invoke an async file operation job",
+        "operationId": "post_v1_files_actions__post",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            },
+            "name": "authorization",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Refresh-Token",
+              "type": "string"
+            },
+            "name": "refresh-token",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileOperationsPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileOperationsPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/actions/validate/repeat-check": {
+      "post": {
+        "tags": [
+          "file-operations-validate"
+        ],
+        "summary": "File operations repeated check api, validate file operation job",
+        "operationId": "repeat_check_v1_files_actions_validate_repeat_check_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileOperationsPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/actions/validate/": {
+      "post": {
+        "tags": [
+          "file-operations-validate"
+        ],
+        "summary": "File operations api, validate file operation job",
+        "description": "flatten targets => find unique_path(ingestion path)\n=> find destination_path(copy only) => validate operation => validate repeated => return results",
+        "operationId": "post_v1_files_actions_validate__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileOperationsValidatePOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/actions/message/": {
+      "post": {
+        "tags": [
+          "file-actions-message-hub"
+        ],
+        "summary": "Used for dev debugging purpose",
+        "operationId": "post_v1_files_actions_message__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageHubPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageHubPOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/resource/lock/": {
+      "get": {
+        "tags": [
+          "resource-lock"
+        ],
+        "summary": "Asynchronized RLock Management API, Check a RLock",
+        "operationId": "check_lock_v1_resource_lock__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Resource Key"
+            },
+            "name": "resource_key",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sub Key",
+              "default": "default"
+            },
+            "name": "sub_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RLockResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "resource-lock"
+        ],
+        "summary": "Asynchronized RLock Management API, Create a new RLock",
+        "operationId": "lock_v1_resource_lock__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RLockPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RLockResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "resource-lock"
+        ],
+        "summary": "Asynchronized RLock Management API, Remove a RLock",
+        "operationId": "unlock_v1_resource_lock__delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RLockPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RLockResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/resource/lock/all": {
+      "delete": {
+        "tags": [
+          "resource-lock"
+        ],
+        "summary": "Asynchronized RLock Management API, Clear all rlocks",
+        "operationId": "clear_locks_v1_resource_lock_all_delete",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RLockClearResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/archive": {
+      "get": {
+        "tags": [
+          "archive"
+        ],
+        "summary": "Get a zip preview given geid",
+        "description": "Get a Zip preview ",
+        "operationId": "get_v1_archive_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "File Geid",
+              "type": "string"
+            },
+            "name": "file_geid",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArchiveGETResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "archive"
+        ],
+        "summary": "Create a zip preview",
+        "description": "Create a ZIP preview given a file_geid and preview as a dict ",
+        "operationId": "post_v1_archive_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArchivePOSTRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArchivePOSTResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "archive"
+        ],
+        "summary": "Delete a zip preview, only used for unit tests",
+        "description": "Delete preview given a file_geid ",
+        "operationId": "delete_v1_archive_delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArchiveDELETERequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/projects": {
+      "post": {
+        "tags": [
+          "project",
+          "project"
+        ],
+        "summary": "Create new project via MinIO",
+        "description": "Create new greenroom or core project through MinIO bucket creation",
+        "operationId": "project_create_v1_projects_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreatePost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectCreateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/upload-state": {
+      "delete": {
+        "tags": [
+          "filedata",
+          "file-operations"
+        ],
+        "summary": "Delete file upload status for given session_id",
+        "description": "Delete file upload status based on session_id in Neo4J",
+        "operationId": "delete_status_v1_files_upload_state_delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Session-Id",
+              "type": "string"
+            },
+            "name": "session-id",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/entity/tags": {
+      "post": {
+        "tags": [
+          "Batch operation to update tags"
+        ],
+        "summary": "Batch Tags Ops",
+        "description": "Batch tag operation API refactored to update tags using batch update in neo4j",
+        "operationId": "batch_tags_ops_v2_entity_tags_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchOpsTagsPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/{entity_type}/{entity_geid}/tags": {
+      "post": {
+        "tags": [
+          "tags api"
+        ],
+        "summary": "API to add / remove tags for an entity file/folder",
+        "operationId": "post_v2__entity_type___entity_geid__tags_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Entity Geid",
+              "type": "string"
+            },
+            "name": "entity_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Entity Type",
+              "type": "string"
+            },
+            "name": "entity_type",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagsAPIPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/{entity_type}/{entity_geid}/systags": {
+      "post": {
+        "tags": [
+          "tags api"
+        ],
+        "summary": "API to add / remove tags for an entity file/folder",
+        "operationId": "post_v2__entity_type___entity_geid__systags_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Entity Geid",
+              "type": "string"
+            },
+            "name": "entity_geid",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Entity Type",
+              "type": "string"
+            },
+            "name": "entity_type",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SysTagsAPIPOST"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/resource/lock/": {
+      "get": {
+        "tags": [
+          "resource-lock"
+        ],
+        "summary": "Asynchronized RLock Management API, Check a RLock",
+        "description": "for test ONLY",
+        "operationId": "check_lock_v2_resource_lock__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Resource Key"
+            },
+            "name": "resource_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RLockResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "resource-lock"
+        ],
+        "summary": "Asynchronized RLock Management API, Create a new RLock",
+        "operationId": "lock_v2_resource_lock__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileLock"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RLockResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "resource-lock"
+        ],
+        "summary": "Asynchronized RLock Management API, Remove a RLock",
+        "operationId": "unlock_v2_resource_lock__delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileLock"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RLockResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ArchiveDELETERequest": {
+        "title": "ArchiveDELETERequest",
+        "required": [
+          "file_geid"
+        ],
+        "type": "object",
+        "properties": {
+          "file_geid": {
+            "title": "File Geid",
+            "type": "string"
+          }
+        }
+      },
+      "ArchiveGETResponse": {
+        "title": "ArchiveGETResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {}
+          }
+        }
+      },
+      "ArchivePOSTRequest": {
+        "title": "ArchivePOSTRequest",
+        "required": [
+          "file_geid",
+          "archive_preview"
+        ],
+        "type": "object",
+        "properties": {
+          "file_geid": {
+            "title": "File Geid",
+            "type": "string"
+          },
+          "archive_preview": {
+            "title": "Archive Preview",
+            "type": "object"
+          }
+        }
+      },
+      "ArchivePOSTResponse": {
+        "title": "ArchivePOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {}
+          }
+        }
+      },
+      "BatchOpsTagsPOST": {
+        "title": "BatchOpsTagsPOST",
+        "required": [
+          "entity",
+          "tags"
+        ],
+        "type": "object",
+        "properties": {
+          "entity": {
+            "title": "Entity",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "operation": {
+            "title": "Operation",
+            "type": "string",
+            "default": "add/remove"
+          },
+          "inherit": {
+            "title": "Inherit",
+            "type": "boolean",
+            "default": "True"
+          },
+          "only_files": {
+            "title": "Only Files",
+            "type": "boolean",
+            "default": "True"
+          }
+        }
+      },
+      "EAPIResponseCode": {
+        "title": "EAPIResponseCode",
+        "enum": [
+          200,
+          500,
+          400,
+          404,
+          403,
+          401,
+          409,
+          202
+        ],
+        "description": "An enumeration."
+      },
+      "FileLock": {
+        "title": "FileLock",
+        "required": [
+          "resource_key",
+          "operation"
+        ],
+        "type": "object",
+        "properties": {
+          "resource_key": {
+            "title": "Resource Key",
+            "type": "string"
+          },
+          "operation": {
+            "title": "Operation",
+            "type": "string"
+          }
+        }
+      },
+      "FileOperationPayload": {
+        "title": "FileOperationPayload",
+        "required": [
+          "targets"
+        ],
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "targets": {
+            "title": "Targets",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileOperationTarget"
+            }
+          }
+        },
+        "description": "Validate structure of payload in file operation post body."
+      },
+      "FileOperationTarget": {
+        "title": "FileOperationTarget",
+        "required": [
+          "geid"
+        ],
+        "type": "object",
+        "properties": {
+          "geid": {
+            "title": "Geid",
+            "type": "string"
+          }
+        },
+        "description": "Validate structure of single target in file operation payload."
+      },
+      "FileOperationsPOST": {
+        "title": "FileOperationsPOST",
+        "required": [
+          "session_id",
+          "payload",
+          "operator",
+          "project_geid"
+        ],
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          },
+          "task_id": {
+            "title": "Task Id",
+            "type": "string",
+            "default": "default_task_id"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/FileOperationPayload"
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          },
+          "operation": {
+            "title": "Operation",
+            "type": "string",
+            "default": "copy/delete"
+          },
+          "project_geid": {
+            "title": "Project Geid",
+            "type": "string"
+          }
+        }
+      },
+      "FileOperationsPOSTResponse": {
+        "title": "FileOperationsPOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": [
+              {
+                "session_id": "unique_session_2021",
+                "job_id": "1bfe8fd8-8b41-11eb-a8bd-eaff9e667817-1616439732",
+                "source": "file1.png",
+                "action": "data_transfer",
+                "status": "PENDING",
+                "project_code": "gregtest",
+                "operator": "zhengyang",
+                "progress": 0,
+                "payload": {},
+                "update_timestamp": "1616439731"
+              },
+              {
+                "session_id": "unique_session_2021",
+                "job_id": "1c90ceac-8b41-11eb-bf7a-eaff9e667817-1616439733",
+                "source": "a/b/file1.png",
+                "action": "data_upload",
+                "status": "SUCCEED",
+                "project_code": "gregtest",
+                "operator": "zhengyang",
+                "progress": 0,
+                "payload": {},
+                "update_timestamp": "1616439732"
+              }
+            ]
+          }
+        }
+      },
+      "FileOperationsValidatePOST": {
+        "title": "FileOperationsValidatePOST",
+        "required": [
+          "operator",
+          "project_geid"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "title": "Payload",
+            "type": "object",
+            "default": {}
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          },
+          "operation": {
+            "title": "Operation",
+            "type": "string",
+            "default": "copy/delete"
+          },
+          "project_geid": {
+            "title": "Project Geid",
+            "type": "string"
+          }
+        }
+      },
+      "FiledataMetaPOST": {
+        "title": "FiledataMetaPOST",
+        "required": [
+          "uploader",
+          "file_name",
+          "path",
+          "file_size",
+          "description",
+          "namespace",
+          "labels",
+          "project_code"
+        ],
+        "type": "object",
+        "properties": {
+          "uploader": {
+            "title": "Uploader",
+            "type": "string"
+          },
+          "file_name": {
+            "title": "File Name",
+            "type": "string"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "file_size": {
+            "title": "File Size",
+            "type": "integer"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "namespace": {
+            "title": "Namespace",
+            "type": "string"
+          },
+          "labels": {
+            "title": "Labels",
+            "type": "array",
+            "items": {}
+          },
+          "project_code": {
+            "title": "Project Code",
+            "type": "string"
+          },
+          "dcm_id": {
+            "title": "Dcm Id",
+            "type": "string",
+            "default": ""
+          },
+          "process_pipeline": {
+            "title": "Process Pipeline",
+            "type": "string",
+            "default": ""
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string",
+            "default": ""
+          },
+          "parent_query": {
+            "title": "Parent Query",
+            "type": "object",
+            "default": {}
+          },
+          "parent_folder_geid": {
+            "title": "Parent Folder Geid",
+            "type": "string",
+            "default": ""
+          },
+          "original_geid": {
+            "title": "Original Geid",
+            "type": "string"
+          },
+          "bucket": {
+            "title": "Bucket",
+            "type": "string",
+            "default": ""
+          },
+          "minio_object_path": {
+            "title": "Minio Object Path",
+            "type": "string",
+            "default": ""
+          },
+          "version_id": {
+            "title": "Version Id",
+            "type": "string",
+            "default": ""
+          }
+        }
+      },
+      "FiledataMetaPOSTResponse": {
+        "title": "FiledataMetaPOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "archived": false,
+              "file_size": 1024,
+              "full_path": "/data/storage/dcm/raw/BCD-1234_file_2.aacn",
+              "dcm_id": "BCD-1234_2",
+              "guid": "5321880a-1a41-4bc8-a5d5-9767323205792",
+              "id": 478,
+              "labels": [
+                "Core",
+                "File",
+                "Processed"
+              ],
+              "name": "BCD-1234_file_2.aacn",
+              "namespace": "core",
+              "path": "/data/storage/dcm/raw",
+              "process_pipeline": "greg_testing",
+              "time_created": "2021-01-06T18:02:55",
+              "time_lastmodified": "2021-01-06T18:02:55",
+              "type": "processed",
+              "uploader": "admin",
+              "operator": "admin"
+            }
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "MessageHubPOST": {
+        "title": "MessageHubPOST",
+        "required": [
+          "message",
+          "channel"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "channel": {
+            "title": "Channel",
+            "type": "string"
+          }
+        }
+      },
+      "MessageHubPOSTResponse": {
+        "title": "MessageHubPOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": "succeed"
+          }
+        }
+      },
+      "ProjectCreatePost": {
+        "title": "ProjectCreatePost",
+        "required": [
+          "project_code",
+          "zone"
+        ],
+        "type": "object",
+        "properties": {
+          "project_code": {
+            "title": "Project Code",
+            "type": "string"
+          },
+          "zone": {
+            "title": "Zone",
+            "type": "string"
+          }
+        },
+        "description": "Project creation class"
+      },
+      "ProjectCreateResponse": {
+        "title": "ProjectCreateResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "project_code": "gr-testproject"
+              }
+            }
+          }
+        },
+        "description": "Project creation response class"
+      },
+      "RLockClearResponse": {
+        "title": "RLockClearResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "key": "all",
+              "status": "UNLOCKED"
+            }
+          }
+        }
+      },
+      "RLockPOST": {
+        "title": "RLockPOST",
+        "required": [
+          "resource_key"
+        ],
+        "type": "object",
+        "properties": {
+          "resource_key": {
+            "title": "Resource Key",
+            "type": "string"
+          },
+          "sub_key": {
+            "title": "Sub Key",
+            "type": "string",
+            "default": "default"
+          }
+        }
+      },
+      "RLockResponse": {
+        "title": "RLockResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "key": "str",
+              "status": "LOCKED"
+            }
+          }
+        }
+      },
+      "StatusUploadResponse": {
+        "title": "StatusUploadResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": [
+                "Session id deleted:admin-a183jcalt13"
+              ]
+            }
+          }
+        },
+        "description": "Delete file upload response class"
+      },
+      "SysTagsAPIPOST": {
+        "title": "SysTagsAPIPOST",
+        "required": [
+          "systags"
+        ],
+        "type": "object",
+        "properties": {
+          "systags": {
+            "title": "Systags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inherit": {
+            "title": "Inherit",
+            "type": "boolean",
+            "default": "False"
+          }
+        }
+      },
+      "TagsAPIPOST": {
+        "title": "TagsAPIPOST",
+        "required": [
+          "tags"
+        ],
+        "type": "object",
+        "properties": {
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inherit": {
+            "title": "Inherit",
+            "type": "boolean",
+            "default": "False"
+          }
+        }
+      },
+      "TaskDispatchDELETE": {
+        "title": "TaskDispatchDELETE",
+        "required": [
+          "session_id"
+        ],
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string",
+            "default": "Container"
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "string",
+            "default": "*"
+          },
+          "action": {
+            "title": "Action",
+            "type": "string",
+            "default": "*"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string",
+            "default": "*"
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string",
+            "default": "*"
+          }
+        }
+      },
+      "TaskDispatchPOST": {
+        "title": "TaskDispatchPOST",
+        "required": [
+          "session_id",
+          "task_id",
+          "job_id",
+          "source",
+          "action",
+          "target_status",
+          "code",
+          "operator"
+        ],
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string",
+            "default": "Container"
+          },
+          "task_id": {
+            "title": "Task Id",
+            "type": "string"
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "action": {
+            "title": "Action",
+            "type": "string"
+          },
+          "target_status": {
+            "title": "Target Status",
+            "type": "string"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "operator": {
+            "title": "Operator",
+            "type": "string"
+          },
+          "progress": {
+            "title": "Progress",
+            "type": "integer",
+            "default": 0
+          },
+          "payload": {
+            "title": "Payload",
+            "type": "object",
+            "default": {}
+          }
+        }
+      },
+      "TaskDispatchPOSTResponse": {
+        "title": "TaskDispatchPOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "session_id": "unique_session_2021",
+              "label": "Container",
+              "task_id": "task1",
+              "job_id": "1bfe8fd8-8b41-11eb-a8bd-eaff9e667817-1616439732",
+              "source": "file1.png",
+              "action": "data_transfer",
+              "status": "PENDING",
+              "code": "gregtest",
+              "operator": "zhengyang",
+              "progress": 0,
+              "payload": {},
+              "update_timestamp": "1616439731"
+            }
+          }
+        }
+      },
+      "TaskDispatchPUT": {
+        "title": "TaskDispatchPUT",
+        "required": [
+          "session_id",
+          "job_id",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "title": "Session Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string",
+            "default": "Container"
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "add_payload": {
+            "title": "Add Payload",
+            "type": "object",
+            "default": {}
+          },
+          "progress": {
+            "title": "Progress",
+            "type": "integer",
+            "default": 0
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      },
+      "VirtualFileBulkDELETE": {
+        "title": "VirtualFileBulkDELETE",
+        "required": [
+          "file_geids"
+        ],
+        "type": "object",
+        "properties": {
+          "file_geids": {
+            "title": "File Geids",
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "VirtualFileBulkDELETEResponse": {
+        "title": "VirtualFileBulkDELETEResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "string",
+            "default": "",
+            "example": "success"
+          }
+        }
+      },
+      "VirtualFileBulkPOST": {
+        "title": "VirtualFileBulkPOST",
+        "required": [
+          "file_geids"
+        ],
+        "type": "object",
+        "properties": {
+          "file_geids": {
+            "title": "File Geids",
+            "type": "array",
+            "items": {}
+          }
+        }
+      },
+      "VirtualFileBulkPOSTResponse": {
+        "title": "VirtualFileBulkPOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "string",
+            "default": "",
+            "example": "success"
+          }
+        }
+      },
+      "VirtualFolderFileDELETEResponse": {
+        "title": "VirtualFolderFileDELETEResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "string",
+            "default": "",
+            "example": "success"
+          }
+        }
+      },
+      "VirtualFolderFileGETResponse": {
+        "title": "VirtualFolderFileGETResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "array",
+            "items": {},
+            "default": [],
+            "example": [
+              {
+                "archived": false,
+                "file_size": 1409578,
+                "full_path": "/data/gregtest/raw/OIP.WH4UEecUNFLkLRAy3cbgQQHaEK.jpg",
+                "dcm_id": "undefined",
+                "global_entity_id": "file_data-2bed2e20-64c9-11eb-b013-be498ca98c54-1612210075",
+                "guid": "189cc59e-5c50-4857-a7a6-fca7848ad51c",
+                "id": 501,
+                "labels": [
+                  "File",
+                  "Core",
+                  "Processed"
+                ],
+                "name": "OIP.WH4UEecUNFLkLRAy3cbgQQHaEK.jpg",
+                "operator": "admin",
+                "path": "/data/gregtest/raw",
+                "process_pipeline": "data_transfer",
+                "tags": [],
+                "time_created": "2021-02-01T20:07:55",
+                "time_lastmodified": "2021-02-01T20:07:55",
+                "uploader": "admin"
+              }
+            ]
+          }
+        }
+      },
+      "VirtualFolderGETResponse": {
+        "title": "VirtualFolderGETResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "array",
+            "items": {},
+            "default": [],
+            "example": [
+              {
+                "global_entity_id": "d25a02b0-4d85-4566-9948-a37eac679156-1621009057",
+                "identity": 5366,
+                "labels": [
+                  "VirtualFolder"
+                ],
+                "properties": {
+                  "name": "123",
+                  "time_created": "2021-05-14T16:17:37",
+                  "time_lastmodified": "2021-05-14T16:17:37",
+                  "container_id": 5118
+                }
+              }
+            ]
+          }
+        }
+      },
+      "VirtualFolderPOST": {
+        "title": "VirtualFolderPOST",
+        "required": [
+          "name",
+          "project_geid",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "project_geid": {
+            "title": "Project Geid",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          }
+        }
+      },
+      "VirtualFolderPOSTResponse": {
+        "title": "VirtualFolderPOSTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "container_id": 1129,
+              "geid": "4134bc9c-7adc-458d-bc49-6b15809a09a5-1621275230",
+              "labels": [
+                "VirtualFolder"
+              ],
+              "name": "limittestfdsad",
+              "time_created": "2020-12-09T15:08:29",
+              "time_lastmodified": "2020-12-09T15:08:29"
+            }
+          }
+        }
+      },
+      "VirtualFolderPUT": {
+        "title": "VirtualFolderPUT",
+        "required": [
+          "collections",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "collections": {
+            "title": "Collections",
+            "type": "array",
+            "items": {}
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          }
+        }
+      },
+      "VirtualFolderPUTResponse": {
+        "title": "VirtualFolderPUTResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": [],
+            "example": [
+              {
+                "container_id": 1129,
+                "geid": "4134bc9c-7adc-458d-bc49-6b15809a09a5-1621275230",
+                "labels": [
+                  "VirtualFolder"
+                ],
+                "name": "limittestfdsad",
+                "time_created": "2020-12-09T15:08:29",
+                "time_lastmodified": "2020-12-09T15:08:29"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
