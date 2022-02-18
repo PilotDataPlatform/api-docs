@@ -1,0 +1,1102 @@
+{
+  "swagger": "2.0",
+  "basePath": "/",
+  "paths": {
+    "/v1/neo4j/file/quick/count": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"result\": [\n        ]\n    }\n    "
+          }
+        },
+        "summary": "only can be used for file data",
+        "operationId": "get_file_quick_count_api",
+        "parameters": [
+          {
+            "description": "Greenroom:File",
+            "name": "labels",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "description": "[str] or [bool] or [int]",
+            "name": "other_args",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/geid/{geid}": {
+      "get": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n     Container response:\n     [\n        {'id': <Node-ID>,\n         'labels': ['Container'],\n         'code': <project-code>,\n         'is_new': False,\n         'last_login': '2020-11-23T17:06:27.600313',\n         'roles': [<project_enabled-roles>],\n         'description': <project-description>,\n         'type': 'Usecase',\n         'tags': [<project-tags>],\n         'path': <nfs-path>,\n         'time_lastmodified': <time-string>,\n         'discoverable': <whether-discoverable-to-all-users>,\n         'name': <project-name>,\n         'time_created': <time-string>}\n     ]\n\n     User response:\n    [\n        {\"id\": <node-id>,\n         \"labels\": [\"User\"],\n         \"path\": \"users\",\n         \"time_lastmodified\": <time-string>,\n         \"role\": <user-role>,\n         \"last_login\": <time-string>,\n         \"name\": <username>,\n         \"time_created\": <time-string>,\n         \"last_name\": <lastname>,\n         \"realm\": \"realm\",\n         \"first_name\": <firstname>,\n         \"email\": <email>,\n         \"status\": \"active\"}\n    ]\n\n    Default response:\n    [\n        {\n            \"id\": <ID>,\n            \"labels\": [\n                <node-label>\n            ],\n            \"name\": <node-name>,\n            \"time_created\": <time-string>,\n            \"time_lastmodified\": <time-string>,\n            \"other_property\": \"xxxx\",\n            \"other_property_2\": \"xxxx\"\n        }\n    ]\n    "
+          }
+        },
+        "summary": "Get the Node with the input geid since now most operation",
+        "description": "are use the geid",
+        "operationId": "get_action_on_node_by_geid",
+        "parameters": [
+          {
+            "name": "geid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Node global entity id"
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/query/geids": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_query_by_geid_bulk",
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/quick/count": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"result\": [\n        ]\n    }\n    "
+          }
+        },
+        "summary": "query count in neo4j with match query syntax",
+        "operationId": "get_node_quick_count_api",
+        "parameters": [
+          {
+            "description": "Greenroom:File",
+            "name": "labels",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "description": "[str] or [bool] or [int]",
+            "name": "other_args",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/{id}/labels": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "put": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n    [\n        {\n            \"id\": <ID>,\n            \"labels\": [\n                <node-label>\n            ],\n            \"name\": <node-name>,\n            \"time_created\": <time-string>,\n            \"time_lastmodified\": <time-string>,\n            \"other_property\": \"xxxx\",\n            \"other_property_2\": \"xxxx\"\n        }\n    ])\n    "
+          }
+        },
+        "summary": "Update the labels to match the given list",
+        "operationId": "put_change_labels",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/labels_change"
+            }
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/{label}": {
+      "post": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n    Container response:\n    {\n        \"result\": {\n            \"parent_relation\": <relation-label>,\n            \"admin\"(this one has been deprecated): [<admin-username>],\n            \"time_lastmodified\": <time-string>,\n            \"_key2\": \"value2\",\n            \"path\": <nfs-path/project/code>,\n            \"id\": <Node-ID>,\n            \"time_created\": <time-string>,\n            \"name\": <node-name>\n            \"labels\": [\n                \"Container\"\n            ],\n            \"_key1\": \"value1\",\n            \"parent_id\": <parent-id>,\n            \"tags\": [\n                \"tag1\",\n                \"tag2\"\n            ],\n            \"type\": \"Container\"\n        }\n    }\n\n    User response:\n    {\n        result: {\n            \"time_created\": \"2020-07-03T18:23:15\",\n            \"first_name\": <first-name>,\n            \"name\": <user-name>,\n            \"time_lastmodified\": <time-string>,\n            \"last_name\": <last-name>,\n            \"path\": \"users\",\n            \"role\": <plstform-role>,\n            \"labels\": [\n                \"User\"\n            ],\n            \"id\": <ID>\n        }\n    }\n\n    Default response:\n    {'id': <ID>,\n    'labels': ['test_label'],\n    'name': <node-name>,\n    \"time_created\": <time-string>,\n    \"time_lastmodified\": <time-string>,\n    \"parent_relation\":  <relation>,\n    \"parent_id\": <parent-node-ID>,\n    \"other_property\": \"xxxx\"}\n    "
+          }
+        },
+        "summary": "Create New Node with Given Label",
+        "description": "Usage: used for creating new user or new project",
+        "operationId": "post_create_node",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Container/User"
+          },
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/node_create_module"
+            }
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/{label}/batch": {
+      "parameters": [
+        {
+          "name": "label",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Create New Node with Given Label",
+        "description": "Usage: used for creating new user or new project",
+        "operationId": "post_batch_create_node",
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/{label}/node/{id}": {
+      "put": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n        Container response:\n        [\n            {\"id\": 66,\n             \"labels\": [\"Container\"],\n             \"code\": \"firefoxcreation\",\n             \"is_new\"(If exists): false,\n             \"roles\": [\"admin\", \"contributor\"],\n             \"description\": \"\",\n             \"admin\"(If exists): [<project-admin>],\n             \"type\": \"Usecase\",\n             \"tags\": [<project-tag>],\n             \"path\": <nfs-path>,\n             \"time_lastmodified\": <time-string>,\n             \"discoverable\": <whether-discoverable-to-all-users>,\n             \"name\": <project-name>,\n             \"time_created\": <time-string>,\n             }\n        ]\n\n        User response:\n        [\n            {\"id\": <node-id>,\n            \"labels\": [\"User\"],\n            \"path\": \"users\",\n            \"time_lastmodified\": <time-string>,\n            \"role\": <platform-role>,\n            \"last_login\": <time-string>,\n            \"name\": <username>,\n            \"time_created\": <time-string>,\n            \"last_name\": <lastname>,\n            \"realm\": \"realm\",\n            \"first_name\": <firstname>,\n            \"email\": <user-email>,\n            \"status\": \"active\"\n            }\n        ]\n\n        Default response:\n        [\n            {\"id\": <ID>,\n             \"labels\": [<node-label>],\n             \"name\": <node-name>,\n             \"time_created\": <time-string>,\n             \"time_lastmodified\": <time-string>,\n\n\n             \"other_property\": \"xxxx\",\n             \"other_property_2\": \"xxxx\",\n             \"new_attribute\":\"new_value\"\n            }\n        ]\n    "
+          }
+        },
+        "summary": "Update the Node with Input Node ID",
+        "description": "Usage: used for updating users' status, or projects' name, discoverable, description, tags",
+        "operationId": "put_action_on_node_by_id",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Container/User"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Node ID"
+          },
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/node_update_module"
+            }
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Delete node by label and id",
+        "operationId": "delete_action_on_node_by_id",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      },
+      "get": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n     Container response:\n     [\n        {'id': <Node-ID>,\n         'labels': ['Container'],\n         'code': <project-code>,\n         'is_new': False,\n         'last_login': '2020-11-23T17:06:27.600313',\n         'roles': [<project_enabled-roles>],\n         'description': <project-description>,\n         'type': 'Usecase',\n         'tags': [<project-tags>],\n         'path': <nfs-path>,\n         'time_lastmodified': <time-string>,\n         'discoverable': <whether-discoverable-to-all-users>,\n         'name': <project-name>,\n         'time_created': <time-string>}\n     ]\n\n     User response:\n    [\n        {\"id\": <node-id>,\n         \"labels\": [\"User\"],\n         \"path\": \"users\",\n         \"time_lastmodified\": <time-string>,\n         \"role\": <user-role>,\n         \"last_login\": <time-string>,\n         \"name\": <username>,\n         \"time_created\": <time-string>,\n         \"last_name\": <lastname>,\n         \"realm\": \"realm\",\n         \"first_name\": <firstname>,\n         \"email\": <email>,\n         \"status\": \"active\"}\n    ]\n\n    Default response:\n    [\n        {\n            \"id\": <ID>,\n            \"labels\": [\n                <node-label>\n            ],\n            \"name\": <node-name>,\n            \"time_created\": <time-string>,\n            \"time_lastmodified\": <time-string>,\n            \"other_property\": \"xxxx\",\n            \"other_property_2\": \"xxxx\"\n        }\n    ]\n    "
+          }
+        },
+        "summary": "Get the Node with the input Node ID",
+        "description": "Usage: used for check if project exists",
+        "operationId": "get_action_on_node_by_id",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Container"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Node ID"
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/{label}/properties": {
+      "get": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n    User response:\n    {\"last_login\": [<time-string>],\n     \"status\": [\"active\", \"disabled\"],\n     \"email\": [<email>],\n     \"first_name\": [<first-name>],\n     \"path\": [\"users\"],\n     \"role\": [\"admin\", \"member\"],\n     \"name\": [<user-name>],\n     \"last_name\": [<last-name>],\n     \"realm\": [\"realm\"]\n    }\n\n    Container response:\n    {\"code\": [<project-code>],\n     \"description\": [<project-description>],\n     \"admin\"(no longer in use): [<[project_creator-admin]>],\n     \"roles\": [[\"admin\",\"contributor\"],[\"admin\"]],\n     \"discoverable\": [false, true],\n     \"name\": [<project-name>],\n     \"tags\": [<[project-tags]>],\n     \"labels\": [[\"Container\"]],\n     \"id\": [<project-ID>],\n     \"is_new\"(no longer in use): [false,true]\n    }\n\n    Default response:\n    {\"attribute_1\":[\"all possible value\"],\n     \"attribute_2\":[\"all possible value\"],\n    }\n    "
+          }
+        },
+        "summary": "Retreive the All the Property and Possible Value with Given Label",
+        "description": "Usage: used for getting project properties such as metadata, tag, usecase.",
+        "operationId": "get_action_on_property",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Container"
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/{label}/query": {
+      "post": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n    User response:\n    [\n        {\"id\": 0,\n         \"labels\": [\"User\"],\n         \"path\": \"users\",\n         \"time_lastmodified\": <time-string>,\n         \"role\": <platform-role>,\n         \"last_login\": <time-string>,\n         \"name\": <user-name>,\n         \"last_name\": <last-name>,\n         \"first_name\": <first-name>,\n         \"email\": <email-address>,\n         \"status\": <user-status>\n         },\n    ]\n\n    Default response:\n    [\n        {\n            \"id\": <ID>,\n            \"labels\": [\n                <node-label>\n            ],\n            \"path\": <nfs-path>,\n            \"time_lastmodified\": <time-string>,\n            \"name\": <node-name>,\n            \"time_created\": <time-string>\n        }\n    ]\n\n    "
+          }
+        },
+        "summary": "Get platform users with given pages in Administrator Console",
+        "description": "Usage: used for listing users, listing projects, check if user exists with given username",
+        "operationId": "post_action_on_node_by_query",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User"
+          },
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/node_query_module"
+            }
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/{label}/query/count": {
+      "post": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n        {\"count\": <number-of-records>}\n    "
+          }
+        },
+        "summary": "Get number of platform users with given pages in Administrator Console",
+        "description": "Usage: count the number of users to be displayed in the Administrators Console",
+        "operationId": "post_count_action_on_node_by_query",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User"
+          },
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/node_query_module_count"
+            }
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/nodes/{node_property}/batch/update": {
+      "parameters": [
+        {
+          "name": "node_property",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "put": {
+        "responses": {
+          "200": {
+            "description": "\"{\n        \"result\":\n        [{'id': 49, 'labels': ['Folder', 'Core'], 'global_entity_id': '6785869f-b017-4ed3-b602-a4ce7e8dcda2-1621605134', 'display_path': 'admin/test_copy_rename_36/testzy3/test_dest/test_copy_rename_56/testzyparent_34', 'project_code': 'test0511', 'tags': ['test_bulk123'], 'folder_level': 2, 'archived': False, 'list_priority': 10, 'folder_relative_path': 'admin/test_copy_rename_36/testzy3/test_dest/test_copy_rename_56', 'time_lastmodified': '2021-06-01T13:13:09', 'uploader': 'admin', 'system_tags': ['copied-to-core'], 'name': 'testzyparent_34', 'time_created': '2021-05-21T13:52:14'}]\n        }"
+          }
+        },
+        "operationId": "put_batch_update",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/"
+            }
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v1/neo4j/relations": {
+      "delete": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "summary": "delete the relationship between two nodes",
+        "description": "Usage: remove user from project",
+        "operationId": "delete_relationship_actions_label_option",
+        "parameters": [
+          {
+            "description": "{'start_id': 'start node id', 'end_id': 'end node id'}",
+            "name": "params",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "tags": [
+          "Relationship"
+        ]
+      },
+      "get": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n    [\n        {\"p\": {\n            <username>: {\n                        \"id\": <user-id>,\n                        \"children\": {\n                                <projcet-name>: {\n                                        \"id\": <project-id>,\n                                        \"children\": {}\n                                                }\n                                        }\n                                }\n                        },\n         \"r\": {\"type\": <relation-label>},\n        }\n    ]\n    "
+          }
+        },
+        "summary": "Get the relationship between the two node if exist by label",
+        "description": "Usage: get relation between user and project",
+        "operationId": "get_relationship_actions_label_option",
+        "parameters": [
+          {
+            "description": "{'start_id': 'start node id (User)', 'end_id': 'end node id (Container)', 'label': 'relation label (admin/contributor)'}",
+            "name": "params",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "tags": [
+          "Relationship"
+        ]
+      }
+    },
+    "/v1/neo4j/relations/connected/{geid}": {
+      "parameters": [
+        {
+          "name": "geid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"result\": [\n            {\n                \"id\": 4637,\n                \"labels\": [\n                    \"Greenroom\",\n                    \"Folder\"\n                ],\n                \"global_entity_id\": \"ebba4426-8b3a-11eb-8a88-eaff9e667817-1616437074\",\n                \"folder_level\": 2,\n                \"folder_relative_path\": \"a/b\",\n                \"time_lastmodified\": \"2021-03-22T18:17:54\",\n                \"uploader\": \"zhengyang\",\n                \"name\": \"c\",\n                \"time_created\": \"2021-03-22T18:17:54\",\n                \"project_code\": \"gregtest\",\n                \"priority\": 0,\n                \"tags\": []\n            },\n            {\n                \"id\": 4693,\n                \"labels\": [\n                    \"Greenroom\",\n                    \"Folder\"\n                ],\n                \"global_entity_id\": \"eb4e43ac-8b3a-11eb-99fe-eaff9e667817-1616437073\",\n                \"folder_level\": 1,\n                \"folder_relative_path\": \"a\",\n                \"time_lastmodified\": \"2021-03-22T18:17:53\",\n                \"uploader\": \"zhengyang\",\n                \"name\": \"b\",\n                \"time_created\": \"2021-03-22T18:17:53\",\n                \"project_code\": \"gregtest\",\n                \"priority\": 0,\n                \"tags\": []\n            },\n            {\n                \"id\": 4690,\n                \"labels\": [\n                    \"Greenroom\",\n                    \"Folder\"\n                ],\n                \"global_entity_id\": \"eb247a72-8b3a-11eb-be94-eaff9e667817-1616437073\",\n                \"folder_level\": 0,\n                \"folder_relative_path\": \"\",\n                \"time_lastmodified\": \"2021-03-22T18:17:53\",\n                \"uploader\": \"zhengyang\",\n                \"name\": \"a\",\n                \"time_created\": \"2021-03-22T18:17:53\",\n                \"project_code\": \"gregtest\",\n                \"priority\": 0,\n                \"tags\": []\n            },\n            {\n                \"id\": 21,\n                \"labels\": [\n                    \"Container\"\n                ],\n                \"global_entity_id\": \"dataset-4f640b7e-85be-11eb-99fe-eaff9e667817-1615833798\",\n                \"path\": \"gregtest\",\n                \"code\": \"gregtest\",\n                \"time_lastmodified\": \"2021-03-15T18:43:18\",\n                \"system_tags\": [\n                    \"copied-to-core\"\n                ],\n                \"discoverable\": true,\n                \"name\": \"gregtest\",\n                \"time_created\": \"2021-02-01T16:04:13\",\n                \"description\": \"test\",\n                \"type\": \"Usecase\"\n            }\n        ]\n    }\n    "
+          }
+        },
+        "operationId": "get_relation_connected",
+        "tags": [
+          "Relationship"
+        ]
+      }
+    },
+    "/v1/neo4j/relations/query": {
+      "post": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n    [\n        {'end_node': {\n                'id': <node-id>,\n                'labels': ['Container'],\n                'path': <nfs-path>,\n                'code': <project-code>,\n                'time_lastmodified': <time-string>,\n                'discoverable': True,\n                'roles': [<project-role>],\n                'name': <project-name>,\n                'time_created': <time-string>,\n                'description: <project-description>\n                'admin': ['admin'],\n                'type': 'Usecase',\n                'tags': [<tags>]\n                        },\n         'p': {\n                'admin': {\n                        'id': 0,\n                        'children': {\n                                'NOV-1130-2': {\n                                        'id': 259,\n                                        'children': {}\n                                                }\n                                    }\n                        }\n                },\n         'r': {'type': <relation-label>},\n         'start_node': {\n                'id': <node-id>,\n                'labels': ['User'],\n                'path': 'users',\n                'time_lastmodified': <time-string>,\n                'role': 'admin',\n                'last_login': '2020-12-01T16:13:30.103658',\n                'name': 'admin',\n                'last_name': 'admin',\n                'first_name': 'admin',\n                'email': 'siteadmin.test@domain.com',\n                'status': 'active'\n                        }\n        },\n    ]\n    "
+          }
+        },
+        "summary": "Get the relationship by the properties of node",
+        "description": "Usage: used for getting all users in the project, or getting all admins, or check if relationship exists",
+        "operationId": "post_action_on_relationship_by_query",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/relation_query_module"
+            }
+          }
+        ],
+        "tags": [
+          "Relationship"
+        ]
+      }
+    },
+    "/v1/neo4j/relations/query/count": {
+      "post": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n            {\"count\": <number-of-records>}\n        "
+          }
+        },
+        "summary": "Count the number of relationships by the properties of node",
+        "description": "Usage: used for getting number of pages in the project",
+        "operationId": "post_count_action_on_relationship_by_query",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/relation_query_module_count"
+            }
+          }
+        ],
+        "tags": [
+          "Relationship"
+        ]
+      }
+    },
+    "/v1/neo4j/relations/{label}": {
+      "put": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "summary": "Change the relationship between the two node if exist by label",
+        "description": "Usage: used for changing relationship between user and project",
+        "operationId": "put_relationship_actions",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "admin/contributor"
+          },
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/relation_add_module"
+            }
+          }
+        ],
+        "tags": [
+          "Relationship"
+        ]
+      },
+      "post": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "summary": "add the relationship between the two node",
+        "description": "Usage: used for adding user to the project",
+        "operationId": "post_relationship_actions",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "admin/contributor"
+          },
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/relation_add_module"
+            }
+          }
+        ],
+        "tags": [
+          "Relationship"
+        ]
+      }
+    },
+    "/v1/neo4j/relations/{label}/batch": {
+      "parameters": [
+        {
+          "name": "label",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "bulk add the relationship between the two node",
+        "description": "Usage: used for adding user to the project",
+        "operationId": "post_batch_relationship_actions",
+        "tags": [
+          "Relationship"
+        ]
+      }
+    },
+    "/v1/neo4j/relations/{label}/node/{id}": {
+      "get": {
+        "responses": {
+          "403": {
+            "description": "Exception"
+          },
+          "200": {
+            "description": "\n    [\n        {\n            \"id\": <ID>,\n            \"labels\": [\n                <node-label>\n            ],\n            \"path\": <nfs-path>,\n            \"time_lastmodified\": <time-string>,\n            \"name\": <node-name>,\n            \"time_created\": <time-string>\n        }\n    ]\n    "
+          }
+        },
+        "summary": "Get the nodes along the relationship",
+        "operationId": "get_action_on_node_by_relationships",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "PARENT/CHILDREN"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Node ID"
+          }
+        ],
+        "deprecated": true,
+        "tags": [
+          "Relationship"
+        ]
+      }
+    },
+    "/v2/neo4j/nodes/batch/update": {
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "put_bulk_update",
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v2/neo4j/nodes/query": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n    'code': 200,\n    'error_msg': '',\n    'num_of_pages': 33,\n    'page': 0,\n    'result': [   {   'archived': False,\n                      'description': 'description',\n                      'file_size': 0,\n                      'full_path': 'test/zy//testzy6',\n                      'dcm_id': '',\n                      'guid': '083a7459-9a2f-4b4d-bfe5-c1d683e1103c',\n                      'id': 59,\n                      'labels': ['Greenroom', 'Raw', 'File'],\n                      'name': 'testzy6',\n                      'path': 'test/zy/',\n                      'time_created': '2021-01-08T17:04:04',\n                      'time_lastmodified': '2021-01-08T17:04:04',\n                      'uploader': 'testzy'},\n    ],\n    'total': 806\n    }\n    "
+          }
+        },
+        "operationId": "post_node_query_api",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/node_query"
+            }
+          }
+        ],
+        "tags": [
+          "Node"
+        ]
+      }
+    },
+    "/v2/neo4j/relations/query": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "the api will fetch all the connected node from start_node & end_node",
+        "description": "even those two node are not connected",
+        "operationId": "post_relationship_query_v2",
+        "tags": [
+          "Relationship"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Neo4j API",
+    "version": "1.0",
+    "description": "Neo4j is the GraphDB modeling used in project. As of the Release 0.2.0, there are 2 different types of node that are used to model the projects, users, and the relationships between them. Once a project is created from the portal, a project node, labelled as Dataset, will be created in neo4j.  When a user was added into the project via the portal, a user node, will be created if not already exists, is then connected to that project node with the relationship to indicate hers role in that project. \n\nSome useful links: \n\n \n"
+  },
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Node",
+      "description": "Operation on Neo4j Nodes"
+    },
+    {
+      "name": "Relationship",
+      "description": "Operation on Neo4j Relationship"
+    }
+  ],
+  "definitions": {
+    "node_update_module": {
+      "properties": {
+        "role": {
+          "type": "string",
+          "description": "(User) user's role in platform"
+        },
+        "status": {
+          "type": "string",
+          "description": "(User) The user's status"
+        },
+        "name": {
+          "type": "string",
+          "description": "(Dataset) The name of the node(allow duplication)"
+        },
+        "discoverable": {
+          "type": "string",
+          "description": "(Dataset) Whether the project should be discovered by all platform user, or only project members"
+        },
+        "description": {
+          "type": "string",
+          "description": "(Dataset) The description of the project"
+        },
+        "tags": {
+          "type": "array",
+          "description": "(Dataset) The tags added to the project",
+          "items": {
+            "type": "string"
+          }
+        },
+        "new_property_1": {
+          "type": "string",
+          "description": "If property does not exist, neo4j will create it"
+        },
+        "update_property_2": {
+          "type": "string",
+          "description": "If property exist, neo4j will update value"
+        }
+      },
+      "type": "object"
+    },
+    "node_create_module": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the node(allow duplication)"
+        },
+        "path": {
+          "type": "string",
+          "description": "The path store in nfs"
+        },
+        "email": {
+          "type": "string",
+          "description": "(User) The email that user used for self-registrar"
+        },
+        "first_name": {
+          "type": "string",
+          "description": "(User) The first name that user used for self-registrar"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "(User) The last name that user used for self-registrar"
+        },
+        "role": {
+          "type": "string",
+          "description": "(User) user's role in platform"
+        },
+        "status": {
+          "type": "string",
+          "description": "(User) The user's status"
+        },
+        "code": {
+          "type": "string",
+          "description": "(Dataset) The project code used for creating project"
+        },
+        "description": {
+          "type": "string",
+          "description": "(Dataset) The description of the project"
+        },
+        "discoverable": {
+          "type": "boolean",
+          "description": "(Dataset) Whether the project should be discovered by all platform user, or only project members"
+        },
+        "roles": {
+          "type": "array",
+          "description": "(Dataset) The possible roles in the project",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "type": "string",
+          "description": "(Dataset) The type of project, default is 'Usecase'"
+        },
+        "tags": {
+          "type": "array",
+          "description": "(Dataset) The tags added to the project",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metadatas": {
+          "type": "object",
+          "description": "(Dataset) Default value {}"
+        },
+        "other_property_1": {
+          "type": "string",
+          "description": "(optional) others are the attributes you want to attach to node"
+        },
+        "other_property_2": {
+          "type": "string",
+          "description": "(optional) others are the attributes you want to attach to node"
+        }
+      },
+      "type": "object"
+    },
+    "node_query_module": {
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "description": "page_size, number of records to be displayed per page"
+        },
+        "skip": {
+          "type": "integer",
+          "description": "page*page_size, total number of records to skip"
+        },
+        "order by": {
+          "type": "string",
+          "description": "The column to be sorted, default order by 'time_created',other options are: 'name', 'email', 'first_name', 'last_name', 'last_login'"
+        },
+        "order_type": {
+          "type": "string",
+          "description": "The sorting method, default by desc, can choose asc"
+        },
+        "name (optional)": {
+          "type": "string",
+          "description": "The characters that account 'name' contains for filtering"
+        },
+        "email (optional)": {
+          "type": "string",
+          "description": "The characters that account 'email' contains for filtering"
+        }
+      },
+      "type": "object"
+    },
+    "node_query_module_count": {
+      "properties": {
+        "count": {
+          "type": "boolean",
+          "description": "number of records"
+        },
+        "partial": {
+          "type": "boolean",
+          "description": "whether enable partial search"
+        },
+        "name (optional)": {
+          "type": "string",
+          "description": "The characters that account 'name' contains for filtering"
+        },
+        "email (optional)": {
+          "type": "string",
+          "description": "The characters that account 'email' contains for filtering"
+        }
+      },
+      "type": "object"
+    },
+    "node_query": {
+      "properties": {
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "partial": {
+          "type": "boolean"
+        },
+        "order_by": {
+          "type": "string",
+          "example": "name"
+        },
+        "order_type": {
+          "type": "string",
+          "example": "desc"
+        },
+        "query": {
+          "$ref": "#/definitions/query"
+        }
+      },
+      "type": "object"
+    },
+    "query": {
+      "properties": {
+        "archived": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string",
+          "example": "description"
+        },
+        "file_size": {
+          "type": "integer"
+        },
+        "full_path": {
+          "type": "string",
+          "example": "/data/storage/raw/test_seeds"
+        },
+        "dcm_id": {
+          "type": "string"
+        },
+        "guid": {
+          "type": "string",
+          "example": "f1547da2-8372-4ae3-9e2b-17c80e97f113"
+        },
+        "name": {
+          "type": "string",
+          "example": "testzy9.txt"
+        },
+        "path": {
+          "type": "string",
+          "example": "test/zy"
+        },
+        "time_created": {
+          "type": "string",
+          "example": "2021-01-08T17:09:51"
+        },
+        "time_lastmodified": {
+          "type": "string",
+          "example": "2021-01-08T17:09:51"
+        },
+        "uploader": {
+          "type": "string",
+          "example": "admin"
+        },
+        "labels": {
+          "type": "array",
+          "example": [
+            "File",
+            "Greenroom",
+            "Raw"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "object"
+    },
+    "": {
+      "properties": {
+        "data": {
+          "type": "array",
+          "example": [
+            {
+              "global_entity_id": "6785869f-b017-4ed3-b602-a4ce7e8dcda2-1621605134",
+              "tags": [
+                "test_bulk123"
+              ]
+            }
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "object"
+    },
+    "labels_change": {
+      "properties": {
+        "labels": {
+          "type": "array",
+          "description": "List of labels the node will be updated to",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "object"
+    },
+    "relation_add_module": {
+      "properties": {
+        "start_id": {
+          "type": "integer",
+          "description": "Id of the start node (User)"
+        },
+        "end_id": {
+          "type": "integer",
+          "description": "Id of the end node (Container)"
+        }
+      },
+      "type": "object"
+    },
+    "relation_query_module": {
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Label of relationship"
+        },
+        "start_label": {
+          "type": "string",
+          "description": "Label of start node, normally use as 'User'"
+        },
+        "end_label": {
+          "type": "string",
+          "description": "Label of end node, normally use as 'Container"
+        },
+        "start_params": {
+          "type": "object",
+          "description": "Json attributes start node has, such as id, name, email and so on"
+        },
+        "end_params": {
+          "type": "object",
+          "description": "Json attributes end node has, such as id, code, name and so on"
+        }
+      },
+      "type": "object"
+    },
+    "relation_query_module_count": {
+      "properties": {
+        "count": {
+          "type": "boolean",
+          "description": "number of records"
+        },
+        "partial": {
+          "type": "boolean",
+          "description": "whether enable partial search"
+        },
+        "start_label": {
+          "type": "string",
+          "description": "Label of start node, normally use 'User'"
+        },
+        "end_label": {
+          "type": "string",
+          "description": "Label of end node, normally use 'Container'"
+        },
+        "start_params": {
+          "type": "object",
+          "description": "start_node(User) attributes, such as {'name': <user-name>} or {'email': <user-email>}"
+        },
+        "end_params": {
+          "type": "object",
+          "description": "end_node(Container) attributes, such as {'code': <project-code>}"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "responses": {
+    "ParseError": {
+      "description": "When a mask can't be parsed"
+    },
+    "MaskError": {
+      "description": "When any error occurs on mask"
+    }
+  }
+}
