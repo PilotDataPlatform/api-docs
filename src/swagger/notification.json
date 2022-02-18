@@ -1,0 +1,1104 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Notification Service",
+    "description": "Service for notifications",
+    "version": "1.1.0"
+  },
+  "paths": {
+    "/v1/announcements/": {
+      "get": {
+        "tags": [
+          "announcement"
+        ],
+        "summary": "Query all announcements for project",
+        "operationId": "get_announcements_v1_announcements__get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 10
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order",
+              "type": "string",
+              "default": "asc"
+            },
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sorting",
+              "type": "string",
+              "default": "version"
+            },
+            "name": "sorting",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Project Code",
+              "type": "string"
+            },
+            "name": "project_code",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Start Date",
+              "type": "string",
+              "default": ""
+            },
+            "name": "start_date",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "End Date",
+              "type": "string",
+              "default": ""
+            },
+            "name": "end_date",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Version",
+              "type": "string",
+              "default": ""
+            },
+            "name": "version",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETAnnouncementResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "announcement"
+        ],
+        "summary": "Create new announcement",
+        "operationId": "create_announcement_v1_announcements__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTAnnouncement"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTAnnouncementResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/email/": {
+      "post": {
+        "tags": [
+          "email"
+        ],
+        "summary": "Send emails",
+        "operationId": "post_v1_email__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTEmail"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTEmailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/notification/": {
+      "get": {
+        "tags": [
+          "notification"
+        ],
+        "summary": "Query one maintenance notification by ID",
+        "operationId": "get_notification_v1_notification__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETNotificationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "notification"
+        ],
+        "summary": "Modify one maintenance notification by ID",
+        "operationId": "modify_notification_v1_notification__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PUTNotification"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PUTNotificationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "notification"
+        ],
+        "summary": "Create new maintenance notification",
+        "operationId": "create_notification_v1_notification__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTNotification"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTNotificationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "notification"
+        ],
+        "summary": "Delete one maintenance notification by ID",
+        "operationId": "delete_notification_v1_notification__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DELETENotificationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/notifications/": {
+      "get": {
+        "tags": [
+          "notification"
+        ],
+        "summary": "Query many maintenance notifications",
+        "operationId": "get_all_notifications_v1_notifications__get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "All",
+              "type": "boolean",
+              "default": true
+            },
+            "name": "all",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 10
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Username",
+              "type": "string"
+            },
+            "name": "username",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETNotificationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/unsubscribe/": {
+      "post": {
+        "tags": [
+          "notification"
+        ],
+        "summary": "Unsubscribe one user from one maintenance notification",
+        "operationId": "unsub_notification_v1_unsubscribe__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTUnsub"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTUnsubResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DELETENotificationResponse": {
+        "title": "DELETENotificationResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": {
+                "id": 1,
+                "status": "success"
+              }
+            }
+          }
+        }
+      },
+      "EAPIResponseCode": {
+        "title": "EAPIResponseCode",
+        "enum": [
+          200,
+          500,
+          400,
+          404,
+          403,
+          401,
+          409,
+          413
+        ],
+        "description": "An enumeration."
+      },
+      "GETAnnouncementResponse": {
+        "title": "GETAnnouncementResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "page": 0,
+              "total": 1,
+              "num_of_pages": 1,
+              "result": {
+                "content": "Hello World Again!",
+                "id": 1,
+                "project_code": "hello",
+                "version": "2.0"
+              }
+            }
+          }
+        }
+      },
+      "GETNotificationResponse": {
+        "title": "GETNotificationResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "page": 0,
+              "total": 1,
+              "num_of_pages": 1,
+              "result": {
+                "type": "maintenance",
+                "message": "Notification response message",
+                "created_date": "2022-01-01 12:00:00.000000",
+                "detail": {
+                  "maintenance_date": "2022-01-01 12:00:00.000000",
+                  "duration": "3",
+                  "duration_unit": "h"
+                }
+              }
+            }
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "POSTAnnouncement": {
+        "title": "POSTAnnouncement",
+        "required": [
+          "project_code",
+          "content",
+          "publisher"
+        ],
+        "type": "object",
+        "properties": {
+          "project_code": {
+            "title": "Project Code",
+            "type": "string"
+          },
+          "content": {
+            "title": "Content",
+            "type": "string"
+          },
+          "publisher": {
+            "title": "Publisher",
+            "type": "string"
+          }
+        }
+      },
+      "POSTAnnouncementResponse": {
+        "title": "POSTAnnouncementResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "page": 0,
+              "total": 1,
+              "num_of_pages": 1,
+              "result": {
+                "content": "Hello World Again!",
+                "id": 1,
+                "project_code": "hello",
+                "version": "2.0"
+              }
+            }
+          }
+        }
+      },
+      "POSTEmail": {
+        "title": "POSTEmail",
+        "required": [
+          "sender",
+          "receiver"
+        ],
+        "type": "object",
+        "properties": {
+          "sender": {
+            "title": "Sender",
+            "type": "string"
+          },
+          "receiver": {
+            "title": "Receiver",
+            "type": "array",
+            "items": {}
+          },
+          "subject": {
+            "title": "Subject",
+            "type": "string",
+            "default": ""
+          },
+          "message": {
+            "title": "Message",
+            "type": "string",
+            "default": ""
+          },
+          "template": {
+            "title": "Template",
+            "type": "string",
+            "default": ""
+          },
+          "template_kwargs": {
+            "title": "Template Kwargs",
+            "type": "object",
+            "default": {}
+          },
+          "msg_type": {
+            "title": "Msg Type",
+            "type": "string",
+            "default": "plain"
+          },
+          "attachments": {
+            "title": "Attachments",
+            "type": "array",
+            "items": {},
+            "default": []
+          }
+        }
+      },
+      "POSTEmailResponse": {
+        "title": "POSTEmailResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "string",
+            "default": "success"
+          }
+        }
+      },
+      "POSTNotification": {
+        "title": "POSTNotification",
+        "required": [
+          "type",
+          "message",
+          "detail"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "Type",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "detail": {
+            "$ref": "#/components/schemas/POSTNotificationDetail"
+          }
+        }
+      },
+      "POSTNotificationDetail": {
+        "title": "POSTNotificationDetail",
+        "required": [
+          "maintenance_date",
+          "duration",
+          "duration_unit"
+        ],
+        "type": "object",
+        "properties": {
+          "maintenance_date": {
+            "title": "Maintenance Date",
+            "type": "string",
+            "format": "date-time"
+          },
+          "duration": {
+            "title": "Duration",
+            "type": "integer"
+          },
+          "duration_unit": {
+            "title": "Duration Unit",
+            "type": "string"
+          }
+        }
+      },
+      "POSTNotificationResponse": {
+        "title": "POSTNotificationResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "page": 0,
+              "total": 1,
+              "num_of_pages": 1,
+              "result": {
+                "type": "maintenance",
+                "message": "Notification response message",
+                "created_date": "2022-01-01 12:00:00.000000",
+                "detail": {
+                  "maintenance_date": "2022-01-01 12:00:00.000000",
+                  "duration": "3",
+                  "duration_unit": "h"
+                }
+              }
+            }
+          }
+        }
+      },
+      "POSTUnsub": {
+        "title": "POSTUnsub",
+        "required": [
+          "username",
+          "notification_id"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "notification_id": {
+            "title": "Notification Id",
+            "type": "integer"
+          }
+        }
+      },
+      "POSTUnsubResponse": {
+        "title": "POSTUnsubResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "result": "success"
+            }
+          }
+        }
+      },
+      "PUTNotification": {
+        "title": "PUTNotification",
+        "required": [
+          "type",
+          "message",
+          "detail"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "Type",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "detail": {
+            "$ref": "#/components/schemas/POSTNotificationDetail"
+          }
+        }
+      },
+      "PUTNotificationResponse": {
+        "title": "PUTNotificationResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "code": 200,
+              "error_msg": "",
+              "page": 0,
+              "total": 1,
+              "num_of_pages": 1,
+              "result": {
+                "type": "maintenance",
+                "message": "Notification response message",
+                "created_date": "2022-01-01 12:00:00.000000",
+                "detail": {
+                  "maintenance_date": "2022-01-01 12:00:00.000000",
+                  "duration": "3",
+                  "duration_unit": "h"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

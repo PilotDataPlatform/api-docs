@@ -1,0 +1,385 @@
+{
+  "swagger": "2.0",
+  "basePath": "/",
+  "paths": {
+    "/v1/entity": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    # Below are the sample return\n    {\n        \"result\": {\n            \"mutatedEntities\": {\n                \"CREATE\": [\n                    {\n                        \"typeName\": \"nfs_path\",\n                        \"guid\": \"c502b322-01d2-4516-99dc-3398c66c203c\",\n                        \"status\": \"ACTIVE\"\n                    }\n                ]\n            },\n            \"guidAssignments\": {\n                \"-4348009237357927\": \"c502b322-01d2-4516-99dc-3398c66c203c\"\n            }\n        }\n    }\n    "
+          }
+        },
+        "summary": "add new entity to the metadata service by payload",
+        "operationId": "post_entity_action",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/create_update_entity"
+            }
+          }
+        ],
+        "tags": [
+          "Atlas Entity Actions"
+        ]
+      }
+    },
+    "/v1/entity/basic": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"result\":[\n            {\n                \"typeName\": \"nfs_path\",\n                \"attributes\": {\n                    # attribute when created\n                    \"owner\": \"admin\",\n                    \"createTime\": 0,\n                    \"name\": \"test_path_66\"\n                },\n                # global Id\n                \"guid\": \"0363af63-0478-4dbc-ba16-25a82e3163ff\",\n                \"status\": \"ACTIVE\",\n                \"displayText\": \"test_path_66\",\n                \"classificationNames\": [],\n                \"classifications\": [],\n                \"meaningNames\": [],\n                \"meanings\": []\n            },\n        ]\n    }\n    "
+          }
+        },
+        "summary": "Get list of entities by the payload query",
+        "operationId": "post_entity_query_basic",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/query_payload_basic"
+            }
+          }
+        ],
+        "tags": [
+          "Atlas Entity Actions"
+        ]
+      }
+    },
+    "/v1/entity/guid/bulk": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"result\": { \"entities\": [{\n            \"referredEntities\": {},\n            \"entity\": {\n                \"typeName\": \"nfs_path\",\n                \"attributes\": {\n                    \"owner\": \"admin\",\n                    \"path\": \"test_path_66\",\n                    \"createTime\": 0,\n                    \"updateBy\": null,\n                    \"name\": \"test_path_66\",\n                    \"description\": null\n                },\n                \"guid\": \"0363af63-0478-4dbc-ba16-25a82e3163ff\",\n                \"status\": \"ACTIVE\",\n                \"createdBy\": \"admin\",\n                \"updatedBy\": \"admin\",\n                \"createTime\": 1594320166984,\n                \"updateTime\": 1594320166984,\n                \"version\": 0\n            }\n        }]}\n    }\n    "
+          }
+        },
+        "operationId": "post_entity_by_guid_bulk",
+        "tags": [
+          "Atlas Entity Actions"
+        ]
+      }
+    },
+    "/v1/entity/guid/{guid}": {
+      "parameters": [
+        {
+          "name": "guid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "\n    {\n        \"result\": {\n            \"referredEntities\": {},\n            \"entity\": {\n                \"typeName\": \"nfs_path\",\n                \"attributes\": {\n                    \"owner\": \"admin\",\n                    \"path\": \"test_path_66\",\n                    \"createTime\": 0,\n                    \"updateBy\": null,\n                    \"name\": \"test_path_66\",\n                    \"description\": null\n                },\n                \"guid\": \"0363af63-0478-4dbc-ba16-25a82e3163ff\",\n                \"status\": \"ACTIVE\",\n                \"createdBy\": \"admin\",\n                \"updatedBy\": \"admin\",\n                \"createTime\": 1594320166984,\n                \"updateTime\": 1594320166984,\n                \"version\": 0\n            }\n        }\n    }\n    "
+          }
+        },
+        "summary": "get specific entity by guid",
+        "operationId": "get_entity_action_by_guid",
+        "tags": [
+          "Atlas Entity Actions"
+        ]
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_entity_action_by_guid",
+        "tags": [
+          "Atlas Entity Actions"
+        ]
+      }
+    },
+    "/v1/entity/guid/{guid}/audit": {
+      "parameters": [
+        {
+          "name": "guid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "Get the audit log from entity by guid",
+        "operationId": "get_audit_action",
+        "tags": [
+          "Atlas Entity Actions"
+        ]
+      }
+    },
+    "/v1/entity/guid/{guid}/labels": {
+      "parameters": [
+        {
+          "name": "guid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "get_entity_tag_by_guid",
+        "tags": [
+          "Atlas Entity Actions"
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "summary": "the api allow to update the tags given one guid",
+        "operationId": "post_entity_tag_by_guid",
+        "tags": [
+          "Atlas Entity Actions"
+        ]
+      }
+    },
+    "/v2/filedata": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "post_file_data_operations",
+        "parameters": [
+          {
+            "name": "payload",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/FileDataPostForm"
+            }
+          }
+        ],
+        "tags": [
+          "Atlas Entity Actions"
+        ]
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "operationId": "delete_file_data_operations",
+        "tags": [
+          "Atlas Entity Actions"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Atlas API",
+    "version": "1.0",
+    "description": "Atlas API"
+  },
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Atlas Entity Actions",
+      "description": "Operation on Atlas Entity"
+    }
+  ],
+  "definitions": {
+    "create_update_entity": {
+      "properties": {
+        "entity": {
+          "description": "entity description",
+          "allOf": [
+            {
+              "$ref": "#/definitions/entity"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "entity": {
+      "properties": {
+        "typeName": {
+          "type": "string",
+          "description": "The metadata type of entity"
+        },
+        "attributes": {
+          "description": "Attribute that entity has",
+          "allOf": [
+            {
+              "$ref": "#/definitions/entity_attribute"
+            }
+          ]
+        },
+        "isIncomplete": {
+          "type": "boolean",
+          "description": "Is entity completed"
+        },
+        "status": {
+          "type": "string",
+          "description": "Active/Inactive"
+        },
+        "createdBy": {
+          "type": "string",
+          "description": "Who create the entity"
+        },
+        "version": {
+          "type": "integer",
+          "description": "Version number"
+        }
+      },
+      "type": "object"
+    },
+    "entity_attribute": {
+      "properties": {
+        "owner": {
+          "type": "string",
+          "description": "Who owns the entity"
+        },
+        "qualifiedName": {
+          "type": "string",
+          "description": "Name of the entity"
+        },
+        "path": {
+          "type": "string",
+          "description": "In nfs, the path of the file"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the entity"
+        },
+        "updateBy": {
+          "type": "string",
+          "description": "Who updated the entity last time"
+        },
+        "other_property": {
+          "type": "string",
+          "description": "Other entities"
+        }
+      },
+      "type": "object"
+    },
+    "query_payload_basic": {
+      "properties": {
+        "excludeDeletedEntities": {
+          "type": "boolean",
+          "description": ""
+        },
+        "includeSubClassifications": {
+          "type": "boolean",
+          "description": ""
+        },
+        "includeSubTypes": {
+          "type": "boolean",
+          "description": ""
+        },
+        "includeClassificationAttributes": {
+          "type": "boolean",
+          "description": ""
+        },
+        "limit": {
+          "type": "integer",
+          "description": "number of entities for return"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "pagination"
+        },
+        "typeName": {
+          "type": "string",
+          "description": "type of entity"
+        }
+      },
+      "type": "object"
+    },
+    "FileDataPostForm": {
+      "properties": {
+        "global_entity_id": {
+          "type": "string",
+          "description": "global_entity_id"
+        },
+        "uploader": {
+          "type": "string",
+          "description": "uploader"
+        },
+        "file_name": {
+          "type": "string",
+          "description": "file name (not include path)"
+        },
+        "path": {
+          "type": "string",
+          "description": "path"
+        },
+        "file_size": {
+          "type": "integer",
+          "description": "file size"
+        },
+        "description": {
+          "type": "string",
+          "description": "description"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "namespace",
+          "example": "greenroom",
+          "enum": [
+            "greenroom",
+            "core"
+          ]
+        },
+        "project_code": {
+          "type": "string",
+          "description": "project code"
+        },
+        "labels": {
+          "type": "array",
+          "description": "labels",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dcm_id": {
+          "type": "string",
+          "description": ""
+        },
+        "processed_pipeline": {
+          "type": "string",
+          "description": "processed_pipeline"
+        },
+        "operator": {
+          "type": "string",
+          "description": "operator"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "responses": {
+    "ParseError": {
+      "description": "When a mask can't be parsed"
+    },
+    "MaskError": {
+      "description": "When any error occurs on mask"
+    }
+  }
+}
