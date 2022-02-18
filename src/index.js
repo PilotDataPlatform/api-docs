@@ -13,7 +13,9 @@ import dataset from "./swagger/dataset.json";
 import download from "./swagger/download.json";
 import hpc from "./swagger/hpc.json";
 import kg from "./swagger/kg.json";
+import lineage from "./swagger/lineage.json";
 import metadata from "./swagger/metadata.json";
+import notification from "./swagger/notification.json";
 import upload from "./swagger/upload.json";
 
 const specs = {
@@ -26,7 +28,9 @@ const specs = {
   download: download,
   hpc: hpc,
   kg: kg,
+  lineage: lineage,
   metadata: metadata,
+  notification: notification,
   upload: upload,
 };
 
@@ -56,8 +60,14 @@ const options = [
   },
   { key: "kg", title: "Knowledge Graph" },
   {
+    key: "lineage", title: "Lineage"
+  },
+  {
     title: "Metadata",
     key: "metadata",
+  },
+  { key: "notification",
+    title: "Notification"
   },
   {
     title: "Upload",
