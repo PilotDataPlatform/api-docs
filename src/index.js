@@ -15,6 +15,7 @@ import hpc from "./swagger/hpc.json";
 import kg from "./swagger/kg.json";
 import lineage from "./swagger/lineage.json";
 import metadata from "./swagger/metadata.json";
+import neo4j from "./swagger/neo4j.json";
 import notification from "./swagger/notification.json";
 import upload from "./swagger/upload.json";
 
@@ -30,6 +31,7 @@ const specs = {
   kg: kg,
   lineage: lineage,
   metadata: metadata,
+  neo4j: neo4j,
   notification: notification,
   upload: upload,
 };
@@ -65,6 +67,10 @@ const options = [
   {
     title: "Metadata",
     key: "metadata",
+  },
+  {
+    key: "neo4j",
+    title: "Neo4j"
   },
   { key: "notification",
     title: "Notification"
