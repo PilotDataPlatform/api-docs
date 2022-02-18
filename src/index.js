@@ -11,6 +11,7 @@ import bff from "./swagger/bff";
 import bff_cli from "./swagger/bff_cli.json";
 import dataops from "./swagger/dataops.json";
 import dataset from "./swagger/dataset.json";
+import download from "./swagger/download.json";
 import hpc from "./swagger/hpc.json";
 import kg from "./swagger/kg.json";
 import metadata from "./swagger/metadata.json";
@@ -23,6 +24,7 @@ const specs = {
   bff_cli: bff_cli,
   dataops: dataops,
   dataset: dataset,
+  download: download,
   hpc: hpc,
   kg: kg,
   metadata: metadata,
@@ -59,6 +61,9 @@ const App = () => {
           </div>
           <div className="api-link" onClick={() => setKey("dataset")}>
             Dataset
+          </div>
+          <div className="api-link" onClick={() => setKey("download")}>
+            Download
           </div>
           <div className="api-link" onClick={() => setKey("hpc")}>
             HPC
