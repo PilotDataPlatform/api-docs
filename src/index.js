@@ -54,7 +54,7 @@ const options = [
 ];
 
 const App = () => {
-  const [key, setKey] = useState("bff");
+  const [key, setKey] = useState("auth");
 
   return (
     <div class="App">
@@ -80,7 +80,24 @@ const App = () => {
         </div>
       </div>
       <div id="api-data">
-        <RedocStandalone spec={specs[key]} />
+        <RedocStandalone
+          options={{
+            theme: {
+              colors: {
+                primary: {
+                  main: "#103454",
+                },
+              },
+              typography: {
+                headings: {
+                  fontWeight: 400,
+                  lineHeight: "1em",
+                },
+              },
+            },
+          }}
+          spec={specs[key]}
+        />
       </div>
     </div>
   );
