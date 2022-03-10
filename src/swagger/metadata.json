@@ -332,7 +332,7 @@
           "File Check"
         ],
         "summary": "Check file exists",
-        "description": "Check if file exists in given project/folder",
+        "description": "Check if file exists in given project/folder.",
         "operationId": "get_v1_project__project_code__file_exist_get",
         "parameters": [
           {
@@ -390,7 +390,7 @@
           "Folder Entity Restful"
         ],
         "summary": "Batch Folder Nodes Restful",
-        "description": "Post function to btach create folder",
+        "description": "Post function to batch create folder.",
         "operationId": "batch_folder_v1_folders_batch_post",
         "requestBody": {
           "content": {
@@ -432,7 +432,7 @@
           "Folder Entity Restful"
         ],
         "summary": "Folder Nodes Restful",
-        "description": "Get function to query the entity by condition",
+        "description": "Get function to query the entity by condition.",
         "operationId": "query_v1_folders_get",
         "parameters": [
           {
@@ -496,7 +496,7 @@
           "Folder Entity Restful"
         ],
         "summary": "Folder Nodes Restful",
-        "description": "Post function to create entity",
+        "description": "Post function to create entity.",
         "operationId": "post_v1_folders_post",
         "requestBody": {
           "content": {
@@ -530,133 +530,6 @@
             }
           }
         }
-      }
-    },
-    "/v1/folder/{geid}": {
-      "get": {
-        "tags": [
-          "Folder Entity Restful"
-        ],
-        "summary": "Folder Nodes Restful",
-        "description": "Deprecated and has been merged into entity listing API\nGet function to get the entity by geid, currently not developped. please use another one instead\nGet /v1/project/${project_code}/home",
-        "operationId": "get_v1_folder__geid__get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Geid"
-            },
-            "name": "geid",
-            "in": "path"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Query",
-              "default": "{}"
-            },
-            "name": "query",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page",
-              "default": 0
-            },
-            "name": "page",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Page Size",
-              "default": 10
-            },
-            "name": "page_size",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Order By",
-              "default": "time_created"
-            },
-            "name": "order_by",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Order Type",
-              "default": "desc"
-            },
-            "name": "order_type",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Partial",
-              "default": true
-            },
-            "name": "partial",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Entity Type",
-              "default": [
-                "File",
-                "Folder"
-              ]
-            },
-            "name": "entity_type",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Zone",
-              "default": "Greenroom"
-            },
-            "name": "zone",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Datatype",
-              "default": "Raw"
-            },
-            "name": "datatype",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FoldersGETResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": true
       }
     },
     "/v1/files/bulk/detail": {
@@ -747,7 +620,7 @@
           "files"
         ],
         "summary": "Query on files by dataset or folder",
-        "description": "Get and filter file meta from Neo4j given a Dataset or Folder geid",
+        "description": "Get and filter file meta from Neo4j given a Dataset or Folder geid.",
         "operationId": "get_v1_files_meta__geid__get",
         "parameters": [
           {
@@ -867,7 +740,7 @@
           "file-statistics"
         ],
         "summary": "FilesDailyStats Restful",
-        "description": "Get function to extract daily file statistics",
+        "description": "Get function to extract daily file statistics.",
         "operationId": "get_v1_project__project_geid__files_statistics_get",
         "parameters": [
           {
@@ -1072,7 +945,7 @@
           "manifest"
         ],
         "summary": "List manifests by project_code",
-        "description": "List manifests by project_code",
+        "description": "List manifests by project_code.",
         "operationId": "get_v1_manifests_get",
         "parameters": [
           {
@@ -1154,7 +1027,7 @@
           "manifest"
         ],
         "summary": "Get a single manifest",
-        "description": "Get a data manifest and list attributes",
+        "description": "Get a data manifest and list attributes.",
         "operationId": "get_v1_manifest__manifest_id__get",
         "parameters": [
           {
@@ -1535,7 +1408,7 @@
           "attributes"
         ],
         "summary": "Delete an attribute",
-        "description": "Delete an attribute",
+        "description": "Delete an attribute.",
         "operationId": "delete_v1_attribute__attribute_id__delete",
         "parameters": [
           {
@@ -1577,7 +1450,7 @@
           "System-Metrics"
         ],
         "summary": "Retrieve System Stats/Metrics",
-        "description": "Retrieve all metrics from opsdb table",
+        "description": "Retrieve all metrics from opsdb table.",
         "operationId": "get_metrics_v1_stats_get",
         "parameters": [
           {
@@ -1834,7 +1707,7 @@
                   "time_created": "2021-05-12T13:10:52",
                   "guid": "9fc4353b-c4d3-4d29-aa11-d04688f4abc7",
                   "full_path": "/data/storage/may511/raw/folders1/test.zip",
-                  "generate_id": "undefined"
+                  "dcm_id": "undefined"
                 }
               ]
             }
@@ -1846,7 +1719,7 @@
         "required": [
           "file_size",
           "full_path",
-          "generate_id",
+          "dcm_id",
           "guid",
           "namespace",
           "uploader",
@@ -1866,8 +1739,8 @@
             "title": "Original Geid",
             "type": "string"
           },
-          "generate_id": {
-            "title": "Generate Id",
+          "dcm_id": {
+            "title": "Dcm Id",
             "type": "string"
           },
           "guid": {
@@ -1971,8 +1844,8 @@
             "example": {
               "archived": false,
               "file_size": 1024,
-              "display_path": "/data/storage/generate/raw/BCD-1234_file_2.aacn",
-              "generate_id": "BCD-1234_2",
+              "display_path": "/data/storage/service/raw/BCD-1234_file_2.aacn",
+              "dcm_id": "BCD-1234_2",
               "guid": "5321880a-1a41-4bc8-a5d5-9767323205792",
               "id": 478,
               "labels": [
@@ -1982,7 +1855,7 @@
               ],
               "name": "BCD-1234_file_2.aacn",
               "namespace": "core",
-              "location": "/data/storage/generate/raw",
+              "location": "/data/storage/service/raw",
               "process_pipeline": "greg_testing",
               "time_created": "2021-01-06T18:02:55",
               "time_lastmodified": "2021-01-06T18:02:55",
@@ -2064,8 +1937,8 @@
             "example": {
               "archived": false,
               "file_size": 1024,
-              "full_path": "/data/storage/generate/raw/BCD-1234_file_2.aacn",
-              "generate_id": "BCD-1234_2",
+              "full_path": "/data/storage/service/raw/BCD-1234_file_2.aacn",
+              "dcm_id": "BCD-1234_2",
               "guid": "5321880a-1a41-4bc8-a5d5-9767323205792",
               "id": 478,
               "labels": [
@@ -2075,7 +1948,7 @@
               ],
               "name": "BCD-1234_file_2.aacn",
               "namespace": "core",
-              "path": "/data/storage/generate/raw",
+              "path": "/data/storage/service/raw",
               "process_pipeline": "greg_testing",
               "time_created": "2021-01-06T18:02:55",
               "time_lastmodified": "2021-01-06T18:02:55",
@@ -2217,8 +2090,8 @@
               "archived": true,
               "description": "description",
               "file_size": 0,
-              "full_path": "/data/storage/tvb/raw/test_seeds",
-              "generate_id": "string",
+              "full_path": "/data/storage/any/raw/test_seeds",
+              "dcm_id": "string",
               "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
               "name": "testzy9.txt",
               "path": "test/zy",
@@ -2276,7 +2149,7 @@
                 "description": "description",
                 "file_size": 0,
                 "full_path": "test/zy/testzy9.txt",
-                "generate_id": "",
+                "dcm_id": "",
                 "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
                 "id": 74,
                 "labels": [
@@ -2403,155 +2276,6 @@
           }
         }
       },
-      "FoldersGETResponse": {
-        "title": "FoldersGETResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "data": [
-                {
-                  "id": 4673,
-                  "labels": [
-                    "Greenroom",
-                    "Folder"
-                  ],
-                  "global_entity_id": "ed1a1ed6-8b3a-11eb-be94-eaff9e667817-1616437076",
-                  "folder_level": 3,
-                  "folder_relative_path": "a/e/c",
-                  "time_lastmodified": "2021-03-22T18:17:56",
-                  "uploader": "zhengyang",
-                  "name": "d",
-                  "time_created": "2021-03-22T18:17:56",
-                  "project_code": "gregtest",
-                  "priority": 0,
-                  "tags": []
-                },
-                {
-                  "id": 4640,
-                  "labels": [
-                    "Greenroom",
-                    "Folder"
-                  ],
-                  "global_entity_id": "ec678d8e-8b3a-11eb-99fe-eaff9e667817-1616437075",
-                  "folder_level": 3,
-                  "folder_relative_path": "a/b/c",
-                  "time_lastmodified": "2021-03-22T18:17:55",
-                  "uploader": "zhengyang",
-                  "name": "d",
-                  "time_created": "2021-03-22T18:17:55",
-                  "project_code": "gregtest",
-                  "priority": 0,
-                  "tags": []
-                }
-              ],
-              "routing": [
-                {
-                  "id": 4693,
-                  "labels": [
-                    "Greenroom",
-                    "Folder"
-                  ],
-                  "global_entity_id": "eb4e43ac-8b3a-11eb-99fe-eaff9e667817-1616437073",
-                  "folder_level": 1,
-                  "folder_relative_path": "a",
-                  "time_lastmodified": "2021-03-22T18:17:53",
-                  "uploader": "zhengyang",
-                  "name": "b",
-                  "time_created": "2021-03-22T18:17:53",
-                  "project_code": "gregtest",
-                  "priority": 0,
-                  "tags": []
-                },
-                {
-                  "id": 4690,
-                  "labels": [
-                    "Greenroom",
-                    "Folder"
-                  ],
-                  "global_entity_id": "eb247a72-8b3a-11eb-be94-eaff9e667817-1616437073",
-                  "folder_level": 0,
-                  "folder_relative_path": "",
-                  "time_lastmodified": "2021-03-22T18:17:53",
-                  "uploader": "zhengyang",
-                  "name": "a",
-                  "time_created": "2021-03-22T18:17:53",
-                  "project_code": "gregtest",
-                  "priority": 0,
-                  "tags": []
-                },
-                {
-                  "id": 21,
-                  "labels": [
-                    "Container"
-                  ],
-                  "global_entity_id": "dataset-4f640b7e-85be-11eb-99fe-eaff9e667817-1615833798",
-                  "path": "gregtest",
-                  "code": "gregtest",
-                  "time_lastmodified": "2021-03-15T18:43:18",
-                  "system_tags": [
-                    "copied-to-core"
-                  ],
-                  "discoverable": true,
-                  "name": "gregtest",
-                  "time_created": "2021-02-01T16:04:13",
-                  "description": "test",
-                  "type": "Usecase"
-                },
-                {
-                  "id": 4637,
-                  "labels": [
-                    "Greenroom",
-                    "Folder"
-                  ],
-                  "global_entity_id": "ebba4426-8b3a-11eb-8a88-eaff9e667817-1616437074",
-                  "folder_level": 2,
-                  "folder_relative_path": "a/b",
-                  "time_lastmodified": "2021-03-22T18:17:54",
-                  "uploader": "zhengyang",
-                  "name": "c",
-                  "time_created": "2021-03-22T18:17:54",
-                  "project_code": "gregtest",
-                  "priority": 0,
-                  "tags": []
-                }
-              ]
-            }
-          }
-        },
-        "description": "Pre upload response class"
-      },
       "FoldersPOST": {
         "title": "FoldersPOST",
         "required": [
@@ -2624,7 +2348,7 @@
             "default": {}
           }
         },
-        "description": "global_entity_id will auto generate if not provided"
+        "description": "global_entity_id will auto generate if not provided."
       },
       "FoldersPOSTResponse": {
         "title": "FoldersPOSTResponse",
@@ -2683,7 +2407,7 @@
             }
           }
         },
-        "description": "Pre upload response class"
+        "description": "Pre upload response class."
       },
       "FoldersQueryResponse": {
         "title": "FoldersQueryResponse",
@@ -2744,7 +2468,7 @@
             ]
           }
         },
-        "description": "Pre upload response class"
+        "description": "Pre upload response class."
       },
       "GETFileDetail": {
         "title": "GETFileDetail",
@@ -2792,7 +2516,7 @@
                 "description": "description",
                 "file_size": 0,
                 "full_path": "test/zy/testzy9.txt",
-                "generate_id": "",
+                "dcm_id": "",
                 "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
                 "id": 74,
                 "labels": [
@@ -3048,7 +2772,7 @@
                   "description": "description",
                   "file_size": 0,
                   "full_path": "test/zy/testzy9.txt",
-                  "generate_id": "",
+                  "dcm_id": "",
                   "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
                   "id": 74,
                   "labels": [
@@ -3192,7 +2916,7 @@
                   "description": "description",
                   "file_size": 0,
                   "full_path": "test/zy/testzy9.txt",
-                  "generate_id": "",
+                  "dcm_id": "",
                   "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
                   "id": 74,
                   "labels": [
@@ -3765,7 +3489,7 @@
             }
           }
         },
-        "description": "System Metrics/Stats Response Class"
+        "description": "System Metrics/Stats Response Class."
       },
       "ValidationError": {
         "title": "ValidationError",
