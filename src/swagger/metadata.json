@@ -1,86 +1,56 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "EntityInfo Service",
-    "description": "EntityInfo",
-    "version": "0.3.0"
+    "title": "Metadata service",
+    "description": "Create and update file metadata",
+    "version": "1.0.0"
   },
   "paths": {
-    "/v1/files/": {
-      "post": {
+    "/v1/health/": {
+      "get": {
         "tags": [
-          "files"
+          "Health"
         ],
-        "summary": "Create file",
-        "operationId": "post_v1_files__post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateFilePOST"
-              }
-            }
-          },
-          "required": true
-        },
+        "summary": "Endpoint",
+        "operationId": "endpoint_v1_health__get",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateFilePOSTResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
+                "schema": {}
               }
             }
           }
         }
       }
     },
-    "/v1/files/{project_geid}/query": {
-      "post": {
+    "/v1/item/{id}/": {
+      "get": {
         "tags": [
-          "files"
+          "Items"
         ],
-        "summary": "Query on files by Container",
-        "operationId": "post_v1_files__project_geid__query_post",
+        "summary": "Get an item by ID or check if an item exists",
+        "operationId": "get_item_v1_item__id___get",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Project Geid"
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
             },
-            "name": "project_geid",
+            "name": "id",
             "in": "path"
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatasetFileQueryPOST"
-              }
-            }
-          },
-          "required": true
-        },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatasetFileQueryPOSTResponse"
+                  "$ref": "#/components/schemas/GETItemResponse"
                 }
               }
             }
@@ -98,72 +68,30 @@
         }
       }
     },
-    "/v1/files/trash": {
-      "post": {
-        "tags": [
-          "files"
-        ],
-        "summary": "Create TrashFile",
-        "operationId": "post_v1_files_trash_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTrashPOST"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateTrashPOSTResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/files/{file_geid}/manifest": {
+    "/v1/item/": {
       "put": {
         "tags": [
-          "files",
-          "files"
+          "Items"
         ],
-        "summary": "Edit attached manifest",
-        "operationId": "put_v1_files__file_geid__manifest_put",
+        "summary": "Update an item",
+        "operationId": "update_item_v1_item__put",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "File Geid",
-              "type": "string"
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
             },
-            "name": "file_geid",
-            "in": "path"
+            "name": "id",
+            "in": "query"
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "title": "Request",
-                "type": "object"
+                "$ref": "#/components/schemas/PUTItem"
               }
             }
           },
@@ -175,306 +103,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PUTAttachResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/files/manifest/validate": {
-      "post": {
-        "tags": [
-          "files"
-        ],
-        "summary": "Validate the input to attach a file manifest",
-        "operationId": "post_v1_files_manifest_validate_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/POSTValidateRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/POSTValidateResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/users/{username}": {
-      "get": {
-        "tags": [
-          "users"
-        ],
-        "summary": "Get User",
-        "operationId": "get_v1_users__username__get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Username"
-            },
-            "name": "username",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GETUserResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "users"
-        ],
-        "summary": "update User",
-        "operationId": "put_v1_users__username__put",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Username"
-            },
-            "name": "username",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "title": "Data",
-                "type": "object"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GETUserResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/project/{project_code}/file/exist": {
-      "get": {
-        "tags": [
-          "project",
-          "File Check"
-        ],
-        "summary": "Check file exists",
-        "description": "Check if file exists in given project/folder.",
-        "operationId": "get_v1_project__project_code__file_exist_get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Project Code"
-            },
-            "name": "project_code",
-            "in": "path"
-          },
-          {
-            "required": true,
-            "schema": {
-              "title": "Zone"
-            },
-            "name": "zone",
-            "in": "query"
-          },
-          {
-            "required": true,
-            "schema": {
-              "title": "File Relative Path"
-            },
-            "name": "file_relative_path",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CheckFileResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/folders/batch": {
-      "post": {
-        "tags": [
-          "Folder Entity Restful"
-        ],
-        "summary": "Batch Folder Nodes Restful",
-        "description": "Post function to batch create folder.",
-        "operationId": "batch_folder_v1_folders_batch_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchFoldersPOST"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FoldersPOSTResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/folders": {
-      "get": {
-        "tags": [
-          "Folder Entity Restful"
-        ],
-        "summary": "Folder Nodes Restful",
-        "description": "Get function to query the entity by condition.",
-        "operationId": "query_v1_folders_get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Zone"
-            },
-            "name": "zone",
-            "in": "query"
-          },
-          {
-            "required": true,
-            "schema": {
-              "title": "Project Code"
-            },
-            "name": "project_code",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Folder Relative Path"
-            },
-            "name": "folder_relative_path",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Uploader"
-            },
-            "name": "uploader",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FoldersQueryResponse"
+                  "$ref": "#/components/schemas/PUTItemResponse"
                 }
               }
             }
@@ -493,16 +122,15 @@
       },
       "post": {
         "tags": [
-          "Folder Entity Restful"
+          "Items"
         ],
-        "summary": "Folder Nodes Restful",
-        "description": "Post function to create entity.",
-        "operationId": "post_v1_folders_post",
+        "summary": "Create a new item",
+        "operationId": "create_item_v1_item__post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FoldersPOST"
+                "$ref": "#/components/schemas/POSTItem"
               }
             }
           },
@@ -514,7 +142,98 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FoldersPOSTResponse"
+                  "$ref": "#/components/schemas/POSTItemResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Permanently delete an item",
+        "operationId": "delete_item_v1_item__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DELETEItemResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Move an item to or out of the trash",
+        "operationId": "trash_item_v1_item__patch",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "id",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Archived",
+              "type": "boolean"
+            },
+            "name": "archived",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PATCHItemResponse"
                 }
               }
             }
@@ -532,18 +251,136 @@
         }
       }
     },
-    "/v1/files/bulk/detail": {
+    "/v1/items/batch/": {
+      "get": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Get many items by IDs",
+        "operationId": "get_items_by_ids_v1_items_batch__get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Ids",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "name": "ids",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 10
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETItemResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Update many items",
+        "operationId": "update_items_v1_items_batch__put",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Ids",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "name": "ids",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PUTItems"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PUTItemResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "tags": [
-          "files"
+          "Items"
         ],
-        "summary": "Get files by geid",
-        "operationId": "post_v1_files_bulk_detail_post",
+        "summary": "Create many new items",
+        "operationId": "create_items_v1_items_batch__post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/POSTFileDetail"
+                "$ref": "#/components/schemas/POSTItems"
               }
             }
           },
@@ -555,7 +392,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/POSTFileDetailResponse"
+                  "$ref": "#/components/schemas/POSTItemResponse"
                 }
               }
             }
@@ -571,23 +408,26 @@
             }
           }
         }
-      }
-    },
-    "/v1/files/detail/{file_geid}": {
-      "get": {
+      },
+      "delete": {
         "tags": [
-          "files"
+          "Items"
         ],
-        "summary": "Get detail of single file by geid",
-        "operationId": "get_v1_files_detail__file_geid__get",
+        "summary": "Permanently delete many items by IDs",
+        "operationId": "delete_items_by_ids_v1_items_batch__delete",
         "parameters": [
           {
-            "required": true,
+            "required": false,
             "schema": {
-              "title": "File Geid"
+              "title": "Ids",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
             },
-            "name": "file_geid",
-            "in": "path"
+            "name": "ids",
+            "in": "query"
           }
         ],
         "responses": {
@@ -596,7 +436,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GETFileDetail"
+                  "$ref": "#/components/schemas/DELETEItemResponse"
                 }
               }
             }
@@ -614,23 +454,14 @@
         }
       }
     },
-    "/v1/files/meta/{geid}": {
+    "/v1/items/search/": {
       "get": {
         "tags": [
-          "files"
+          "Items"
         ],
-        "summary": "Query on files by dataset or folder",
-        "description": "Get and filter file meta from Neo4j given a Dataset or Folder geid.",
-        "operationId": "get_v1_files_meta__geid__get",
+        "summary": "Get all items by location",
+        "operationId": "get_items_by_location_v1_items_search__get",
         "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Geid"
-            },
-            "name": "geid",
-            "in": "path"
-          },
           {
             "required": false,
             "schema": {
@@ -654,59 +485,103 @@
           {
             "required": false,
             "schema": {
-              "title": "Order Type",
+              "title": "Order",
               "type": "string",
               "default": "asc"
             },
-            "name": "order_type",
+            "name": "order",
             "in": "query"
           },
           {
             "required": false,
             "schema": {
-              "title": "Order By",
+              "title": "Sorting",
               "type": "string",
-              "default": "time_created"
+              "default": "created_time"
             },
-            "name": "order_by",
+            "name": "sorting",
             "in": "query"
           },
           {
             "required": true,
             "schema": {
-              "title": "Source Type",
+              "title": "Container Code",
               "type": "string"
             },
-            "name": "source_type",
+            "name": "container_code",
             "in": "query"
           },
           {
             "required": true,
             "schema": {
               "title": "Zone",
-              "type": "string"
+              "type": "integer"
             },
             "name": "zone",
             "in": "query"
           },
           {
-            "required": false,
+            "required": true,
             "schema": {
-              "title": "Partial",
-              "type": "string",
-              "default": ""
+              "title": "Recursive",
+              "type": "boolean"
             },
-            "name": "partial",
+            "name": "recursive",
             "in": "query"
           },
           {
             "required": false,
             "schema": {
-              "title": "Query",
-              "type": "string",
-              "default": ""
+              "title": "Archived",
+              "type": "boolean",
+              "default": false
             },
-            "name": "query",
+            "name": "archived",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Parent Path",
+              "type": "string"
+            },
+            "name": "parent_path",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Name",
+              "type": "string"
+            },
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Owner",
+              "type": "string"
+            },
+            "name": "owner",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Type",
+              "type": "string"
+            },
+            "name": "type",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Container Type",
+              "type": "string"
+            },
+            "name": "container_type",
             "in": "query"
           }
         ],
@@ -716,7 +591,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MetaGETResponse"
+                  "$ref": "#/components/schemas/GETItemResponse"
                 }
               }
             }
@@ -734,133 +609,30 @@
         }
       }
     },
-    "/v1/project/{project_geid}/files/statistics": {
-      "get": {
+    "/v1/items/batch/bequeath/": {
+      "put": {
         "tags": [
-          "file-statistics"
+          "Items"
         ],
-        "summary": "FilesDailyStats Restful",
-        "description": "Get function to extract daily file statistics.",
-        "operationId": "get_v1_project__project_geid__files_statistics_get",
+        "summary": "Bequeath properties to a folder's children",
+        "operationId": "update_items_bequeath_v1_items_batch_bequeath__put",
         "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Project Geid"
-            },
-            "name": "project_geid",
-            "in": "path"
-          },
-          {
-            "required": true,
-            "schema": {
-              "title": "Start Date"
-            },
-            "name": "start_date",
-            "in": "query"
-          },
-          {
-            "required": true,
-            "schema": {
-              "title": "End Date"
-            },
-            "name": "end_date",
-            "in": "query"
-          },
           {
             "required": false,
             "schema": {
-              "title": "Operator"
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
             },
-            "name": "operator",
+            "name": "id",
             "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FilesStatsGETResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/{project_geid}/workbench": {
-      "get": {
-        "tags": [
-          "workbench"
-        ],
-        "summary": "Get workbench entry",
-        "operationId": "get_v1__project_geid__workbench_get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Project Geid"
-            },
-            "name": "project_geid",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GETWorkbenchResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "workbench"
-        ],
-        "summary": "Create a workbench entry",
-        "operationId": "post_v1__project_geid__workbench_post",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Project Geid"
-            },
-            "name": "project_geid",
-            "in": "path"
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/POSTWorkbenchRequest"
+                "$ref": "#/components/schemas/PUTItemsBequeath"
               }
             }
           },
@@ -872,7 +644,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/POSTWorkbenchResponse"
+                  "$ref": "#/components/schemas/PUTItemsBequeathResponse"
                 }
               }
             }
@@ -890,26 +662,20 @@
         }
       }
     },
-    "/v1/{project_geid}/workbench/{id}": {
-      "delete": {
+    "/v1/template/{id}/": {
+      "get": {
         "tags": [
-          "workbench"
+          "Attribute templates"
         ],
-        "summary": "Delete a workbench entry",
-        "operationId": "delete_v1__project_geid__workbench__id__delete",
+        "summary": "Get an attribute template",
+        "operationId": "get_attribute_template_v1_template__id___get",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Project Geid"
-            },
-            "name": "project_geid",
-            "in": "path"
-          },
-          {
-            "required": true,
-            "schema": {
-              "title": "Id"
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
             },
             "name": "id",
             "in": "path"
@@ -921,7 +687,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/POSTWorkbenchResponse"
+                  "$ref": "#/components/schemas/GETTemplateResponse"
                 }
               }
             }
@@ -939,14 +705,13 @@
         }
       }
     },
-    "/v1/manifests": {
+    "/v1/template/": {
       "get": {
         "tags": [
-          "manifest"
+          "Attribute templates"
         ],
-        "summary": "List manifests by project_code",
-        "description": "List manifests by project_code.",
-        "operationId": "get_v1_manifests_get",
+        "summary": "Get all attribute templates associated with a project",
+        "operationId": "get_attribute_templates_v1_template__get",
         "parameters": [
           {
             "required": true,
@@ -956,257 +721,25 @@
             },
             "name": "project_code",
             "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GETManifestsResponse"
-                }
-              }
-            }
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "manifest"
-        ],
-        "summary": "Create a data manifest",
-        "operationId": "post_v1_manifests_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/POSTManifestsRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/POSTManifestsResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/manifest/{manifest_id}": {
-      "get": {
-        "tags": [
-          "manifest"
-        ],
-        "summary": "Get a single manifest",
-        "description": "Get a data manifest and list attributes.",
-        "operationId": "get_v1_manifest__manifest_id__get",
-        "parameters": [
           {
-            "required": true,
+            "required": false,
             "schema": {
-              "title": "Manifest Id"
+              "title": "Page Size",
+              "type": "integer",
+              "default": 10
             },
-            "name": "manifest_id",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GETManifestResponse"
-                }
-              }
-            }
+            "name": "page_size",
+            "in": "query"
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "manifest"
-        ],
-        "summary": "update a single manifest",
-        "operationId": "put_v1_manifest__manifest_id__put",
-        "parameters": [
           {
-            "required": true,
+            "required": false,
             "schema": {
-              "title": "Manifest Id"
+              "title": "Page",
+              "type": "integer",
+              "default": 0
             },
-            "name": "manifest_id",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PUTManifestRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PUTManifestResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "manifest"
-        ],
-        "summary": "delete a single manifest",
-        "operationId": "delete_v1_manifest__manifest_id__delete",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Manifest Id"
-            },
-            "name": "manifest_id",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DELETEManifestResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/manifest/file/import": {
-      "post": {
-        "tags": [
-          "manifest"
-        ],
-        "summary": "Import a data manifest",
-        "operationId": "post_v1_manifest_file_import_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/POSTImportRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/POSTImportResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/manifest/file/export": {
-      "get": {
-        "tags": [
-          "manifest"
-        ],
-        "summary": "Export a data manifest",
-        "operationId": "get_v1_manifest_file_export_get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Manifest Id",
-              "type": "integer"
-            },
-            "name": "manifest_id",
+            "name": "page",
             "in": "query"
           }
         ],
@@ -1230,151 +763,30 @@
             }
           }
         }
-      }
-    },
-    "/v1/manifest/query": {
-      "post": {
-        "tags": [
-          "manifest"
-        ],
-        "summary": "Query file manifests",
-        "operationId": "post_v1_manifest_query_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/POSTQueryRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/POSTQueryResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/files/attributes/attach": {
-      "post": {
-        "tags": [
-          "files"
-        ],
-        "summary": "Attach attributes on file",
-        "operationId": "post_v1_files_attributes_attach_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AttachAttributesPOST"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/attributes": {
-      "post": {
-        "tags": [
-          "attributes"
-        ],
-        "summary": "Bulk create attributes",
-        "operationId": "post_v1_attributes_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/POSTAttributesRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/POSTAttributesResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/attribute/{attribute_id}": {
+      },
       "put": {
         "tags": [
-          "attributes"
+          "Attribute templates"
         ],
-        "summary": "Update an attribute",
-        "operationId": "put_v1_attribute__attribute_id__put",
+        "summary": "Update an attribute template",
+        "operationId": "update_attribute_template_v1_template__put",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Attribute Id"
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
             },
-            "name": "attribute_id",
-            "in": "path"
+            "name": "id",
+            "in": "query"
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PUTAttributeRequest"
+                "$ref": "#/components/schemas/PUTTemplate"
               }
             }
           },
@@ -1386,7 +798,46 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/POSTAttributesResponse"
+                  "$ref": "#/components/schemas/PUTTemplateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Attribute templates"
+        ],
+        "summary": "Create a new attribute template",
+        "operationId": "create_attribute_template_v1_template__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTTemplate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTTemplateResponse"
                 }
               }
             }
@@ -1405,19 +856,20 @@
       },
       "delete": {
         "tags": [
-          "attributes"
+          "Attribute templates"
         ],
-        "summary": "Delete an attribute",
-        "description": "Delete an attribute.",
-        "operationId": "delete_v1_attribute__attribute_id__delete",
+        "summary": "Delete an attribute template",
+        "operationId": "delete_attribute_template_v1_template__delete",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Attribute Id"
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
             },
-            "name": "attribute_id",
-            "in": "path"
+            "name": "id",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1426,7 +878,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DELETEAttributeResponse"
+                  "$ref": "#/components/schemas/DELETETemplateResponse"
                 }
               }
             }
@@ -1444,22 +896,70 @@
         }
       }
     },
-    "/v1/stats": {
+    "/v1/collection/search/": {
       "get": {
         "tags": [
-          "System-Metrics"
+          "Collections"
         ],
-        "summary": "Retrieve System Stats/Metrics",
-        "description": "Retrieve all metrics from opsdb table.",
-        "operationId": "get_metrics_v1_stats_get",
+        "summary": "Get collections that belong to a user per project",
+        "operationId": "get_collections_v1_collection_search__get",
         "parameters": [
           {
             "required": false,
             "schema": {
-              "title": "Date",
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 25
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order",
+              "type": "string",
+              "default": "asc"
+            },
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sorting",
+              "type": "string",
+              "default": "created_time"
+            },
+            "name": "sorting",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Owner",
               "type": "string"
             },
-            "name": "date",
+            "name": "owner",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Container Code",
+              "type": "string"
+            },
+            "name": "container_code",
             "in": "query"
           }
         ],
@@ -1469,7 +969,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StatsResponse"
+                  "$ref": "#/components/schemas/GETCollectionResponse"
                 }
               }
             }
@@ -1487,28 +987,109 @@
         }
       }
     },
-    "/v2/files/{project_geid}/query": {
-      "post": {
+    "/v1/collection/items/": {
+      "get": {
         "tags": [
-          "files"
+          "Collections"
         ],
-        "summary": "Query on files by dataset",
-        "operationId": "post_v2_files__project_geid__query_post",
+        "summary": "Get items that belong to a collection",
+        "operationId": "get_collection_items_v1_collection_items__get",
         "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page Size",
+              "type": "integer",
+              "default": 25
+            },
+            "name": "page_size",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Order",
+              "type": "string",
+              "default": "asc"
+            },
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Sorting",
+              "type": "string",
+              "default": "created_time"
+            },
+            "name": "sorting",
+            "in": "query"
+          },
           {
             "required": true,
             "schema": {
-              "title": "Project Geid"
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
             },
-            "name": "project_geid",
-            "in": "path"
+            "name": "id",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Archived",
+              "type": "boolean",
+              "default": false
+            },
+            "name": "archived",
+            "in": "query"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETCollectionItemsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Collections"
+        ],
+        "summary": "Add items to a collection",
+        "operationId": "add_items_to_collection_v1_collection_items__post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetFileQueryPOSTV2"
+                "$ref": "#/components/schemas/POSTCollectionItems"
               }
             }
           },
@@ -1520,7 +1101,46 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatasetFileQueryPOSTResponse"
+                  "$ref": "#/components/schemas/POSTCollectionItemsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Collections"
+        ],
+        "summary": "Remove items from a collection",
+        "operationId": "remove_items_from_collection_v1_collection_items__delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DELETECollectionItems"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DELETECollectionItemsResponse"
                 }
               }
             }
@@ -1538,28 +1158,61 @@
         }
       }
     },
-    "/v2/files/folder/{folder_geid}/query": {
-      "post": {
+    "/v1/collection/{id}/": {
+      "get": {
         "tags": [
-          "files"
+          "Collections"
         ],
-        "summary": "Query on files by dataset",
-        "operationId": "post_v2_files_folder__folder_geid__query_post",
+        "summary": "Get collection by id",
+        "operationId": "get_collections_id_v1_collection__id___get",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Folder Geid"
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
             },
-            "name": "folder_geid",
+            "name": "id",
             "in": "path"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GETCollectionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/collection/": {
+      "put": {
+        "tags": [
+          "Collections"
+        ],
+        "summary": "Update a collection(s) name",
+        "operationId": "update_collection_name_v1_collection__put",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetFileQueryPOSTV2"
+                "$ref": "#/components/schemas/PUTCollections"
               }
             }
           },
@@ -1571,7 +1224,87 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatasetFileQueryPOSTResponse"
+                  "$ref": "#/components/schemas/PUTCollectionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Collections"
+        ],
+        "summary": "Create a collection",
+        "operationId": "create_new_collection_v1_collection__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POSTCollection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/POSTCollectionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Collections"
+        ],
+        "summary": "Delete a collection",
+        "operationId": "remove_collection_v1_collection__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": "id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DELETECollectionResponse"
                 }
               }
             }
@@ -1592,58 +1325,50 @@
   },
   "components": {
     "schemas": {
-      "AttachAttributesPOST": {
-        "title": "AttachAttributesPOST",
+      "Collection": {
+        "title": "Collection",
         "required": [
-          "manifest_id",
-          "global_entity_id",
-          "attributes"
+          "id",
+          "name"
         ],
         "type": "object",
         "properties": {
-          "manifest_id": {
-            "title": "Manifest Id",
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "title": "Name",
             "type": "string"
-          },
-          "global_entity_id": {
-            "title": "Global Entity Id",
-            "type": "array",
-            "items": {}
-          },
-          "attributes": {
-            "title": "Attributes",
-            "type": "object"
           }
         }
       },
-      "BatchFoldersPOST": {
-        "title": "BatchFoldersPOST",
+      "DELETECollectionItems": {
+        "title": "DELETECollectionItems",
         "required": [
-          "payload"
+          "id",
+          "item_ids"
         ],
         "type": "object",
         "properties": {
-          "payload": {
-            "title": "Payload",
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "item_ids": {
+            "title": "Item Ids",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/FoldersPOST"
+              "type": "string",
+              "format": "uuid"
             }
-          },
-          "zone": {
-            "title": "Zone",
-            "type": "string",
-            "default": "greenroom | core"
-          },
-          "link_container": {
-            "title": "Link Container",
-            "type": "boolean",
-            "default": true
           }
         }
       },
-      "CheckFileResponse": {
-        "title": "CheckFileResponse",
+      "DELETECollectionItemsResponse": {
+        "title": "DELETECollectionItemsResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -1676,137 +1401,14 @@
           },
           "result": {
             "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "code": 200,
-              "error_msg": "",
-              "page": 0,
-              "total": 1,
-              "num_of_pages": 1,
-              "result": [
-                {
-                  "id": 2942,
-                  "labels": [
-                    "File",
-                    "Greenroom"
-                  ],
-                  "global_entity_id": "77b04c69-e79d-4c63-a914-7942e1555ec3-1620825051",
-                  "project_code": "may511",
-                  "file_size": 1145,
-                  "operator": "admin",
-                  "tags": [],
-                  "archived": "false",
-                  "list_priority": 20,
-                  "path": "/data/storage/may511/raw/folders1",
-                  "time_lastmodified": "2021-05-12T13:10:52",
-                  "uploader": "admin",
-                  "process_pipeline": "",
-                  "parent_folder_geid": "c1c3766f-36bd-42db-8ca5-9040726cbc03-1620764271",
-                  "name": "test.zip",
-                  "time_created": "2021-05-12T13:10:52",
-                  "guid": "9fc4353b-c4d3-4d29-aa11-d04688f4abc7",
-                  "full_path": "/data/storage/may511/raw/folders1/test.zip",
-                  "dcm_id": "undefined"
-                }
-              ]
-            }
-          }
-        }
-      },
-      "CreateFilePOST": {
-        "title": "CreateFilePOST",
-        "required": [
-          "file_size",
-          "full_path",
-          "dcm_id",
-          "guid",
-          "namespace",
-          "uploader",
-          "project_code"
-        ],
-        "type": "object",
-        "properties": {
-          "file_size": {
-            "title": "File Size",
-            "type": "integer"
-          },
-          "full_path": {
-            "title": "Full Path",
-            "type": "string"
-          },
-          "original_geid": {
-            "title": "Original Geid",
-            "type": "string"
-          },
-          "dcm_id": {
-            "title": "Dcm Id",
-            "type": "string"
-          },
-          "guid": {
-            "title": "Guid",
-            "type": "string"
-          },
-          "namespace": {
-            "title": "Namespace",
-            "type": "string"
-          },
-          "uploader": {
-            "title": "Uploader",
-            "type": "string"
-          },
-          "input_file_id": {
-            "title": "Input File Id",
-            "type": "integer"
-          },
-          "process_pipeline": {
-            "title": "Process Pipeline",
-            "type": "string",
-            "default": ""
-          },
-          "operator": {
-            "title": "Operator",
-            "type": "string",
-            "default": ""
-          },
-          "tags": {
-            "title": "Tags",
             "type": "array",
             "items": {},
             "default": []
-          },
-          "global_entity_id": {
-            "title": "Global Entity Id",
-            "type": "string",
-            "default": ""
-          },
-          "parent_folder_geid": {
-            "title": "Parent Folder Geid",
-            "type": "string"
-          },
-          "project_code": {
-            "title": "Project Code",
-            "type": "string"
-          },
-          "location": {
-            "title": "Location",
-            "type": "string",
-            "default": ""
-          },
-          "display_path": {
-            "title": "Display Path",
-            "type": "string",
-            "default": ""
-          },
-          "version_id": {
-            "title": "Version Id",
-            "type": "string",
-            "default": ""
           }
         }
       },
-      "CreateFilePOSTResponse": {
-        "title": "CreateFilePOSTResponse",
+      "DELETECollectionResponse": {
+        "title": "DELETECollectionResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -1839,67 +1441,14 @@
           },
           "result": {
             "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "archived": false,
-              "file_size": 1024,
-              "display_path": "/data/storage/service/raw/BCD-1234_file_2.aacn",
-              "dcm_id": "BCD-1234_2",
-              "guid": "5321880a-1a41-4bc8-a5d5-9767323205792",
-              "id": 478,
-              "labels": [
-                "Core",
-                "File",
-                "Processed"
-              ],
-              "name": "BCD-1234_file_2.aacn",
-              "namespace": "core",
-              "location": "/data/storage/service/raw",
-              "process_pipeline": "greg_testing",
-              "time_created": "2021-01-06T18:02:55",
-              "time_lastmodified": "2021-01-06T18:02:55",
-              "type": "processed",
-              "uploader": "admin",
-              "operator": "admin",
-              "tags": [
-                "greg",
-                "test"
-              ]
-            }
+            "type": "array",
+            "items": {},
+            "default": []
           }
         }
       },
-      "CreateTrashPOST": {
-        "title": "CreateTrashPOST",
-        "required": [
-          "full_path",
-          "trash_full_path"
-        ],
-        "type": "object",
-        "properties": {
-          "full_path": {
-            "title": "Full Path",
-            "type": "string"
-          },
-          "trash_full_path": {
-            "title": "Trash Full Path",
-            "type": "string"
-          },
-          "trash_geid": {
-            "title": "Trash Geid",
-            "type": "string",
-            "default": ""
-          },
-          "geid": {
-            "title": "Geid",
-            "type": "string",
-            "default": ""
-          }
-        }
-      },
-      "CreateTrashPOSTResponse": {
-        "title": "CreateTrashPOSTResponse",
+      "DELETEItemResponse": {
+        "title": "DELETEItemResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -1932,35 +1481,14 @@
           },
           "result": {
             "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "archived": false,
-              "file_size": 1024,
-              "full_path": "/data/storage/service/raw/BCD-1234_file_2.aacn",
-              "dcm_id": "BCD-1234_2",
-              "guid": "5321880a-1a41-4bc8-a5d5-9767323205792",
-              "id": 478,
-              "labels": [
-                "Core",
-                "TrashFile",
-                "Processed"
-              ],
-              "name": "BCD-1234_file_2.aacn",
-              "namespace": "core",
-              "path": "/data/storage/service/raw",
-              "process_pipeline": "greg_testing",
-              "time_created": "2021-01-06T18:02:55",
-              "time_lastmodified": "2021-01-06T18:02:55",
-              "type": "processed",
-              "uploader": "admin",
-              "operator": "admin"
-            }
+            "type": "array",
+            "items": {},
+            "default": []
           }
         }
       },
-      "DELETEAttributeResponse": {
-        "title": "DELETEAttributeResponse",
+      "DELETETemplateResponse": {
+        "title": "DELETETemplateResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -1993,227 +1521,9 @@
           },
           "result": {
             "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 1,
-              "page": 0,
-              "result": "success",
-              "total": 1
-            }
-          }
-        }
-      },
-      "DELETEManifestResponse": {
-        "title": "DELETEManifestResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 1,
-              "page": 0,
-              "result": "success",
-              "total": 1
-            }
-          }
-        }
-      },
-      "DatasetFileQueryPOST": {
-        "title": "DatasetFileQueryPOST",
-        "type": "object",
-        "properties": {
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "page_size": {
-            "title": "Page Size",
-            "type": "integer",
-            "default": 25
-          },
-          "order_type": {
-            "title": "Order Type",
-            "type": "string",
-            "default": "asc"
-          },
-          "order_by": {
-            "title": "Order By",
-            "type": "string",
-            "default": "time_created"
-          },
-          "partial": {
-            "title": "Partial",
-            "type": "boolean",
-            "default": false
-          },
-          "query": {
-            "title": "Query",
-            "type": "object",
-            "default": {},
-            "example": {
-              "archived": true,
-              "description": "description",
-              "file_size": 0,
-              "full_path": "/data/storage/any/raw/test_seeds",
-              "dcm_id": "string",
-              "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
-              "name": "testzy9.txt",
-              "path": "test/zy",
-              "time_created": "2021-01-08T17:09:51",
-              "time_lastmodified": "2021-01-08T17:09:51",
-              "uploader": "admin",
-              "labels": [
-                "File",
-                "Greenroom",
-                "Raw"
-              ]
-            }
-          }
-        }
-      },
-      "DatasetFileQueryPOSTResponse": {
-        "title": "DatasetFileQueryPOSTResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": [
-              {
-                "archived": false,
-                "description": "description",
-                "file_size": 0,
-                "full_path": "test/zy/testzy9.txt",
-                "dcm_id": "",
-                "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
-                "id": 74,
-                "labels": [
-                  "Raw",
-                  "File",
-                  "Greenroom"
-                ],
-                "name": "testzy9.txt",
-                "path": "test/zy",
-                "time_created": "2021-01-08T17:09:51",
-                "time_lastmodified": "2021-01-08T17:09:51",
-                "uploader": "testzy",
-                "process_pipeline": "test"
-              }
-            ]
-          }
-        }
-      },
-      "DatasetFileQueryPOSTV2": {
-        "title": "DatasetFileQueryPOSTV2",
-        "type": "object",
-        "properties": {
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "page_size": {
-            "title": "Page Size",
-            "type": "integer",
-            "default": 25
-          },
-          "order_type": {
-            "title": "Order Type",
-            "type": "string",
-            "default": "asc"
-          },
-          "order_by": {
-            "title": "Order By",
-            "type": "string",
-            "default": "time_created"
-          },
-          "query": {
-            "title": "Query",
-            "type": "object",
-            "default": {},
-            "example": {
-              "labels": [
-                "File",
-                "Folder"
-              ],
-              "File": {
-                "name": "test",
-                "partial": [
-                  "name"
-                ],
-                "case_insensitive": [
-                  "name"
-                ]
-              },
-              "Folder": {
-                "folder_name": "test"
-              }
-            }
+            "type": "array",
+            "items": {},
+            "default": []
           }
         }
       },
@@ -2221,17 +1531,18 @@
         "title": "EAPIResponseCode",
         "enum": [
           200,
-          500,
           400,
-          404,
-          403,
           401,
-          409
+          403,
+          404,
+          409,
+          413,
+          500
         ],
         "description": "An enumeration."
       },
-      "FilesStatsGETResponse": {
-        "title": "FilesStatsGETResponse",
+      "GETCollectionItemsResponse": {
+        "title": "GETCollectionItemsResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -2267,91 +1578,48 @@
             "type": "object",
             "default": {},
             "example": {
-              "uploaded": 0,
-              "downloaded": 0,
-              "approved": 0,
-              "greenroom": 0,
-              "core": 0
+              "id": "85465212-168a-4f0c-a7aa-f3a19795d2ff",
+              "parent": "28c608ac-1693-4318-a1c4-412caf2cd74a",
+              "parent_path": "path.to.file",
+              "type": "file",
+              "zone": 0,
+              "name": "filename",
+              "size": 0,
+              "owner": "username",
+              "container_code": "project_code",
+              "container_type": "project",
+              "created_time": "2022-04-13 13:30:10.890347",
+              "last_updated_time": "2022-04-13 13:30:10.890347",
+              "storage": {
+                "id": "ba623005-8183-419a-972a-e4ce0d539349",
+                "location_uri": "https://example.com/item",
+                "version": "1.0"
+              },
+              "extended": {
+                "id": "dc763d28-7e74-4db3-a702-fa719aa702c6",
+                "extra": {
+                  "tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "system_tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "attributes": {
+                    "101778d7-a628-41ea-823b-e4b377f3476c": {
+                      "key1": "value1",
+                      "key2": "value2"
+                    }
+                  }
+                }
+              }
             }
           }
         }
       },
-      "FoldersPOST": {
-        "title": "FoldersPOST",
-        "required": [
-          "folder_name",
-          "folder_level",
-          "folder_parent_geid",
-          "folder_parent_name",
-          "uploader",
-          "folder_relative_path",
-          "project_code"
-        ],
-        "type": "object",
-        "properties": {
-          "global_entity_id": {
-            "title": "Global Entity Id",
-            "type": "string"
-          },
-          "folder_name": {
-            "title": "Folder Name",
-            "type": "string"
-          },
-          "folder_level": {
-            "title": "Folder Level",
-            "type": "integer"
-          },
-          "folder_parent_geid": {
-            "title": "Folder Parent Geid",
-            "type": "string"
-          },
-          "folder_parent_name": {
-            "title": "Folder Parent Name",
-            "type": "string"
-          },
-          "uploader": {
-            "title": "Uploader",
-            "type": "string"
-          },
-          "folder_relative_path": {
-            "title": "Folder Relative Path",
-            "type": "string"
-          },
-          "zone": {
-            "title": "Zone",
-            "type": "string",
-            "default": "greenroom | core"
-          },
-          "project_code": {
-            "title": "Project Code",
-            "type": "string"
-          },
-          "folder_tags": {
-            "title": "Folder Tags",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "default": []
-          },
-          "extra_labels": {
-            "title": "Extra Labels",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "default": []
-          },
-          "extra_attrs": {
-            "title": "Extra Attrs",
-            "type": "object",
-            "default": {}
-          }
-        },
-        "description": "global_entity_id will auto generate if not provided."
-      },
-      "FoldersPOSTResponse": {
-        "title": "FoldersPOSTResponse",
+      "GETCollectionResponse": {
+        "title": "GETCollectionResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -2384,94 +1652,24 @@
           },
           "result": {
             "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "id": 4624,
-              "labels": [
-                "Folder",
-                "Greenroom"
-              ],
-              "name": "test4",
-              "time_created": "2021-03-19T14:15:00",
-              "time_lastmodified": "2021-03-19T14:15:00",
-              "global_entity_id": "7dd42578-88bd-11eb-893a-eaff9e667817-1616163300",
-              "folder_level": 0,
-              "folder_relative_path": "test",
-              "project_code": "test created by zhengyang",
-              "tags": [
-                "test_created_by_zhengyang"
-              ],
-              "priority": 0,
-              "uploader": "testzy"
-            }
-          }
-        },
-        "description": "Pre upload response class."
-      },
-      "FoldersQueryResponse": {
-        "title": "FoldersQueryResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
+            "type": "array",
+            "items": {},
             "default": {},
             "example": [
               {
-                "id": 4624,
-                "labels": [
-                  "Folder",
-                  "Greenroom"
-                ],
-                "name": "test4",
-                "time_created": "2021-03-19T14:15:00",
-                "time_lastmodified": "2021-03-19T14:15:00",
-                "global_entity_id": "7dd42578-88bd-11eb-893a-eaff9e667817-1616163300",
-                "folder_level": 0,
-                "folder_relative_path": "test",
-                "project_code": "test created by zhengyang",
-                "tags": [
-                  "test_created_by_zhengyang"
-                ],
-                "priority": 0,
-                "uploader": "testzy"
+                "id": "52c4a134-8550-4acc-9ab9-596548c91c52",
+                "name": "collection1",
+                "owner": "admin",
+                "container_code": "project123",
+                "created_time": "2022-04-13 13:30:10.890347",
+                "last_updated_time": "2022-04-13 13:30:10.890347"
               }
             ]
           }
-        },
-        "description": "Pre upload response class."
+        }
       },
-      "GETFileDetail": {
-        "title": "GETFileDetail",
+      "GETItemResponse": {
+        "title": "GETItemResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -2507,37 +1705,48 @@
             "type": "object",
             "default": {},
             "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 1,
-              "page": 1,
-              "result": {
-                "archived": false,
-                "description": "description",
-                "file_size": 0,
-                "full_path": "test/zy/testzy9.txt",
-                "dcm_id": "",
-                "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
-                "id": 74,
-                "labels": [
-                  "Raw",
-                  "File",
-                  "Greenroom"
-                ],
-                "name": "testzy9.txt",
-                "path": "test/zy",
-                "time_created": "2021-01-08T17:09:51",
-                "time_lastmodified": "2021-01-08T17:09:51",
-                "uploader": "testzy",
-                "process_pipeline": "test"
+              "id": "85465212-168a-4f0c-a7aa-f3a19795d2ff",
+              "parent": "28c608ac-1693-4318-a1c4-412caf2cd74a",
+              "parent_path": "path.to.file",
+              "type": "file",
+              "zone": 0,
+              "name": "filename",
+              "size": 0,
+              "owner": "username",
+              "container_code": "project_code",
+              "container_type": "project",
+              "created_time": "2022-04-13 13:30:10.890347",
+              "last_updated_time": "2022-04-13 13:30:10.890347",
+              "storage": {
+                "id": "ba623005-8183-419a-972a-e4ce0d539349",
+                "location_uri": "https://example.com/item",
+                "version": "1.0"
               },
-              "total": 1
+              "extended": {
+                "id": "dc763d28-7e74-4db3-a702-fa719aa702c6",
+                "extra": {
+                  "tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "system_tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "attributes": {
+                    "101778d7-a628-41ea-823b-e4b377f3476c": {
+                      "key1": "value1",
+                      "key2": "value2"
+                    }
+                  }
+                }
+              }
             }
           }
         }
       },
-      "GETManifestResponse": {
-        "title": "GETManifestResponse",
+      "GETTemplateResponse": {
+        "title": "GETTemplateResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -2573,26 +1782,172 @@
             "type": "object",
             "default": {},
             "example": {
+              "id": "85465212-168a-4f0c-a7aa-f3a19795d2ff",
+              "name": "template_name",
+              "project_code": "project0422",
               "attributes": [
                 {
-                  "id": 519,
-                  "manifest_id": 352,
-                  "name": "attr1",
+                  "name": "attribute_1",
                   "optional": true,
-                  "project_code": "indoctestproject",
+                  "type": "text"
+                },
+                {
+                  "name": "attribute_2",
+                  "optional": true,
                   "type": "multiple_choice",
-                  "value": "test,test2"
+                  "options": [
+                    "val1, val2"
+                  ]
                 }
-              ],
-              "id": 352,
-              "name": "greg2",
-              "project_code": "indoctestproject"
+              ]
             }
           }
         }
       },
-      "GETManifestsResponse": {
-        "title": "GETManifestsResponse",
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "PATCHItemResponse": {
+        "title": "PATCHItemResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "id": "85465212-168a-4f0c-a7aa-f3a19795d2ff",
+              "parent": "28c608ac-1693-4318-a1c4-412caf2cd74a",
+              "parent_path": "path.to.file",
+              "type": "file",
+              "zone": 0,
+              "name": "filename",
+              "size": 0,
+              "owner": "username",
+              "container_code": "project_code",
+              "container_type": "project",
+              "created_time": "2022-04-13 13:30:10.890347",
+              "last_updated_time": "2022-04-13 13:30:10.890347",
+              "storage": {
+                "id": "ba623005-8183-419a-972a-e4ce0d539349",
+                "location_uri": "https://example.com/item",
+                "version": "1.0"
+              },
+              "extended": {
+                "id": "dc763d28-7e74-4db3-a702-fa719aa702c6",
+                "extra": {
+                  "tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "system_tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "attributes": {
+                    "101778d7-a628-41ea-823b-e4b377f3476c": {
+                      "key1": "value1",
+                      "key2": "value2"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "POSTCollection": {
+        "title": "POSTCollection",
+        "required": [
+          "owner",
+          "container_code",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "format": "uuid",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "owner": {
+            "title": "Owner",
+            "type": "string"
+          },
+          "container_code": {
+            "title": "Container Code",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        }
+      },
+      "POSTCollectionItems": {
+        "title": "POSTCollectionItems",
+        "required": [
+          "id",
+          "item_ids"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "item_ids": {
+            "title": "Item Ids",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      },
+      "POSTCollectionItemsResponse": {
+        "title": "POSTCollectionItemsResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -2629,340 +1984,157 @@
             "items": {},
             "default": [],
             "example": [
+              "3b3aad9e-2a39-4153-8146-87fb0923bab8",
+              "95f1c2ac-dd77-43b4-af53-2ce8f901ff78"
+            ]
+          }
+        }
+      },
+      "POSTCollectionResponse": {
+        "title": "POSTCollectionResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
               {
-                "attributes": [
-                  {
-                    "id": 519,
-                    "manifest_id": 352,
-                    "name": "attr1",
-                    "optional": true,
-                    "project_code": "indoctestproject",
-                    "type": "multiple_choice",
-                    "value": "test,test2"
-                  }
-                ],
-                "id": 352,
-                "name": "greg2",
-                "project_code": "indoctestproject"
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "array",
+            "items": {},
+            "default": {},
+            "example": [
+              {
+                "id": "52c4a134-8550-4acc-9ab9-596548c91c52",
+                "name": "collection1",
+                "owner": "admin",
+                "container_code": "project123",
+                "created_time": "2022-04-13 13:30:10.890347",
+                "last_updated_time": "2022-04-13 13:30:10.890347"
               }
             ]
           }
         }
       },
-      "GETUserResponse": {
-        "title": "GETUserResponse",
+      "POSTItem": {
+        "title": "POSTItem",
+        "required": [
+          "container_code",
+          "name",
+          "owner"
+        ],
         "type": "object",
         "properties": {
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {}
-          }
-        }
-      },
-      "GETWorkbenchResponse": {
-        "title": "GETWorkbenchResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
+          "id": {
+            "title": "Id",
             "type": "string",
-            "default": ""
+            "format": "uuid"
           },
-          "page": {
-            "title": "Page",
+          "parent": {
+            "title": "Parent",
+            "type": "string",
+            "format": "uuid",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "parent_path": {
+            "title": "Parent Path",
+            "type": "string",
+            "example": "path.to.file"
+          },
+          "container_code": {
+            "title": "Container Code",
+            "type": "string"
+          },
+          "container_type": {
+            "title": "Container Type",
+            "type": "string",
+            "default": "project"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "default": "file"
+          },
+          "zone": {
+            "title": "Zone",
             "type": "integer",
             "default": 0
           },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "example": "file_name.txt"
           },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
+          "size": {
+            "title": "Size",
+            "type": "integer"
           },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "superset": {
-                "deployed": true,
-                "deployed_by": "admin",
-                "deployed_date": "2021-05-05T20:42:28.164241"
-              },
-              "guacamole": {
-                "deployed": true,
-                "deployed_by": "admin",
-                "deployed_date": "2021-05-05T20:42:28.164241"
-              }
-            }
-          }
-        }
-      },
-      "HTTPValidationError": {
-        "title": "HTTPValidationError",
-        "type": "object",
-        "properties": {
-          "detail": {
-            "title": "Detail",
+          "owner": {
+            "title": "Owner",
+            "type": "string"
+          },
+          "location_uri": {
+            "title": "Location Uri",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          },
+          "tags": {
+            "title": "Tags",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            }
-          }
-        }
-      },
-      "MetaGETResponse": {
-        "title": "MetaGETResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 14,
-              "page": 1,
-              "result": [
-                {
-                  "archived": false,
-                  "description": "description",
-                  "file_size": 0,
-                  "full_path": "test/zy/testzy9.txt",
-                  "dcm_id": "",
-                  "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
-                  "id": 74,
-                  "labels": [
-                    "Raw",
-                    "File",
-                    "Greenroom"
-                  ],
-                  "name": "testzy9.txt",
-                  "path": "test/zy",
-                  "time_created": "2021-01-08T17:09:51",
-                  "time_lastmodified": "2021-01-08T17:09:51",
-                  "uploader": "testzy",
-                  "process_pipeline": "test"
-                }
-              ],
-              "total": 67
-            }
-          }
-        }
-      },
-      "POSTAttributesRequest": {
-        "title": "POSTAttributesRequest",
-        "required": [
-          "attributes"
-        ],
-        "type": "object",
-        "properties": {
-          "attributes": {
-            "title": "Attributes",
-            "type": "array",
-            "items": {}
-          }
-        }
-      },
-      "POSTAttributesResponse": {
-        "title": "POSTAttributesResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 1,
-              "page": 0,
-              "result": "success",
-              "total": 1
-            }
-          }
-        }
-      },
-      "POSTFileDetail": {
-        "title": "POSTFileDetail",
-        "required": [
-          "geids"
-        ],
-        "type": "object",
-        "properties": {
-          "geids": {
-            "title": "Geids",
-            "type": "array",
-            "items": {}
-          }
-        }
-      },
-      "POSTFileDetailResponse": {
-        "title": "POSTFileDetailResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "array",
-            "items": {},
-            "default": {},
-            "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 1,
-              "page": 1,
-              "result": [
-                {
-                  "archived": false,
-                  "description": "description",
-                  "file_size": 0,
-                  "full_path": "test/zy/testzy9.txt",
-                  "dcm_id": "",
-                  "guid": "f1547da2-8372-4ae3-9e2b-17c80e97f113",
-                  "id": 74,
-                  "labels": [
-                    "Raw",
-                    "File",
-                    "Greenroom"
-                  ],
-                  "name": "testzy9.txt",
-                  "path": "test/zy",
-                  "time_created": "2021-01-08T17:09:51",
-                  "time_lastmodified": "2021-01-08T17:09:51",
-                  "uploader": "testzy",
-                  "process_pipeline": "test"
-                }
-              ],
-              "total": 1
-            }
-          }
-        }
-      },
-      "POSTImportRequest": {
-        "title": "POSTImportRequest",
-        "required": [
-          "name",
-          "project_code"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "title": "Name",
-            "type": "string"
-          },
-          "project_code": {
-            "title": "Project Code",
-            "type": "string"
-          },
-          "attributes": {
-            "title": "Attributes",
-            "type": "array",
-            "items": {},
+              "type": "string"
+            },
             "default": []
+          },
+          "system_tags": {
+            "title": "System Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "attribute_template_id": {
+            "title": "Attribute Template Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "attributes": {
+            "title": "Attributes",
+            "type": "object",
+            "default": {}
           }
         }
       },
-      "POSTImportResponse": {
-        "title": "POSTImportResponse",
+      "POSTItemResponse": {
+        "title": "POSTItemResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -2998,194 +2170,329 @@
             "type": "object",
             "default": {},
             "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 1,
-              "page": 0,
-              "result": "Success",
-              "total": 1
-            }
-          }
-        }
-      },
-      "POSTManifestsRequest": {
-        "title": "POSTManifestsRequest",
-        "required": [
-          "name",
-          "project_code"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "title": "Name",
-            "type": "string"
-          },
-          "project_code": {
-            "title": "Project Code",
-            "type": "string"
-          }
-        }
-      },
-      "POSTManifestsResponse": {
-        "title": "POSTManifestsResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 1,
-              "page": 0,
-              "result": {
-                "id": 384,
-                "name": "test222",
-                "project_code": "indoctestproject"
+              "id": "85465212-168a-4f0c-a7aa-f3a19795d2ff",
+              "parent": "28c608ac-1693-4318-a1c4-412caf2cd74a",
+              "parent_path": "path.to.file",
+              "type": "file",
+              "zone": 0,
+              "name": "filename",
+              "size": 0,
+              "owner": "username",
+              "container_code": "project_code",
+              "container_type": "project",
+              "created_time": "2022-04-13 13:30:10.890347",
+              "last_updated_time": "2022-04-13 13:30:10.890347",
+              "storage": {
+                "id": "ba623005-8183-419a-972a-e4ce0d539349",
+                "location_uri": "https://example.com/item",
+                "version": "1.0"
               },
-              "total": 1
+              "extended": {
+                "id": "dc763d28-7e74-4db3-a702-fa719aa702c6",
+                "extra": {
+                  "tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "system_tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "attributes": {
+                    "101778d7-a628-41ea-823b-e4b377f3476c": {
+                      "key1": "value1",
+                      "key2": "value2"
+                    }
+                  }
+                }
+              }
             }
           }
         }
       },
-      "POSTQueryRequest": {
-        "title": "POSTQueryRequest",
+      "POSTItems": {
+        "title": "POSTItems",
         "required": [
-          "geid_list"
+          "items"
         ],
         "type": "object",
         "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
+          "items": {
+            "title": "Items",
             "type": "array",
-            "items": {},
-            "default": []
-          },
-          "geid_list": {
-            "title": "Geid List",
-            "type": "array",
-            "items": {}
-          },
-          "lineage_view": {
-            "title": "Lineage View",
-            "type": "boolean",
-            "default": false
+            "items": {
+              "$ref": "#/components/schemas/POSTItem"
+            }
           }
         }
       },
-      "POSTQueryResponse": {
-        "title": "POSTQueryResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {}
-          }
-        }
-      },
-      "POSTValidateRequest": {
-        "title": "POSTValidateRequest",
+      "POSTTemplate": {
+        "title": "POSTTemplate",
         "required": [
-          "manifest_name",
+          "name",
           "project_code",
           "attributes"
         ],
         "type": "object",
         "properties": {
-          "manifest_name": {
-            "title": "Manifest Name",
+          "name": {
+            "title": "Name",
             "type": "string"
           },
           "project_code": {
             "title": "Project Code",
             "type": "string"
+          },
+          "attributes": {
+            "title": "Attributes",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/POSTTemplateAttributes"
+            }
+          }
+        }
+      },
+      "POSTTemplateAttributes": {
+        "title": "POSTTemplateAttributes",
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "optional": {
+            "title": "Optional",
+            "type": "boolean",
+            "default": true
+          },
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "default": "text"
+          },
+          "options": {
+            "title": "Options",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "POSTTemplateResponse": {
+        "title": "POSTTemplateResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "id": "85465212-168a-4f0c-a7aa-f3a19795d2ff",
+              "name": "template_name",
+              "project_code": "project0422",
+              "attributes": [
+                {
+                  "name": "attribute_1",
+                  "optional": true,
+                  "type": "text"
+                },
+                {
+                  "name": "attribute_2",
+                  "optional": true,
+                  "type": "multiple_choice",
+                  "options": [
+                    "val1, val2"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      "PUTCollectionResponse": {
+        "title": "PUTCollectionResponse",
+        "type": "object",
+        "properties": {
+          "code": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EAPIResponseCode"
+              }
+            ],
+            "default": 200
+          },
+          "error_msg": {
+            "title": "Error Msg",
+            "type": "string",
+            "default": ""
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": 1
+          },
+          "num_of_pages": {
+            "title": "Num Of Pages",
+            "type": "integer",
+            "default": 1
+          },
+          "result": {
+            "title": "Result",
+            "type": "object",
+            "default": {},
+            "example": {
+              "owner": "admin",
+              "container_code": "project123",
+              "collections": [
+                {
+                  "id": "52c4a134-8550-4acc-9ab9-596548c91c52",
+                  "name": "collection2"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "PUTCollections": {
+        "title": "PUTCollections",
+        "required": [
+          "owner",
+          "container_code",
+          "collections"
+        ],
+        "type": "object",
+        "properties": {
+          "owner": {
+            "title": "Owner",
+            "type": "string"
+          },
+          "container_code": {
+            "title": "Container Code",
+            "type": "string"
+          },
+          "collections": {
+            "title": "Collections",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Collection"
+            }
+          }
+        }
+      },
+      "PUTItem": {
+        "title": "PUTItem",
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "parent": {
+            "title": "Parent",
+            "type": "string",
+            "format": "uuid",
+            "default": "",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "parent_path": {
+            "title": "Parent Path",
+            "type": "string",
+            "default": "",
+            "example": "path.to.file"
+          },
+          "container_code": {
+            "title": "Container Code",
+            "type": "string"
+          },
+          "container_type": {
+            "title": "Container Type",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          },
+          "zone": {
+            "title": "Zone",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "example": "file_name.txt"
+          },
+          "size": {
+            "title": "Size",
+            "type": "integer"
+          },
+          "owner": {
+            "title": "Owner",
+            "type": "string"
+          },
+          "location_uri": {
+            "title": "Location Uri",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "system_tags": {
+            "title": "System Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "attribute_template_id": {
+            "title": "Attribute Template Id",
+            "type": "string",
+            "format": "uuid"
           },
           "attributes": {
             "title": "Attributes",
@@ -3193,8 +2500,8 @@
           }
         }
       },
-      "POSTValidateResponse": {
-        "title": "POSTValidateResponse",
+      "PUTItemResponse": {
+        "title": "PUTItemResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -3230,81 +2537,86 @@
             "type": "object",
             "default": {},
             "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 1,
-              "page": 0,
-              "result": "Success",
-              "total": 1
+              "id": "85465212-168a-4f0c-a7aa-f3a19795d2ff",
+              "parent": "28c608ac-1693-4318-a1c4-412caf2cd74a",
+              "parent_path": "path.to.file",
+              "type": "file",
+              "zone": 0,
+              "name": "filename",
+              "size": 0,
+              "owner": "username",
+              "container_code": "project_code",
+              "container_type": "project",
+              "created_time": "2022-04-13 13:30:10.890347",
+              "last_updated_time": "2022-04-13 13:30:10.890347",
+              "storage": {
+                "id": "ba623005-8183-419a-972a-e4ce0d539349",
+                "location_uri": "https://example.com/item",
+                "version": "1.0"
+              },
+              "extended": {
+                "id": "dc763d28-7e74-4db3-a702-fa719aa702c6",
+                "extra": {
+                  "tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "system_tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "attributes": {
+                    "101778d7-a628-41ea-823b-e4b377f3476c": {
+                      "key1": "value1",
+                      "key2": "value2"
+                    }
+                  }
+                }
+              }
             }
           }
         }
       },
-      "POSTWorkbenchRequest": {
-        "title": "POSTWorkbenchRequest",
+      "PUTItems": {
+        "title": "PUTItems",
         "required": [
-          "workbench_resource",
-          "deployed",
-          "deployed_by"
+          "items"
         ],
         "type": "object",
         "properties": {
-          "workbench_resource": {
-            "title": "Workbench Resource",
-            "type": "string"
-          },
-          "deployed": {
-            "title": "Deployed",
-            "type": "boolean"
-          },
-          "deployed_by": {
-            "title": "Deployed By",
-            "type": "string"
+          "items": {
+            "title": "Items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PUTItem"
+            }
           }
         }
       },
-      "POSTWorkbenchResponse": {
-        "title": "POSTWorkbenchResponse",
+      "PUTItemsBequeath": {
+        "title": "PUTItemsBequeath",
         "type": "object",
         "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
+          "attribute_template_id": {
+            "title": "Attribute Template Id",
             "type": "string",
-            "default": ""
+            "format": "uuid"
           },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
+          "attributes": {
+            "title": "Attributes",
+            "type": "object"
           },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "string",
-            "default": "",
-            "example": "success"
+          "system_tags": {
+            "title": "System Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
-      "PUTAttachResponse": {
-        "title": "PUTAttachResponse",
+      "PUTItemsBequeathResponse": {
+        "title": "PUTItemsBequeathResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -3340,55 +2652,74 @@
             "type": "object",
             "default": {},
             "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 1,
-              "page": 0,
-              "result": "{}",
-              "total": 1
+              "id": "85465212-168a-4f0c-a7aa-f3a19795d2ff",
+              "parent": "28c608ac-1693-4318-a1c4-412caf2cd74a",
+              "parent_path": "path.to.file",
+              "type": "file",
+              "zone": 0,
+              "name": "filename",
+              "size": 0,
+              "owner": "username",
+              "container_code": "project_code",
+              "container_type": "project",
+              "created_time": "2022-04-13 13:30:10.890347",
+              "last_updated_time": "2022-04-13 13:30:10.890347",
+              "storage": {
+                "id": "ba623005-8183-419a-972a-e4ce0d539349",
+                "location_uri": "https://example.com/item",
+                "version": "1.0"
+              },
+              "extended": {
+                "id": "dc763d28-7e74-4db3-a702-fa719aa702c6",
+                "extra": {
+                  "tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "system_tags": [
+                    "tag1",
+                    "tag2"
+                  ],
+                  "attributes": {
+                    "101778d7-a628-41ea-823b-e4b377f3476c": {
+                      "key1": "value1",
+                      "key2": "value2"
+                    }
+                  }
+                }
+              }
             }
           }
         }
       },
-      "PUTAttributeRequest": {
-        "title": "PUTAttributeRequest",
+      "PUTTemplate": {
+        "title": "PUTTemplate",
+        "required": [
+          "name",
+          "project_code",
+          "attributes"
+        ],
         "type": "object",
         "properties": {
           "name": {
             "title": "Name",
             "type": "string"
-          },
-          "value": {
-            "title": "Value",
-            "type": "string"
-          },
-          "optional": {
-            "title": "Optional",
-            "type": "boolean"
           },
           "project_code": {
             "title": "Project Code",
             "type": "string"
           },
-          "type": {
-            "title": "Type",
-            "type": "string"
+          "attributes": {
+            "title": "Attributes",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/POSTTemplateAttributes"
+            }
           }
         }
       },
-      "PUTManifestRequest": {
-        "title": "PUTManifestRequest",
-        "type": "object",
-        "properties": {
-          "name": {
-            "title": "Name",
-            "type": "string",
-            "default": ""
-          }
-        }
-      },
-      "PUTManifestResponse": {
-        "title": "PUTManifestResponse",
+      "PUTTemplateResponse": {
+        "title": "PUTTemplateResponse",
         "type": "object",
         "properties": {
           "code": {
@@ -3424,72 +2755,27 @@
             "type": "object",
             "default": {},
             "example": {
-              "code": 200,
-              "error_msg": "",
-              "num_of_pages": 1,
-              "page": 0,
-              "result": {
-                "id": 384,
-                "name": "test222",
-                "project_code": "indoctestproject"
-              },
-              "total": 1
+              "id": "85465212-168a-4f0c-a7aa-f3a19795d2ff",
+              "name": "template_name",
+              "project_code": "project0422",
+              "attributes": [
+                {
+                  "name": "attribute_1",
+                  "optional": true,
+                  "type": "text"
+                },
+                {
+                  "name": "attribute_2",
+                  "optional": true,
+                  "type": "multiple_choice",
+                  "options": [
+                    "val1, val2"
+                  ]
+                }
+              ]
             }
           }
         }
-      },
-      "StatsResponse": {
-        "title": "StatsResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "code": 200,
-              "error_msg": "",
-              "result": {
-                "active_user": 20,
-                "project": 20,
-                "storage": 250,
-                "vm": 30,
-                "cores": 20,
-                "ram": 80,
-                "date": "2022-01-12"
-              }
-            }
-          }
-        },
-        "description": "System Metrics/Stats Response Class."
       },
       "ValidationError": {
         "title": "ValidationError",

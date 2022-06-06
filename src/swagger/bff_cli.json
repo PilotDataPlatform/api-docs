@@ -9,7 +9,7 @@
     "/": {
       "get": {
         "summary": "Root",
-        "description": "For testing if service's up",
+        "description": "For testing if service's up.",
         "operationId": "root__get",
         "responses": {
           "200": {
@@ -29,7 +29,7 @@
           "V1 Projects"
         ],
         "summary": "Get project list that user have access to",
-        "description": "Get the project list that user have access to",
+        "description": "Get the project list that user have access to.",
         "operationId": "list_project_v1_projects_get",
         "responses": {
           "200": {
@@ -51,7 +51,7 @@
           "V1 Files"
         ],
         "summary": "pre upload file to the target zone",
-        "description": "PRE upload and check existence of file in project",
+        "description": "PRE upload and check existence of file in project.",
         "operationId": "project_file_preupload_v1_project__project_code__files_post",
         "parameters": [
           {
@@ -103,7 +103,7 @@
           "V1 Projects"
         ],
         "summary": "Get folder in the project",
-        "description": "Get folder in project",
+        "description": "Get folder in project.",
         "operationId": "get_project_folder_v1_project__project_code__folder_get",
         "parameters": [
           {
@@ -160,7 +160,7 @@
         "tags": [
           "V1 Manifest"
         ],
-        "summary": "Get manifest list by project code (project_code required)",
+        "summary": "Get manifest list by project code",
         "operationId": "list_manifest_v1_manifest_get",
         "parameters": [
           {
@@ -203,7 +203,7 @@
           "V1 Manifest"
         ],
         "summary": "Attach manifest to file",
-        "description": "CLI will call manifest validation API before attach manifest to file in uploading process",
+        "description": "CLI will call manifest validation API before attach manifest to file after uploading process.",
         "operationId": "attach_manifest_v1_manifest_attach_post",
         "requestBody": {
           "content": {
@@ -245,7 +245,7 @@
           "V1 Manifest"
         ],
         "summary": "Export manifest from project",
-        "description": "Export manifest from the project",
+        "description": "Export manifest from the project.",
         "operationId": "export_manifest_v1_manifest_export_get",
         "parameters": [
           {
@@ -289,54 +289,13 @@
         }
       }
     },
-    "/v1/validate/gid": {
-      "post": {
-        "tags": [
-          "V1 Validate"
-        ],
-        "summary": "Validate GENERATE ID",
-        "operationId": "validate_generate_id_v1_validate_gid_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ValidateGenerateIDPOST"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidateGenerateIDResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/validate/manifest": {
       "post": {
         "tags": [
           "V1 Validate"
         ],
         "summary": "Validate manifest for project",
-        "description": "Validate the manifest based on the project",
+        "description": "Validate the manifest based on the project.",
         "operationId": "validate_manifest_v1_validate_manifest_post",
         "requestBody": {
           "content": {
@@ -378,7 +337,7 @@
           "V1 Validate"
         ],
         "summary": "Validate env for CLI commands",
-        "description": "Validate the environment accessible zone",
+        "description": "Validate the environment accessible zone.",
         "operationId": "validate_env_v1_validate_env_post",
         "requestBody": {
           "content": {
@@ -458,7 +417,7 @@
     "/v1/project/{project_code}/file/exist": {
       "get": {
         "tags": [
-          "Entity INFO"
+          "File INFO"
         ],
         "summary": "Check source file",
         "operationId": "check_source_file_v1_project__project_code__file_exist_get",
@@ -518,7 +477,7 @@
           "V1 files"
         ],
         "summary": "Query file/folder information by geid",
-        "description": "Get file/folder information by geid",
+        "description": "Get file/folder information by geid.",
         "operationId": "query_file_folders_by_geid_v1_query_geid_post",
         "requestBody": {
           "content": {
@@ -560,7 +519,7 @@
           "V1 files"
         ],
         "summary": "Get files and folders in the project/folder",
-        "description": "List files and folders in project",
+        "description": "List files and folders in project.",
         "operationId": "get_file_folders_v1__project_code__files_query_get",
         "parameters": [
           {
@@ -626,7 +585,7 @@
           "V1 dataset"
         ],
         "summary": "Get dataset list that user have access to",
-        "description": "Get the dataset list that user have access to",
+        "description": "Get the dataset list that user have access to.",
         "operationId": "list_datasets_v1_datasets_get",
         "responses": {
           "200": {
@@ -648,7 +607,7 @@
           "V1 dataset"
         ],
         "summary": "Get dataset detail based on the dataset code",
-        "description": "Get the dataset detail by dataset code",
+        "description": "Get the dataset detail by dataset code.",
         "operationId": "get_dataset_v1_dataset__dataset_code__get",
         "parameters": [
           {
@@ -690,7 +649,7 @@
           "V1 HPC"
         ],
         "summary": "HPC authentication",
-        "description": "post HPC token for authorization",
+        "description": "post HPC token for authorization.",
         "operationId": "hpc_auth_v1_hpc_auth_post",
         "requestBody": {
           "content": {
@@ -732,7 +691,7 @@
           "V1 HPC"
         ],
         "summary": "HPC job submission",
-        "description": "Submit a job to hpc",
+        "description": "Submit a job to hpc.",
         "operationId": "hpc_submit_job_v1_hpc_job_post",
         "requestBody": {
           "content": {
@@ -774,7 +733,7 @@
           "V1 HPC"
         ],
         "summary": "Get HPC job information",
-        "description": "Get HPC job information",
+        "description": "Get HPC job information.",
         "operationId": "hpc_get_job_v1_hpc_job__job_id__get",
         "parameters": [
           {
@@ -840,7 +799,7 @@
           "V1 HPC"
         ],
         "summary": "Get HPC nodes",
-        "description": "Get HPC job information",
+        "description": "Get HPC job information.",
         "operationId": "hpc_get_nodes_v1_hpc_nodes_get",
         "parameters": [
           {
@@ -898,7 +857,7 @@
           "V1 HPC"
         ],
         "summary": "Get HPC node information",
-        "description": "Get HPC node information",
+        "description": "Get HPC node information.",
         "operationId": "hpc_get_node_info_v1_hpc_nodes__node_name__get",
         "parameters": [
           {
@@ -964,7 +923,7 @@
           "V1 HPC"
         ],
         "summary": "Get HPC partitions",
-        "description": "Get HPC partitions information",
+        "description": "Get HPC partitions information.",
         "operationId": "hpc_list_partitions_v1_hpc_partitions_get",
         "parameters": [
           {
@@ -1022,7 +981,7 @@
           "V1 HPC"
         ],
         "summary": "Get HPC partition info",
-        "description": "Get HPC information of a partition",
+        "description": "Get HPC information of a partition.",
         "operationId": "hpc_get_partition_info_v1_hpc_partitions__partition_name__get",
         "parameters": [
           {
@@ -1088,7 +1047,7 @@
           "V1 KG"
         ],
         "summary": "Import kg_resources",
-        "description": "Import kg_resource",
+        "description": "Import kg_resource.",
         "operationId": "kg_import_v1_kg_resources_post",
         "requestBody": {
           "content": {
@@ -1159,20 +1118,19 @@
                 "File",
                 "GreenroomRaw"
               ],
-              "global_entity_id": "file_data-2a7ea1d8-7dea-11eb-8428-be498ca98c54-1614973025",
+              "global_entity_id": "file_data-2a7ea1d8-7dea-11eb-8428-be498ca98c54",
               "operator": "",
               "file_size": 1048576,
               "tags": [],
               "archived": "false",
-              "path": "/data/core-storage/mar04/raw",
+              "path": "/data/core-storage/project/raw",
               "time_lastmodified": "2021-03-05T19:37:06",
               "uploader": "admin",
               "process_pipeline": "",
               "name": "Testdateiäöüßs4",
               "time_created": "2021-03-05T19:37:06",
               "guid": "f91b258d-2f1d-409a-9551-91af8057e70e",
-              "full_path": "/data/core-storage/mar04/raw/Testdateiäöüßs4",
-              "generate_id": "undefined"
+              "full_path": "/data/core-storage/project/raw/Testdateiäöüßs4"
             }
           }
         }
@@ -1207,35 +1165,35 @@
                   "labels": [
                     "Dataset"
                   ],
-                  "global_entity_id": "3834290c-90c6-4c21-8642-c1f79cf2a145-1628791125",
-                  "creator": "jzhang7",
+                  "global_entity_id": "3834290c-90c6-4c21-8642-c1f79cf2a145",
+                  "creator": "admin",
                   "modality": [],
-                  "code": "testdataredcap2",
-                  "project_geid": "6c62dc07-a0f4-4a58-9491-d4a46c2adc79-1628775520",
+                  "code": "sampletestdataset",
+                  "project_geid": "6c62dc07-a0f4-4a58-9491-d4a46c2adc79",
                   "total_files": 6,
                   "description": "1",
                   "source": "",
-                  "title": "REDCap2",
+                  "title": "SAMPLE-dataset",
                   "type": "GENERAL",
                   "tags": [],
                   "license": "",
                   "time_lastmodified": "2021-08-12T18:30:55",
                   "size": 6291456,
                   "collection_method": [],
-                  "name": "testdataredcap2",
+                  "name": "sampletestdataset",
                   "time_created": "2021-08-12T17:58:45",
                   "authors": [
-                    "jzhang7"
+                    "admin"
                   ]
                 },
                 "version_detail": [
                   {
-                    "dataset_code": "testdataredcap2",
-                    "dataset_geid": "3834290c-90c6-4c21-8642-c1f79cf2a145-1628791125",
+                    "dataset_code": "sampletestdataset",
+                    "dataset_geid": "3834290c-90c6-4c21-8642-c1f79cf2a145",
                     "version": "1.0",
-                    "created_by": "jzhang7",
+                    "created_by": "admin",
                     "created_at": "2021-08-12 18:15:54.115753",
-                    "location": "minio://http://10.3.7.220/testdataredcap2/versions/testdataredcap2_2021-08-12 14:15:53.608877.zip",
+                    "location": "minio://http://... 14:15:53.608877.zip",
                     "notes": "1"
                   }
                 ],
@@ -1244,7 +1202,7 @@
             }
           }
         },
-        "description": "Dataset list response class"
+        "description": "Dataset list response class."
       },
       "DatasetListResponse": {
         "title": "DatasetListResponse",
@@ -1276,11 +1234,11 @@
                   "labels": [
                     "Dataset"
                   ],
-                  "global_entity_id": "bc0da1cf-8e25-45d5-a440-bc67539055d3-1628795709",
-                  "creator": "jzhang7",
+                  "global_entity_id": "bc0da1cf-8e25-45d5-a440-bc67539055d3",
+                  "creator": "admin",
                   "modality": [],
                   "code": "dataset1testdata",
-                  "project_geid": "a0927b4f-8df2-4e74-84d4-ae5e3103bb3e-1628782564",
+                  "project_geid": "a0927b4f-8df2-4e74-84d4-ae5e3103bb3e",
                   "total_files": 6,
                   "description": "1",
                   "source": "",
@@ -1294,7 +1252,7 @@
                   "name": "dataset1testdata",
                   "time_created": "2021-08-12T19:15:09",
                   "authors": [
-                    "jzhang"
+                    "admin"
                   ]
                 },
                 {
@@ -1302,21 +1260,21 @@
                   "labels": [
                     "Dataset"
                   ],
-                  "global_entity_id": "55626ddc-bcb6-47d9-8095-68129d521d15-1628277976",
-                  "creator": "jzhang7",
+                  "global_entity_id": "55626ddc-bcb6-47d9-8095-68129d521d15",
+                  "creator": "admin",
                   "modality": [
                     "anatomical approach"
                   ],
                   "code": "aug06datasetcodetest",
                   "total_files": 9,
-                  "project_geid": "73d1fda2-a443-423a-96e5-6f0871b7d7cc-1628532375",
+                  "project_geid": "73d1fda2-a443-423a-96e5-6f0871b7d7cc",
                   "description": "test 123",
                   "source": "",
-                  "title": "AUG-06",
+                  "title": "SAMPLE-DATASET",
                   "type": "GENERAL",
                   "tags": [
                     "tag1",
-                    "tag3"
+                    "tag2"
                   ],
                   "license": "v1.4.1",
                   "time_lastmodified": "2021-08-09T19:13:16",
@@ -1327,14 +1285,14 @@
                   "name": "aug06datasetcodetest",
                   "time_created": "2021-08-06T19:26:16",
                   "authors": [
-                    "jzhang"
+                    "admin"
                   ]
                 }
               ]
             }
           }
         },
-        "description": "Dataset list response class"
+        "description": "Dataset list response class."
       },
       "EAPIResponseCode": {
         "title": "EAPIResponseCode",
@@ -1371,7 +1329,7 @@
             "type": "string"
           }
         },
-        "description": "Validate Environment post model"
+        "description": "Validate Environment post model."
       },
       "EnvValidateResponse": {
         "title": "EnvValidateResponse",
@@ -1401,7 +1359,7 @@
             }
           }
         },
-        "description": "Validate Manifest Response class"
+        "description": "Validate Manifest Response class."
       },
       "GetProjectFileListResponse": {
         "title": "GetProjectFileListResponse",
@@ -1434,23 +1392,22 @@
                     "File",
                     "Greenroom"
                   ],
-                  "global_entity_id": "baee1ca0-37a5-4c9b-afcb-1b2d4b2447aa-1621348460",
-                  "project_code": "may511",
-                  "operator": "jzhang33",
+                  "global_entity_id": "baee1ca0-37a5-4c9b-afcb-1b2d4b2447aa",
+                  "project_code": "sampleproject",
+                  "operator": "admin",
                   "file_size": 1048576,
                   "tags": [],
                   "list_priority": 20,
                   "archived": "false",
-                  "path": "/data/core-storage/may511/raw/folders1",
+                  "path": "/data/core-storage/sampleproject/raw/folders1",
                   "time_lastmodified": "2021-05-18T14:34:21",
                   "process_pipeline": "",
-                  "uploader": "jzhang33",
-                  "parent_folder_geid": "c1c3766f-36bd-42db-8ca5-9040726cbc03-1620764271",
+                  "uploader": "admin",
+                  "parent_folder_geid": "c1c3766f-36bd-42db-8ca5-9040726cbc03",
                   "name": "Testdateiäöüßs2",
                   "time_created": "2021-05-18T14:34:21",
                   "guid": "4e06b8c5-8235-476e-b818-1ea5b0f0043c",
-                  "full_path": "/data/core-storage/may511/raw/folders1/Testdateiäöüßs2",
-                  "generate_id": "undefined"
+                  "full_path": "/data/core-storage/sampleproject/..."
                 },
                 {
                   "id": 2842,
@@ -1459,14 +1416,14 @@
                     "Folder"
                   ],
                   "folder_level": 1,
-                  "global_entity_id": "7a71ed22-9cd0-465e-a18e-b66fda2c4e04-1620764271",
+                  "global_entity_id": "7a71ed22-9cd0-465e-a18e-b66fda2c4e04",
                   "list_priority": 10,
                   "folder_relative_path": "folders1",
                   "time_lastmodified": "2021-05-11T20:17:51",
-                  "uploader": "jzhang33",
-                  "name": "fodlers",
+                  "uploader": "admin",
+                  "name": "folders",
                   "time_created": "2021-05-11T20:17:51",
-                  "project_code": "may511",
+                  "project_code": "sampleproject",
                   "tags": []
                 }
               ]
@@ -1504,7 +1461,7 @@
                   "Greenroom",
                   "Folder"
                 ],
-                "global_entity_id": "bc8b4239-b22a-47dd-9d23-36ade331ebbf-1620685109",
+                "global_entity_id": "bc8b4239-b22a-47dd-9d23-36ade331ebbf",
                 "folder_level": 1,
                 "list_priority": 10,
                 "folder_relative_path": "cli_folder_test23",
@@ -1512,7 +1469,7 @@
                 "uploader": "admin",
                 "name": "folder_test",
                 "time_created": "2021-05-10T22:18:29",
-                "project_code": "may10",
+                "project_code": "sampleproject",
                 "tags": []
               }
             }
@@ -1541,7 +1498,7 @@
             "type": "string"
           }
         },
-        "description": "Auth HPC post model"
+        "description": "Auth HPC post model."
       },
       "HPCAuthResponse": {
         "title": "HPCAuthResponse",
@@ -1573,7 +1530,7 @@
             }
           }
         },
-        "description": "HPC Auth Response Class"
+        "description": "HPC Auth Response Class."
       },
       "HPCJobInfoResponse": {
         "title": "HPCJobInfoResponse",
@@ -1609,7 +1566,7 @@
             }
           }
         },
-        "description": "HPC Job Info Response Class"
+        "description": "HPC Job Info Response Class."
       },
       "HPCJobResponse": {
         "title": "HPCJobResponse",
@@ -1641,7 +1598,7 @@
             }
           }
         },
-        "description": "HPC Job Response Class"
+        "description": "HPC Job Response Class."
       },
       "HPCJobSubmitPost": {
         "title": "HPCJobSubmitPost",
@@ -1670,7 +1627,7 @@
             "type": "object"
           }
         },
-        "description": "Submit HPC Job post model"
+        "description": "Submit HPC Job post model."
       },
       "HPCNodeInfoResponse": {
         "title": "HPCNodeInfoResponse",
@@ -1711,7 +1668,7 @@
             }
           }
         },
-        "description": "HPC Node Info Response Class"
+        "description": "HPC Node Info Response Class."
       },
       "HPCNodesResponse": {
         "title": "HPCNodesResponse",
@@ -1762,7 +1719,7 @@
             }
           }
         },
-        "description": "HPC Nodes Response Class"
+        "description": "HPC Nodes Response Class."
       },
       "HPCPartitionInfoResponse": {
         "title": "HPCPartitionInfoResponse",
@@ -1801,7 +1758,7 @@
             }
           }
         },
-        "description": "HPC Partition Info Response Class"
+        "description": "HPC Partition Info Response Class."
       },
       "HPCPartitonsResponse": {
         "title": "HPCPartitonsResponse",
@@ -1848,7 +1805,7 @@
             }
           }
         },
-        "description": "HPC Partitions Response Class"
+        "description": "HPC Partitions Response Class."
       },
       "HTTPValidationError": {
         "title": "HTTPValidationError",
@@ -1924,14 +1881,14 @@
                       "existing_duplicate": false
                     },
                     "@context": "https://context.org",
-                    "feedback": "Resource http://10.3.7.220/kg/v1/resources/charite/CORE_Datasets/_/1634922993 already exists in project charite/CORE_Datasets"
+                    "feedback": "Resource http://sample-url/kg/v1/...                         already exists in project pilot/CORE_Datasets"
                   }
                 }
               }
             }
           }
         },
-        "description": "KG Resource Response Class"
+        "description": "KG Resource Response Class."
       },
       "LineageCreatePost": {
         "title": "LineageCreatePost",
@@ -1977,7 +1934,7 @@
             "example": {
               "manifest_json": {
                 "manifest_name": "Manifest1",
-                "project_code": "indoctestproject",
+                "project_code": "sampleproject",
                 "attributes": {
                   "attr1": "a1",
                   "attr2": "asdf",
@@ -1988,7 +1945,7 @@
             }
           }
         },
-        "description": "Attach Manifest post model"
+        "description": "Attach Manifest post model."
       },
       "ManifestAttachResponse": {
         "title": "ManifestAttachResponse",
@@ -2021,22 +1978,21 @@
                     "File",
                     "Greenroom"
                   ],
-                  "global_entity_id": "file_data-11f0d2b4-7163-11eb-8428-be498ca98c54-1613595588",
+                  "global_entity_id": "file_data-11f0d2b4-7163...",
                   "operator": "",
                   "file_size": 1048576,
                   "tags": [
                     "tag"
                   ],
                   "archived": "false",
-                  "path": "/data/core-storage/0216/raw",
+                  "path": "/data/core-storage/sampleproject/raw",
                   "time_lastmodified": "2021-02-19T19:06:06",
                   "uploader": "admin",
                   "process_pipeline": "",
                   "name": "testf1",
                   "time_created": "2021-02-17T20:59:48",
                   "guid": "6afa671d-f093-446c-a5a2-a495adcf29a5",
-                  "full_path": "/data/core-storage/0216/raw/testf1",
-                  "generate_id": "undefined",
+                  "full_path": "/data/core-storage/sampleproject/raw/testf1",
                   "manifest_id": 270,
                   "attr_attr1": "a1",
                   "attr_attr2": "test cli upload"
@@ -2045,7 +2001,7 @@
             }
           }
         },
-        "description": "Attach Manifest response class"
+        "description": "Attach Manifest response class."
       },
       "ManifestExportResponse": {
         "title": "ManifestExportResponse",
@@ -2073,7 +2029,7 @@
               "error_msg": "",
               "result": {
                 "name": "Manifest1",
-                "project_code": "0216",
+                "project_code": "sampleproject",
                 "attributes": [
                   {
                     "name": "attr1",
@@ -2092,7 +2048,7 @@
             }
           }
         },
-        "description": "Validate Manifest Response class"
+        "description": "Validate Manifest Response class."
       },
       "ManifestListResponse": {
         "title": "ManifestListResponse",
@@ -2153,7 +2109,7 @@
             }
           }
         },
-        "description": "Manifest list response class"
+        "description": "Manifest list response class."
       },
       "ManifestValidatePost": {
         "title": "ManifestValidatePost",
@@ -2165,16 +2121,16 @@
             "default": {},
             "example": {
               "manifest_name": "Manifest1",
-              "project_code": "0216",
+              "project_code": "sampleproject",
               "attributes": {
                 "attr1": "a1",
                 "attr2": "test cli upload"
               },
-              "file_path": "/data/core-storage/0216/raw/testf1"
+              "file_path": "/data/core-storage/sampleproject/raw/testf1"
             }
           }
         },
-        "description": "Validate Manifest post model"
+        "description": "Validate Manifest post model."
       },
       "ManifestValidateResponse": {
         "title": "ManifestValidateResponse",
@@ -2204,7 +2160,7 @@
             }
           }
         },
-        "description": "Validate Manifest Response class"
+        "description": "Validate Manifest Response class."
       },
       "POSTProjectFile": {
         "title": "POSTProjectFile",
@@ -2215,7 +2171,6 @@
           "type",
           "zone",
           "filename",
-          "generate_id",
           "current_folder_node",
           "data"
         ],
@@ -2243,10 +2198,6 @@
           },
           "filename": {
             "title": "Filename",
-            "type": "string"
-          },
-          "generate_id": {
-            "title": "Generate Id",
             "type": "string"
           },
           "current_folder_node": {
@@ -2315,18 +2266,18 @@
               "error_msg": "",
               "result": [
                 {
-                  "name": "GENERATE TEST",
-                  "code": "generate"
+                  "name": "Sample project 1",
+                  "code": "sampleproject1"
                 },
                 {
-                  "name": "Indoc Test Project",
-                  "code": "indoctestproject"
+                  "name": "Sample Project 2",
+                  "code": "sampleproject2"
                 }
               ]
             }
           }
         },
-        "description": "Project list response class"
+        "description": "Project list response class."
       },
       "QueryDataInfo": {
         "title": "QueryDataInfo",
@@ -2370,7 +2321,7 @@
                 {
                   "status": "Permission Denied",
                   "result": [],
-                  "geid": "2b60f036-9642-44e7-883b-c8ed247b1152-1627407935"
+                  "geid": "2b60f036-9642-44e7-883b-c8ed247b1152"
                 },
                 {
                   "status": "success",
@@ -2381,88 +2332,43 @@
                         "Greenroom",
                         "File"
                       ],
-                      "global_entity_id": "3586fa29-18ef-4a68-b833-5c04d3c2831c-1627582679",
-                      "display_path": "jzhang33/Testdateiäöüßs14",
-                      "project_code": "jul08",
+                      "global_entity_id": "3586fa29-4a68-b833-...",
+                      "display_path": "admin/Testdateiäöüßs14",
+                      "project_code": "sampleproject",
                       "version_id": "08cac0b1-75cf-4c2e-8bed-c43fa99d682f",
-                      "operator": "jzhang7",
+                      "operator": "admin",
                       "file_size": 1048576,
                       "tags": [],
                       "archived": false,
                       "list_priority": 20,
-                      "path": "/data/core-storage/jul08/jzhang33",
+                      "path": "/data/core-storage/sampleproject/admin",
                       "time_lastmodified": "2021-07-29T18:18:00",
                       "process_pipeline": "",
-                      "uploader": "jzhang7",
-                      "parent_folder_geid": "22508bda-38c0-4a76-afb2-071520e9ee19-1626095423",
+                      "uploader": "admin",
+                      "parent_folder_geid": "22508bda-4a76-...",
                       "name": "Testdateiäöüßs14",
                       "time_created": "2021-07-29T18:18:00",
                       "guid": "12e23fb5-51d5-4ee9-8fb4-78fe9f9810d9",
-                      "location": "minio://http://minio.minio:9000/gr-jul08/jzhang33/Testdateiäöüßs14",
-                      "full_path": "/data/core-storage/jul08/jzhang33/Testdateiäöüßs14",
-                      "generate_id": "undefined"
+                      "location": "minio://http://minio.minio:...",
+                      "full_path": "/data/core-storage/sampleproject/..."
                     }
                   ],
-                  "geid": "3586fa29-18ef-4a68-b833-5c04d3c2831c-1627582679"
+                  "geid": "3586fa29-18ef-4a68-b833-5c04d3c2831c"
                 },
                 {
                   "status": "Permission Denied",
                   "result": [],
-                  "geid": "a17fcf3a-179c-4099-a607-1438464527e2-1626816193"
+                  "geid": "a17fcf3a-179c-4099-a607-1438464527e2"
                 },
                 {
                   "status": "File Not Exist",
                   "result": [],
-                  "geid": "80c08693-9ac8-4b94-bb02-9aebe0ec9f20-16274078223"
+                  "geid": "80c08693-9ac8-4b94-bb02-9aebe0ec9f20"
                 }
               ]
             }
           }
         }
-      },
-      "ValidateGenerateIDPOST": {
-        "title": "ValidateGenerateIDPOST",
-        "required": [
-          "generate_id"
-        ],
-        "type": "object",
-        "properties": {
-          "generate_id": {
-            "title": "Generate Id",
-            "type": "string"
-          }
-        },
-        "description": "Validate Generate ID Post model"
-      },
-      "ValidateGenerateIDResponse": {
-        "title": "ValidateGenerateIDResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "code": 200,
-              "error_msg": "",
-              "result": "VALID"
-            }
-          }
-        },
-        "description": "Validate Generate ID response class"
       },
       "ValidationError": {
         "title": "ValidationError",

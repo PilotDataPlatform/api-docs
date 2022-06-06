@@ -9,7 +9,7 @@
     "/v1/": {
       "get": {
         "summary": "Root",
-        "description": "For testing if service's up",
+        "description": "For testing if service's up.",
         "operationId": "root_v1__get",
         "responses": {
           "200": {
@@ -29,7 +29,7 @@
           "V1 DATASET"
         ],
         "summary": "API will list files under the target dataset",
-        "description": "the api will list the file/folder at level 1 by default.\nIf folder_geid is not None, then it will treat the folder_geid\nas root and find the relative level 1 file/folder",
+        "description": "the api will list the file/folder at level 1 by default.\n\nIf folder_geid is not None, then it will treat the folder_geid as root and find the relative level 1 file/folder",
         "operationId": "list_files_v1_dataset__dataset_geid__files_get",
         "parameters": [
           {
@@ -434,7 +434,7 @@
           "V1 Dataset Restful"
         ],
         "summary": "Create a dataset.",
-        "description": "dataset creation api",
+        "description": "dataset creation api.",
         "operationId": "create_dataset_v1_dataset_post",
         "requestBody": {
           "content": {
@@ -476,7 +476,7 @@
           "V1 Dataset Restful"
         ],
         "summary": "Get a dataset.",
-        "description": "dataset creation api",
+        "description": "dataset creation api.",
         "operationId": "get_dataset_v1_dataset__dataset_geid__get",
         "parameters": [
           {
@@ -510,56 +510,6 @@
             }
           }
         }
-      },
-      "put": {
-        "tags": [
-          "V1 Dataset Restful"
-        ],
-        "summary": "Update a dataset.",
-        "description": "dataset creation api",
-        "operationId": "update_dataset_v1_dataset__dataset_geid__put",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Dataset Geid"
-            },
-            "name": "dataset_geid",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DatasetPutForm"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DatasetPostResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/v1/dataset-peek/{code}": {
@@ -568,7 +518,7 @@
           "V1 Dataset Restful"
         ],
         "summary": "Get a dataset.",
-        "description": "dataset creation api",
+        "description": "dataset creation api.",
         "operationId": "get_dataset_bycode_v1_dataset_peek__code__get",
         "parameters": [
           {
@@ -741,21 +691,21 @@
         }
       }
     },
-    "/v1/users/{username}/datasets": {
+    "/v1/users/{creator}/datasets": {
       "post": {
         "tags": [
           "V1 Dataset List API"
         ],
         "summary": "list datasets.",
-        "description": "dataset creation api",
-        "operationId": "list_dataset_v1_users__username__datasets_post",
+        "description": "dataset creation api.",
+        "operationId": "list_dataset_v1_users__creator__datasets_post",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Username"
+              "title": "Creator"
             },
-            "name": "username",
+            "name": "creator",
             "in": "path"
           }
         ],
@@ -884,7 +834,8 @@
           {
             "required": true,
             "schema": {
-              "title": "Dataset Geid"
+              "title": "Dataset Geid",
+              "type": "string"
             },
             "name": "dataset_geid",
             "in": "path"
@@ -1006,7 +957,7 @@
           "preview"
         ],
         "summary": "CSV/JSON/TSV File preview stream",
-        "description": "Get a file preview ",
+        "description": "Get a file preview.",
         "operationId": "stream_v1__file_geid__preview_stream_get",
         "parameters": [
           {
@@ -1280,7 +1231,7 @@
           "version"
         ],
         "summary": "Download dataset version",
-        "description": "Get download url for dataset version",
+        "description": "Get download url for dataset version.",
         "operationId": "download_url_v1_dataset__dataset_geid__download_pre_get",
         "parameters": [
           {
@@ -1849,29 +1800,6 @@
   },
   "components": {
     "schemas": {
-      "Activity": {
-        "title": "Activity",
-        "required": [
-          "action",
-          "resource"
-        ],
-        "type": "object",
-        "properties": {
-          "action": {
-            "title": "Action",
-            "type": "string"
-          },
-          "resource": {
-            "title": "Resource",
-            "type": "string"
-          },
-          "detail": {
-            "title": "Detail",
-            "type": "object",
-            "default": {}
-          }
-        }
-      },
       "DELETESchema": {
         "title": "DELETESchema",
         "required": [
@@ -1954,7 +1882,7 @@
             "type": "string"
           }
         },
-        "description": "the delete request payload for dataset to delete files"
+        "description": "the delete request payload for dataset to delete files."
       },
       "DatasetFileMove": {
         "title": "DatasetFileMove",
@@ -1979,7 +1907,7 @@
             "type": "string"
           }
         },
-        "description": "the post request payload for dataset to move files\nunder the dataset"
+        "description": "the post request payload for dataset to move files under the dataset."
       },
       "DatasetFileRename": {
         "title": "DatasetFileRename",
@@ -1998,7 +1926,7 @@
             "type": "string"
           }
         },
-        "description": "the post request payload for dataset to move files\nunder the dataset"
+        "description": "the post request payload for dataset to move files under the dataset."
       },
       "DatasetListForm": {
         "title": "DatasetListForm",
@@ -2095,7 +2023,7 @@
             ]
           }
         },
-        "description": "List response"
+        "description": "List response."
       },
       "DatasetPostForm": {
         "title": "DatasetPostForm",
@@ -2170,7 +2098,7 @@
             "default": 0
           }
         },
-        "description": "DatasetPostForm"
+        "description": "DatasetPostForm."
       },
       "DatasetPostResponse": {
         "title": "DatasetPostResponse",
@@ -2232,66 +2160,7 @@
             }
           }
         },
-        "description": "DatasetPostResponse"
-      },
-      "DatasetPutForm": {
-        "title": "DatasetPutForm",
-        "required": [
-          "activity"
-        ],
-        "type": "object",
-        "properties": {
-          "title": {
-            "title": "Title",
-            "type": "string"
-          },
-          "authors": {
-            "title": "Authors",
-            "type": "array",
-            "items": {}
-          },
-          "modality": {
-            "title": "Modality",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "collection_method": {
-            "title": "Collection Method",
-            "type": "array",
-            "items": {}
-          },
-          "license": {
-            "title": "License",
-            "type": "string"
-          },
-          "tags": {
-            "title": "Tags",
-            "type": "array",
-            "items": {}
-          },
-          "description": {
-            "title": "Description",
-            "type": "string"
-          },
-          "file_count": {
-            "title": "File Count",
-            "type": "integer"
-          },
-          "total_size": {
-            "title": "Total Size",
-            "type": "integer"
-          },
-          "activity": {
-            "title": "Activity",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Activity"
-            }
-          }
-        },
-        "description": "DatasetPostForm"
+        "description": "DatasetPostResponse."
       },
       "DatasetVerifyForm": {
         "title": "DatasetVerifyForm",
@@ -2463,7 +2332,7 @@
             "type": "string"
           }
         },
-        "description": "the post request payload for import data from project"
+        "description": "the post request payload for import data from project."
       },
       "POSTSchema": {
         "title": "POSTSchema",
@@ -2864,7 +2733,7 @@
             "type": "string"
           }
         },
-        "description": "the post request payload for import data from project"
+        "description": "the post request payload for import data from project."
       },
       "SchemaTemplatePut": {
         "title": "SchemaTemplatePut",

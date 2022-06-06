@@ -24,69 +24,12 @@
       }
     },
     "/v1/files/jobs": {
-      "get": {
-        "tags": [
-          "V1 Upload"
-        ],
-        "summary": "get upload job status",
-        "description": "This method allow to check file upload status",
-        "operationId": "get_status_v1_files_jobs_get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Project Code"
-            },
-            "name": "project_code",
-            "in": "query"
-          },
-          {
-            "required": true,
-            "schema": {
-              "title": "Operator"
-            },
-            "name": "operator",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Session-Id",
-              "type": "string"
-            },
-            "name": "session-id",
-            "in": "header"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GETJobStatusResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
       "post": {
         "tags": [
           "V1 Upload"
         ],
-        "summary": "Always would be called first when upload,                  Init an async upload job, returns generated job identifier.",
-        "description": "This method allow to create an async upload job",
+        "summary": "Always would be called first when upload,                  Init an async upload job, returns list of job identifier.",
+        "description": "Summary:\n    This is the first api the client side will call before upload\n    Its allow to create an async upload job(s) for all upload files.\n    It will make following checks for uploaded file(s):\n        1. check if project exist\n        2. check if the root folder is duplicate\n        3. normalize the filename with different client(firefox/chrome)\n        4. initialize the job for ALL upload files\n        5. lock all file/node will be\nHeader:\n    - session_id(string): The unique session id from client side\nPayload:\n    - project_code(string): the target project will upload to\n    - operator(string): the name of operator\n    - job_type(str): either can be file upload or folder upload\n    - data(SingleFileForm):\n        - resumable_filename(string): the name of file\n        - resumable_relative_path: the relative path of the file\n    - upload_message(string):\n    - current_folder_node(string): the root level folder that will be\n        uploaded\n    - incremental(integer):\nSpecial Note:\n    the folder upload & file upload has different payload structure.\n    When the file upload, the current_folder_node will be '' (empty string)\n    When the folder uplaod, the current_folder_node will be the root folder\nReturn:\n    - 200, job list",
         "operationId": "upload_pre_v1_files_jobs_post",
         "parameters": [
           {
@@ -130,15 +73,25 @@
             }
           }
         }
-      },
-      "delete": {
+      }
+    },
+    "/v1/upload/status/{job_id}": {
+      "get": {
         "tags": [
           "V1 Upload"
         ],
-        "summary": "Delete the upload job status.",
-        "description": "delete status by session id",
-        "operationId": "clear_status_v1_files_jobs_delete",
+        "summary": "get upload job status",
+        "description": "Summary:\n    This method allow to check file upload status.\nHeader:\n    - session_id(string): The unique session id from client side\nParameter:\n    - job_id(string): The job identifier for each file\nReturn:\n    - 200, job detail",
+        "operationId": "get_status_v1_upload_status__job_id__get",
         "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Job Id"
+            },
+            "name": "job_id",
+            "in": "path"
+          },
           {
             "required": false,
             "schema": {
@@ -154,7 +107,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/GETJobStatusResponse"
+                }
               }
             }
           },
@@ -177,7 +132,7 @@
           "V1 Upload"
         ],
         "summary": "upload chunks process.",
-        "description": "This method allow to upload file chunks",
+        "description": "Summary:\n    The second api that the client side will call during the file\n     upload. The data is uploaded throught the <Multipart Upload>.\n    The api will create the temp folder if it does not exist. Then\n     the chunk_data will be saved into the temp folder.\nHeader:\n    - session_id(string): The unique session id from client side\nForm:\n    - project_code(string): the target project will upload to\n    - operator(string): the name of operator\n    - resumable_filename(string): the name of file\n    - resumable_relative_path(string): the relative path of the file\n    - resumable_identifier(string): The job identifier for each file\n    - resumable_chunk_number(string): The integer id for each chunk\nReturn:\n    - 200, Succeed",
         "operationId": "upload_chunks_v1_files_chunks_post",
         "parameters": [
           {
@@ -230,7 +185,7 @@
           "V1 Upload"
         ],
         "summary": "create a background worker to combine chunks, transfer file to the destination namespace",
-        "description": "This method allow to create a background worker to combine chunks uploaded",
+        "description": "Summary:\n    The third api will be called by client side. The client send\n    the acknoledgement for all chunks uploaded by signaling this\n    api. Once the upload service recieve the api calling, it will\n    start a background job to combine the chunks and process the\n    metadata\nForm:\n    - project_code(string): the target project will upload to\n    - operator(string): the name of operator\n    - resumable_filename(string): the name of file\n    - resumable_relative_path(string): the relative path of the file\n    - resumable_identifier(string): The job identifier for each file\n    - resumable_total_chunks(string): The number of total chunks\n    - resumable_total_size(float): the file size\n    - process_pipeline(string optional): default is None  # cli\n    - from_parents(list optional): default is None  # cli\n    - upload_message(string optional): default is ''  # cli\nReturn:\n    - 200, Succeed",
         "operationId": "on_success_v1_files_post",
         "parameters": [
           {
@@ -278,130 +233,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/POSTCombineChunksResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/folder/bulk": {
-      "post": {
-        "tags": [
-          "V1 Folder creation"
-        ],
-        "summary": "This API is to bulk create a folder in the target destination",
-        "operationId": "bulk_create_folder_v2_v1_folder_bulk_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkCreateFolderPOSTV2"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateFolderPOSTResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/folder/batch": {
-      "post": {
-        "tags": [
-          "V1 Folder creation"
-        ],
-        "summary": "This API is to bulk create a folder in the target destination",
-        "operationId": "bulk_create_folder_v1_folder_batch_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkCreateFolderPOST"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateFolderPOSTResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/folder": {
-      "post": {
-        "tags": [
-          "V1 Folder creation"
-        ],
-        "summary": "This API is to create a folder in the target destination",
-        "description": "create folder / sub folder",
-        "operationId": "create_folder_v1_folder_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateFolderPOST"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateFolderPOSTResponse"
                 }
               }
             }
@@ -475,83 +306,12 @@
             "items": {},
             "default": []
           },
-          "generate_id": {
-            "title": "Generate Id",
-            "type": "string",
-            "default": "undefined"
-          },
           "chunk_data": {
             "title": "Chunk Data",
             "type": "string",
             "format": "binary"
           }
         }
-      },
-      "BulkCreateFolderPOST": {
-        "title": "BulkCreateFolderPOST",
-        "required": [
-          "folder_name",
-          "zone",
-          "uploader"
-        ],
-        "type": "object",
-        "properties": {
-          "folder_name": {
-            "title": "Folder Name",
-            "type": "string"
-          },
-          "destination_geid": {
-            "title": "Destination Geid",
-            "type": "string"
-          },
-          "zone": {
-            "title": "Zone",
-            "type": "string"
-          },
-          "project_code_list": {
-            "title": "Project Code List",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "default": []
-          },
-          "uploader": {
-            "title": "Uploader",
-            "type": "string"
-          },
-          "tags": {
-            "title": "Tags",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "default": []
-          }
-        },
-        "description": "create folder request payload model"
-      },
-      "BulkCreateFolderPOSTV2": {
-        "title": "BulkCreateFolderPOSTV2",
-        "required": [
-          "zone"
-        ],
-        "type": "object",
-        "properties": {
-          "zone": {
-            "title": "Zone",
-            "type": "string"
-          },
-          "folders": {
-            "title": "Folders",
-            "type": "array",
-            "items": {
-              "type": "object"
-            },
-            "default": []
-          }
-        },
-        "description": "create folder request payload model"
       },
       "ChunkUploadResponse": {
         "title": "ChunkUploadResponse",
@@ -594,113 +354,7 @@
             }
           }
         },
-        "description": "Pre upload response class"
-      },
-      "CreateFolderPOST": {
-        "title": "CreateFolderPOST",
-        "required": [
-          "folder_name",
-          "destination_geid",
-          "project_code",
-          "uploader"
-        ],
-        "type": "object",
-        "properties": {
-          "folder_name": {
-            "title": "Folder Name",
-            "type": "string"
-          },
-          "destination_geid": {
-            "title": "Destination Geid",
-            "type": "string"
-          },
-          "zone": {
-            "title": "Zone",
-            "type": "string",
-            "default": "greenroom"
-          },
-          "project_code": {
-            "title": "Project Code",
-            "type": "string"
-          },
-          "uploader": {
-            "title": "Uploader",
-            "type": "string"
-          },
-          "tags": {
-            "title": "Tags",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "default": []
-          }
-        },
-        "description": "create folder request payload model"
-      },
-      "CreateFolderPOSTResponse": {
-        "title": "CreateFolderPOSTResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": {
-              "code": 200,
-              "error_msg": "",
-              "page": 0,
-              "total": 1,
-              "num_of_pages": 1,
-              "result": {
-                "id": 10170,
-                "labels": [
-                  "Folder",
-                  "Greenroom"
-                ],
-                "name": "test1",
-                "time_created": "2021-05-05T22:33:49",
-                "time_lastmodified": "2021-05-05T22:33:49",
-                "global_entity_id": "9491b055-4c63-4987-9e1a-778dcec699ec-1620254029",
-                "folder_level": 1,
-                "folder_relative_path": "",
-                "project_code": "04142",
-                "tags": [],
-                "list_priority": 10,
-                "uploader": "varsha"
-              }
-            }
-          }
-        },
-        "description": "Response model for folder creation POST request"
+        "description": "Pre upload response class."
       },
       "EAPIResponseCode": {
         "title": "EAPIResponseCode",
@@ -770,7 +424,7 @@
             ]
           }
         },
-        "description": "get Job status response class"
+        "description": "get Job status response class."
       },
       "HTTPValidationError": {
         "title": "HTTPValidationError",
@@ -834,11 +488,6 @@
             },
             "default": []
           },
-          "generate_id": {
-            "title": "Generate Id",
-            "type": "string",
-            "default": "undefined"
-          },
           "metadatas": {
             "title": "Metadatas",
             "type": "object"
@@ -858,7 +507,7 @@
             "default": ""
           }
         },
-        "description": "merge chunks payload model"
+        "description": "merge chunks payload model."
       },
       "POSTCombineChunksResponse": {
         "title": "POSTCombineChunksResponse",
@@ -913,7 +562,7 @@
             }
           }
         },
-        "description": "get Job status response class"
+        "description": "get Job status response class."
       },
       "PreUploadPOST": {
         "title": "PreUploadPOST",
@@ -968,7 +617,7 @@
             "default": false
           }
         },
-        "description": "Pre upload payload model"
+        "description": "Pre upload payload model."
       },
       "PreUploadResponse": {
         "title": "PreUploadResponse",
@@ -1021,86 +670,11 @@
                   "parent_folder_geid": "1bcbe182-8b41-11eb-bf7a-eaff9e667817-1616439732"
                 },
                 "update_timestamp": "1616439731"
-              },
-              {
-                "session_id": "unique_session_2021",
-                "job_id": "1c90ceac-8b41-11eb-bf7a-eaff9e667817-1616439733",
-                "source": "a/b/file1.png",
-                "action": "data_upload",
-                "status": "PRE_UPLOADED",
-                "project_code": "gregtest",
-                "operator": "zhengyang",
-                "progress": 0,
-                "payload": {
-                  "resumable_identifier": "1c90ceac-8b41-11eb-bf7a-eaff9e667817-1616439733",
-                  "parent_folder_geid": "1c67ba8a-8b41-11eb-845f-eaff9e667817-1616439733"
-                },
-                "update_timestamp": "1616439732"
-              },
-              {
-                "session_id": "unique_session_2021",
-                "job_id": "1cfd235e-8b41-11eb-a8bd-eaff9e667817-1616439734",
-                "source": "a/b/c/file2.png",
-                "action": "data_upload",
-                "status": "PRE_UPLOADED",
-                "project_code": "gregtest",
-                "operator": "zhengyang",
-                "progress": 0,
-                "payload": {
-                  "resumable_identifier": "1cfd235e-8b41-11eb-a8bd-eaff9e667817-1616439734",
-                  "parent_folder_geid": "1cd44d62-8b41-11eb-8a88-eaff9e667817-1616439733"
-                },
-                "update_timestamp": "1616439733"
-              },
-              {
-                "session_id": "unique_session_2021",
-                "job_id": "1d4696f6-8b41-11eb-8a88-eaff9e667817-1616439734",
-                "source": "a/b/c/file3.png",
-                "action": "data_upload",
-                "status": "PRE_UPLOADED",
-                "project_code": "gregtest",
-                "operator": "zhengyang",
-                "progress": 0,
-                "payload": {
-                  "resumable_identifier": "1d4696f6-8b41-11eb-8a88-eaff9e667817-1616439734",
-                  "parent_folder_geid": "1cd44d62-8b41-11eb-8a88-eaff9e667817-1616439733"
-                },
-                "update_timestamp": "1616439733"
-              },
-              {
-                "session_id": "unique_session_2021",
-                "job_id": "1daf9192-8b41-11eb-8a88-eaff9e667817-1616439735",
-                "source": "a/b/c/d/file4.png",
-                "action": "data_upload",
-                "status": "PRE_UPLOADED",
-                "project_code": "gregtest",
-                "operator": "zhengyang",
-                "progress": 0,
-                "payload": {
-                  "resumable_identifier": "1daf9192-8b41-11eb-8a88-eaff9e667817-1616439735",
-                  "parent_folder_geid": "1d8a22cc-8b41-11eb-a8bd-eaff9e667817-1616439734"
-                },
-                "update_timestamp": "1616439734"
-              },
-              {
-                "session_id": "unique_session_2021",
-                "job_id": "1e662e20-8b41-11eb-8a88-eaff9e667817-1616439736",
-                "source": "a/e/c/d/file4.png",
-                "action": "data_upload",
-                "status": "PRE_UPLOADED",
-                "project_code": "gregtest",
-                "operator": "zhengyang",
-                "progress": 0,
-                "payload": {
-                  "resumable_identifier": "1e662e20-8b41-11eb-8a88-eaff9e667817-1616439736",
-                  "parent_folder_geid": "1e3fa930-8b41-11eb-845f-eaff9e667817-1616439736"
-                },
-                "update_timestamp": "1616439735"
               }
             ]
           }
         },
-        "description": "Pre upload response class"
+        "description": "Pre upload response class."
       },
       "SingleFileForm": {
         "title": "SingleFileForm",
@@ -1117,11 +691,6 @@
             "title": "Resumable Relative Path",
             "type": "string",
             "default": ""
-          },
-          "generate_id": {
-            "title": "Generate Id",
-            "type": "string",
-            "default": "undefined"
           }
         }
       },

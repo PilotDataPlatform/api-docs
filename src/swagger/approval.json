@@ -9,7 +9,7 @@
     "/v1/": {
       "get": {
         "summary": "Root",
-        "description": "For testing if service's up",
+        "description": "For testing if service's up.",
         "operationId": "root_v1__get",
         "responses": {
           "200": {
@@ -23,21 +23,21 @@
         }
       }
     },
-    "/v1/request/copy/{project_geid}": {
+    "/v1/request/copy/{project_code}": {
       "get": {
         "tags": [
           "CopyRequest"
         ],
         "summary": "Create a copy request",
-        "operationId": "list_requests_v1_request_copy__project_geid__get",
+        "operationId": "list_requests_v1_request_copy__project_code__get",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Project Geid",
+              "title": "Project Code",
               "type": "string"
             },
-            "name": "project_geid",
+            "name": "project_code",
             "in": "path"
           },
           {
@@ -127,15 +127,15 @@
           "CopyRequest"
         ],
         "summary": "Approve files",
-        "operationId": "complete_request_v1_request_copy__project_geid__put",
+        "operationId": "complete_request_v1_request_copy__project_code__put",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Project Geid",
+              "title": "Project Code",
               "type": "string"
             },
-            "name": "project_geid",
+            "name": "project_code",
             "in": "path"
           }
         ],
@@ -177,15 +177,15 @@
           "CopyRequest"
         ],
         "summary": "Create a copy request",
-        "operationId": "create_request_v1_request_copy__project_geid__post",
+        "operationId": "create_request_v1_request_copy__project_code__post",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Project Geid",
+              "title": "Project Code",
               "type": "string"
             },
-            "name": "project_geid",
+            "name": "project_code",
             "in": "path"
           }
         ],
@@ -223,21 +223,21 @@
         }
       }
     },
-    "/v1/request/copy/{project_geid}/files": {
+    "/v1/request/copy/{project_code}/files": {
       "get": {
         "tags": [
           "CopyRequest"
         ],
         "summary": "List request files",
-        "operationId": "list_request_files_v1_request_copy__project_geid__files_get",
+        "operationId": "list_request_files_v1_request_copy__project_code__files_get",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Project Geid",
+              "title": "Project Code",
               "type": "string"
             },
-            "name": "project_geid",
+            "name": "project_code",
             "in": "path"
           },
           {
@@ -293,11 +293,11 @@
           {
             "required": false,
             "schema": {
-              "title": "Parent Geid",
+              "title": "Parent Id",
               "type": "string",
               "default": ""
             },
-            "name": "parent_geid",
+            "name": "parent_id",
             "in": "query"
           },
           {
@@ -349,15 +349,15 @@
           "CopyRequest"
         ],
         "summary": "Approve all files and trigger copy pipeline",
-        "operationId": "review_all_files_v1_request_copy__project_geid__files_put",
+        "operationId": "review_all_files_v1_request_copy__project_code__files_put",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Project Geid",
+              "title": "Project Code",
               "type": "string"
             },
-            "name": "project_geid",
+            "name": "project_code",
             "in": "path"
           }
         ],
@@ -399,15 +399,15 @@
           "CopyRequest"
         ],
         "summary": "Approve files and trigger copy pipeline",
-        "operationId": "review_files_v1_request_copy__project_geid__files_patch",
+        "operationId": "review_files_v1_request_copy__project_code__files_patch",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Project Geid",
+              "title": "Project Code",
               "type": "string"
             },
-            "name": "project_geid",
+            "name": "project_code",
             "in": "path"
           }
         ],
@@ -445,21 +445,21 @@
         }
       }
     },
-    "/v1/request/copy/{project_geid}/pending-files": {
+    "/v1/request/copy/{project_code}/pending-files": {
       "get": {
         "tags": [
           "CopyRequest"
         ],
         "summary": "Get pending count",
-        "operationId": "get_pending_v1_request_copy__project_geid__pending_files_get",
+        "operationId": "get_pending_v1_request_copy__project_code__pending_files_get",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Project Geid",
+              "title": "Project Code",
               "type": "string"
             },
-            "name": "project_geid",
+            "name": "project_code",
             "in": "path"
           },
           {
@@ -497,21 +497,21 @@
         }
       }
     },
-    "/v1/request/copy/{project_geid}/delete/{request_id}": {
+    "/v1/request/copy/{project_code}/delete/{request_id}": {
       "delete": {
         "tags": [
           "CopyRequest"
         ],
         "summary": "Delete Request",
-        "operationId": "delete_request_v1_request_copy__project_geid__delete__request_id__delete",
+        "operationId": "delete_request_v1_request_copy__project_code__delete__request_id__delete",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Project Geid",
+              "title": "Project Code",
               "type": "string"
             },
-            "name": "project_geid",
+            "name": "project_code",
             "in": "path"
           },
           {
@@ -724,7 +724,7 @@
       "PATCHRequestFiles": {
         "title": "PATCHRequestFiles",
         "required": [
-          "entity_geids",
+          "entity_ids",
           "request_id",
           "review_status",
           "username",
@@ -732,8 +732,8 @@
         ],
         "type": "object",
         "properties": {
-          "entity_geids": {
-            "title": "Entity Geids",
+          "entity_ids": {
+            "title": "Entity Ids",
             "type": "array",
             "items": {
               "type": "string"
@@ -761,27 +761,27 @@
       "POSTRequest": {
         "title": "POSTRequest",
         "required": [
-          "entity_geids",
-          "destination_geid",
-          "source_geid",
+          "entity_ids",
+          "destination_id",
+          "source_id",
           "note",
           "submitted_by"
         ],
         "type": "object",
         "properties": {
-          "entity_geids": {
-            "title": "Entity Geids",
+          "entity_ids": {
+            "title": "Entity Ids",
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "destination_geid": {
-            "title": "Destination Geid",
+          "destination_id": {
+            "title": "Destination Id",
             "type": "string"
           },
-          "source_geid": {
-            "title": "Source Geid",
+          "source_id": {
+            "title": "Source Id",
             "type": "string"
           },
           "note": {

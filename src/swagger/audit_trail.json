@@ -1,15 +1,15 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "Service Provenance",
-    "description": "Service Provenance",
+    "title": "Audit Trail Service",
+    "description": "Service for managing audit logs.",
     "version": "0.1.0"
   },
   "paths": {
     "/": {
       "get": {
         "summary": "Root",
-        "description": "For testing if service's up",
+        "description": "For testing if service's up.",
         "operationId": "root__get",
         "responses": {
           "200": {
@@ -191,16 +191,16 @@
           "lineage"
         ],
         "summary": "Get Lineage",
-        "description": "get lineage, query params: geid, direction defult(INPUT)",
+        "description": "get lineage, query params: id, direction defult(INPUT)",
         "operationId": "get_v1_lineage__get",
         "parameters": [
           {
             "required": true,
             "schema": {
-              "title": "Geid",
+              "title": "Item Id",
               "type": "string"
             },
-            "name": "geid",
+            "name": "item_id",
             "in": "query"
           },
           {
@@ -242,7 +242,7 @@
           "lineage"
         ],
         "summary": "POST Lineage",
-        "description": "add new lineage to the metadata service by payload\n    {\n        'input_geid': '',\n        'output_geid': '',\n        'project_code': '',\n        'pipeline_name': '',\n        'description': '',\n    }",
+        "description": "add new lineage to the metadata service by payload\n    {\n        'input_id': '',\n        'output_id': '',\n        'project_code': '',\n        'pipeline_name': '',\n        'description': '',\n    }",
         "operationId": "post_v1_lineage__post",
         "requestBody": {
           "content": {
@@ -431,25 +431,6 @@
           }
         }
       }
-    },
-    "/v1/entity/file/search-rules": {
-      "get": {
-        "tags": [
-          "File Entity"
-        ],
-        "summary": "Return searchable fileds",
-        "operationId": "search_rules_v1_entity_file_search_rules_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
@@ -501,7 +482,7 @@
             "type": "object"
           }
         },
-        "description": "Create an Audit Log"
+        "description": "Create an Audit Log."
       },
       "EAPIResponseCode": {
         "title": "EAPIResponseCode",
@@ -599,10 +580,6 @@
             "title": "Display Path",
             "type": "string"
           },
-          "dcm_id": {
-            "title": "Dcm Id",
-            "type": "string"
-          },
           "project_code": {
             "title": "Project Code",
             "type": "string"
@@ -623,7 +600,7 @@
             "type": "string"
           }
         },
-        "description": "Create a File Info"
+        "description": "Create a File Info."
       },
       "FileMetaUpdate": {
         "title": "FileMetaUpdate",
@@ -642,7 +619,7 @@
             "type": "object"
           }
         },
-        "description": "Update a File Info"
+        "description": "Update a File Info."
       },
       "GETLineageResponse": {
         "title": "GETLineageResponse",
@@ -707,20 +684,30 @@
       "POSTLineage": {
         "title": "POSTLineage",
         "required": [
-          "input_geid",
-          "output_geid",
+          "input_id",
+          "output_id",
+          "input_name",
+          "output_name",
           "project_code",
           "pipeline_name",
           "description"
         ],
         "type": "object",
         "properties": {
-          "input_geid": {
-            "title": "Input Geid",
+          "input_id": {
+            "title": "Input Id",
             "type": "string"
           },
-          "output_geid": {
-            "title": "Output Geid",
+          "output_id": {
+            "title": "Output Id",
+            "type": "string"
+          },
+          "input_name": {
+            "title": "Input Name",
+            "type": "string"
+          },
+          "output_name": {
+            "title": "Output Name",
             "type": "string"
           },
           "project_code": {

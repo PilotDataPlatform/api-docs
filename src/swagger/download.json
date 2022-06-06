@@ -23,84 +23,13 @@
         }
       }
     },
-    "/v1/downloads/status": {
-      "get": {
-        "tags": [
-          "v1/data-download"
-        ],
-        "summary": "Fetch download status list by session_id",
-        "description": "Fetch download status list.",
-        "operationId": "data_download_status_list_v1_downloads_status_get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Project Code",
-              "type": "string"
-            },
-            "name": "project_code",
-            "in": "query"
-          },
-          {
-            "required": true,
-            "schema": {
-              "title": "Operator",
-              "type": "string"
-            },
-            "name": "operator",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Job Id",
-              "type": "string",
-              "default": "*"
-            },
-            "name": "job_id",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Session-Id",
-              "type": "string"
-            },
-            "name": "session-id",
-            "in": "header"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DownloadStatusListResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/download/status/{hash_code}": {
       "get": {
         "tags": [
           "v1/data-download"
         ],
         "summary": "Check download status",
-        "description": "Check download status.",
+        "description": "Summary:\n    The API is to return the download status by the hashcode\n\nParameter:\n    - hash_code(str): hashcode return from /v1/download/pre\n\nReturn:\n    - 200",
         "operationId": "data_download_status_v1_download_status__hash_code__get",
         "parameters": [
           {
@@ -142,7 +71,7 @@
           "v1/data-download"
         ],
         "summary": "Download the data, asynchronously streams a file as the response.",
-        "description": "If succeed, asynchronously streams a FileResponse.",
+        "description": "Summary:\n    The API is the actual download api to send file to the frontend\n    specified by hashcode\n\nParameter:\n    - hash_code(str): hashcode return from /v1/download/pre\n\nReturn:\n    - file response",
         "operationId": "data_download_v1_download__hash_code__get",
         "parameters": [
           {
@@ -177,53 +106,13 @@
         }
       }
     },
-    "/v1/download/status": {
-      "delete": {
-        "tags": [
-          "v1/data-download"
-        ],
-        "summary": "Delete the download session status.",
-        "description": "Delete status by session id.",
-        "operationId": "clear_status_v1_download_status_delete",
-        "parameters": [
-          {
-            "required": false,
-            "schema": {
-              "title": "Session-Id",
-              "type": "string"
-            },
-            "name": "session-id",
-            "in": "header"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v2/download/pre/": {
       "post": {
         "tags": [
           "v2/data-download"
         ],
         "summary": "Pre download process, zip as a package if more than 1 file, used in project files download and dataset single file download.",
+        "description": "Summary:\n    The API serves as the pre file download operation. Since the file\n    downloading is a background job, this api will download target\n    files and zip them under the tmp folder.\n\n    Afterwards, the frontend will all the /v1/downlaod/<hashcode> to\n    download the zipped file or a single file\n\nPayload:\n     - files(list): the list of target id file will be\n        downloaded (either in project or dataset)\n     - operator(str): the user who takes the operation\n     - container_code(str): the unique code of project\n     - container_type(str): the type of container will be project/dataset\n     - approval_request_id(UUID): the unique identifier for approval\n\nHeader:\n     - authorization(str): the access token from auth service\n     - refresh_token(str): the refresh token from auth service\n     - session_id(str): the session id generate for each user login\n\n\nReturn:\n    - 200",
         "operationId": "data_pre_download_v2_download_pre__post",
         "parameters": [
           {
@@ -242,6 +131,15 @@
               "type": "string"
             },
             "name": "refresh-token",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Session-Id",
+              "type": "string"
+            },
+            "name": "session-id",
             "in": "header"
           }
         ],
@@ -284,7 +182,8 @@
         "tags": [
           "v2/data-download"
         ],
-        "summary": "Download all files in a dataset",
+        "summary": "Download all files & schemas in a dataset",
+        "description": "Summary:\n    The API serves as the pre download for whole dataset. All files\n    and schemas will be download and packed as zip file under tmp folder.\n\n    Afterwards, the frontend will all the /v1/downlaod/<hashcode> to\n    download the zipped file or a single file\n\nPayload:\n    - dataset_code(list): the unique code of dataset\n    - operator(str): the user who takes the operation\n\nHeader:\n     - authorization(str): the access token from auth service\n     - refresh_token(str): the refresh token from auth service\n     - session_id(str): the session id generate for each user login\n\nReturn:\n    - 200",
         "operationId": "dataset_pre_download_v2_dataset_download_pre_post",
         "parameters": [
           {
@@ -303,6 +202,15 @@
               "type": "string"
             },
             "name": "refresh-token",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Session-Id",
+              "type": "string"
+            },
+            "name": "session-id",
             "in": "header"
           }
         ],
@@ -344,7 +252,7 @@
           "v2/data-download"
         ],
         "summary": "Download dataset version",
-        "description": "Download a specific version of a dataset given a hash_code\nPlease note here, this hash code api is different with other async download\nthis one will use the minio client to fetch the file and directly\nsend to frontend. and in /dataset/download/pre it will ONLY take the hashcode.\n\nOther api like project files will use the /pre to download from minio and zip.",
+        "description": "Summary:\n    This api is different with others. This is for dataset *version* download. The reason\n    is the dataset version is not save as file node instead it has a seperate table to\n    keep track the version. And this version is already zipped.\n\n    The hashcode is generated by dataset service. The code will contains the minio location\n    for this api to download directly from minio.\nParameter:\n    - hash_code(string): the HS256 generate by dataset service\n\nReturn:\n    - dict: the hash code",
         "operationId": "download_dataset_version_v2_dataset_download__hash_code__get",
         "parameters": [
           {
@@ -396,64 +304,6 @@
           }
         }
       }
-    },
-    "/v2/object/{obj_geid}": {
-      "get": {
-        "tags": [
-          "v2/data-download"
-        ],
-        "summary": "zip as a package if more than 1 file",
-        "description": "Get Object API",
-        "operationId": "get_object_v2_object__obj_geid__get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Obj Geid"
-            },
-            "name": "obj_geid",
-            "in": "path"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Authorization",
-              "type": "string"
-            },
-            "name": "Authorization",
-            "in": "header"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Refresh-Token",
-              "type": "string"
-            },
-            "name": "refresh-token",
-            "in": "header"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
@@ -461,83 +311,21 @@
       "DatasetPrePOST": {
         "title": "DatasetPrePOST",
         "required": [
-          "dataset_geid",
-          "operator",
-          "session_id"
+          "dataset_code",
+          "operator"
         ],
         "type": "object",
         "properties": {
-          "dataset_geid": {
-            "title": "Dataset Geid",
-            "minLength": 2,
+          "dataset_code": {
+            "title": "Dataset Code",
             "type": "string"
           },
           "operator": {
             "title": "Operator",
             "type": "string"
-          },
-          "session_id": {
-            "title": "Session Id",
-            "type": "string"
           }
         },
         "description": "Pre download dataset payload model."
-      },
-      "DownloadStatusListResponse": {
-        "title": "DownloadStatusListResponse",
-        "type": "object",
-        "properties": {
-          "code": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EAPIResponseCode"
-              }
-            ],
-            "default": 200
-          },
-          "error_msg": {
-            "title": "Error Msg",
-            "type": "string",
-            "default": ""
-          },
-          "page": {
-            "title": "Page",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": 1
-          },
-          "num_of_pages": {
-            "title": "Num Of Pages",
-            "type": "integer",
-            "default": 1
-          },
-          "result": {
-            "title": "Result",
-            "type": "object",
-            "default": {},
-            "example": [
-              {
-                "session_id": "unique_session_id",
-                "job_id": "data-download-1613507376",
-                "source": "./test_project/workdir/test_project_zipped_1613507376.zip",
-                "action": "data_download",
-                "status": "READY_FOR_DOWNLOADING",
-                "project_code": "test_project",
-                "operator": "zhengyang",
-                "progress": 0,
-                "payload": {
-                  "hash_code": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmdWxsX3BhdGgiOiIuL3Rlc3RfcHJvamVjdC93b3JrZGlyL3Rlc3RfcHJvamVjdF96aXBwZWRfMTYxMzUwNzM3Ni56aXAiLCJpc3N1ZXIiOiJTRVJWSUNFIERBVEEgRE9XTkxPQUQgIiwib3BlcmF0b3IiOiJ6aGVuZ3lhbmciLCJzZXNzaW9uX2lkIjoidW5pcXVlX3Nlc3Npb25faWQiLCJqb2JfaWQiOiJkYXRhLWRvd25sb2FkLTE2MTM1MDczNzYiLCJwcm9qZWN0X2NvZGUiOiJ0ZXN0X3Byb2plY3QiLCJpYXQiOjE2MTM1MDczNzYsImV4cCI6MTYxMzUwNzY3Nn0.ipzWy6y79QxRGhQQ_VWIk-Lz8Iv8zU7JHGF3ZBoNt-g"
-                },
-                "update_timestamp": "1613507385"
-              }
-            ]
-          }
-        },
-        "description": "List data download status."
       },
       "EAPIResponseCode": {
         "title": "EAPIResponseCode",
@@ -624,7 +412,8 @@
         "required": [
           "files",
           "operator",
-          "session_id"
+          "container_code",
+          "container_type"
         ],
         "type": "object",
         "properties": {
@@ -639,24 +428,13 @@
             "title": "Operator",
             "type": "string"
           },
-          "session_id": {
-            "title": "Session Id",
+          "container_code": {
+            "title": "Container Code",
             "type": "string"
           },
-          "project_code": {
-            "title": "Project Code",
-            "type": "string",
-            "default": ""
-          },
-          "dataset_geid": {
-            "title": "Dataset Geid",
-            "type": "string",
-            "default": ""
-          },
-          "dataset_description": {
-            "title": "Dataset Description",
-            "type": "boolean",
-            "default": false
+          "container_type": {
+            "title": "Container Type",
+            "type": "string"
           },
           "approval_request_id": {
             "title": "Approval Request Id",
